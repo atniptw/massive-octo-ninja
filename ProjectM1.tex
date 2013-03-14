@@ -4,6 +4,7 @@
 \usepackage[normalem]{ulem}
 \usepackage{hyperref}
 \usepackage{enumitem}
+\usepackage{graphicx}
 \hypersetup{colorlinks}
 \hyphenpenalty=100000
 \begin{document}
@@ -32,6 +33,9 @@ Tom Atnip, George Mammarella, Jeremy Tramm}
 \hline
 March 13, 2013 & Document started\\
 \hline
+\hline
+March 14, 2013 & Added image to document. \\
+\hline
 \end{tabular}
 \clearpage
 
@@ -39,6 +43,11 @@ March 13, 2013 & Document started\\
 The program will be a standalone desktop application that allows users to play the game of Sudoku. The game will support a couple different variations of the game along with varying levels of difficulty. The game will be developed using the test driven development approach, and will follow a (to be determined) scale of test completeness. 
 
 \section{The Game}
+
+\begin{center}
+\includegraphics[scale=0.5]{SudokuBoard.png}
+\end{center}
+
 \subsection{How to play}
 The board is defined by cell, block, row, and column as Figure 1.1 illustrates. The whole board is actually a 9-by-9 grid made of nine smaller 3-by-3 grids called blocks. The smallest square in the traditional game is called a cell which contains a number, ranging from 1 to 9, or is empty signifying empty. Our application will allow users to store multiple guesses per cell block. The board is composed of rows and columns from top-left corner.
 
