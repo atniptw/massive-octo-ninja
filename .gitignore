@@ -4,3 +4,10 @@
 *.jar
 *.war
 *.ear
+
+# LaTeX temporary files
+*.aux
+*.log
+*.out
+*.toc
+*.synctex.gz
