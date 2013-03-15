@@ -1,0 +1,20 @@
+package Sudoku;
+
+import java.util.ArrayList;
+
+public class CellBlock {
+	private ArrayList<Integer> guess;
+
+	public void guess(int... ints) {
+		for (int i : ints) {
+			guess.add(i);
+		}
+
+	}
+
+	public ArrayList<Integer> value() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+}
