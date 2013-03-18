@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<workbench progressCount="24" version="2.0">
+<workbench progressCount="30" version="2.0">
 <workbenchAdvisor/>
 <window height="768" maximized="true" width="1024" x="100" y="100">
 <fastViewData fastViewLocation="1024"/>
@@ -40,14 +40,17 @@
 </editorArea>
 <editor id="org.eclipse.jdt.ui.CompilationUnitEditor" name="CellBlock.java" partName="CellBlock.java" path="C:/Users/atniptw/Documents/GitHub/massive-octo-ninja/Sudoku/src/Sudoku/CellBlock.java" title="CellBlock.java" tooltip="Sudoku/src/Sudoku/CellBlock.java" workbook="DefaultEditorWorkbook">
 <input factoryID="org.eclipse.ui.part.FileEditorInputFactory" path="/Sudoku/src/Sudoku/CellBlock.java"/>
-<editorState selectionHorizontalPixel="0" selectionLength="0" selectionOffset="0" selectionTopPixel="0"/>
+<editorState selectionHorizontalPixel="0" selectionLength="0" selectionOffset="570" selectionTopPixel="0"/>
 </editor>
 <editor activePart="true" focus="true" id="org.eclipse.jdt.ui.CompilationUnitEditor" name="CellBlockTest.java" partName="CellBlockTest.java" path="C:/Users/atniptw/Documents/GitHub/massive-octo-ninja/Sudoku/src/SudokuTest/CellBlockTest.java" title="CellBlockTest.java" tooltip="Sudoku/src/SudokuTest/CellBlockTest.java" workbook="DefaultEditorWorkbook">
 <input factoryID="org.eclipse.ui.part.FileEditorInputFactory" path="/Sudoku/src/SudokuTest/CellBlockTest.java"/>
-<editorState selectionHorizontalPixel="0" selectionLength="0" selectionOffset="0" selectionTopPixel="0"/>
+<editorState selectionHorizontalPixel="0" selectionLength="0" selectionOffset="1129" selectionTopPixel="0"/>
 </editor>
 </editors>
 <views>
+<view id="org.eclipse.jdt.junit.ResultView" partName="JUnit">
+<viewState failuresOnly="false" layout="1" orientation="2" ratio="500" scroll="false" time="true"/>
+</view>
 <view id="org.eclipse.ui.views.ProblemView" partName="Problems">
 <viewState PRIMARY_SORT_FIELD="org.eclipse.ui.ide.severityAndDescriptionField" categoryGroup="org.eclipse.ui.ide.severity" markerContentGenerator="org.eclipse.ui.ide.problemsGenerator" partName="Problems">
 <columnWidths org.eclipse.ui.ide.locationField="64" org.eclipse.ui.ide.markerType="94" org.eclipse.ui.ide.pathField="124" org.eclipse.ui.ide.resourceField="94" org.eclipse.ui.ide.severityAndDescriptionField="300"/>
@@ -175,6 +178,7 @@
 <hide_toolbar_item_id id="org.eclipse.jdt.ui.actions.OpenProjectWizard"/>
 <hide_toolbar_item_id id="org.eclipse.ui.edit.text.toggleShowSelectedElementOnly"/>
 <view id="org.eclipse.jdt.ui.PackageExplorer"/>
+<view id="org.eclipse.jdt.junit.ResultView"/>
 <view id="org.eclipse.ui.views.ProblemView"/>
 <view id="org.eclipse.jdt.ui.JavadocView"/>
 <view id="org.eclipse.jdt.ui.SourceView"/>
@@ -185,14 +189,15 @@
 <layout>
 <mainWindow>
 <info folder="true" part="left">
-<folder activePageID="org.eclipse.jdt.ui.PackageExplorer" appearance="2" expanded="2">
+<folder activePageID="org.eclipse.jdt.junit.ResultView" appearance="2" expanded="2">
 <page content="org.eclipse.jdt.ui.PackageExplorer" label="Package Explorer"/>
+<page content="org.eclipse.jdt.junit.ResultView" label="JUnit"/>
 <page content="org.eclipse.jdt.ui.TypeHierarchy" label="LabelNotFound"/>
 <page content="org.eclipse.ui.views.ResourceNavigator" label="LabelNotFound"/>
 <page content="org.eclipse.ui.navigator.ProjectExplorer" label="LabelNotFound"/>
-<page content="org.eclipse.jdt.junit.ResultView" label="LabelNotFound"/>
 <presentation id="org.eclipse.ui.presentations.WorkbenchPresentationFactory">
 <part id="0"/>
+<part id="1"/>
 </presentation>
 </folder>
 </info>
@@ -250,12 +255,146 @@
 <editors>
 <editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" path="/Sudoku/src/Sudoku/CellBlock.java"/>
 <editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" path="/Sudoku/src/SudokuTest/CellBlockTest.java"/>
+<editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" path="/Sudoku/src/Sudoku/CellBlock.java"/>
+<editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" path="/Sudoku/src/Sudoku/CellBlock.java"/>
 </editors>
 <item historyLabel="CellBlock.java" index="0">
 <position info="not_deleted" x="0" y="0"/>
 </item>
-<item active="true" historyLabel="CellBlockTest.java" index="1">
+<item historyLabel="CellBlockTest.java" index="1">
 <position info="not_deleted" x="0" y="0"/>
+</item>
+<item historyLabel="CellBlockTest.java" index="1">
+<position info="not_deleted" x="430" y="0"/>
+</item>
+<item historyLabel="CellBlockTest.java" index="1">
+<position info="not_deleted" x="465" y="0"/>
+</item>
+<item historyLabel="CellBlockTest.java" index="1">
+<position info="not_deleted" x="468" y="0"/>
+</item>
+<item historyLabel="CellBlock.java" index="2">
+<position info="not_deleted" x="0" y="0"/>
+</item>
+<item historyLabel="CellBlockTest.java" index="1">
+<position info="not_deleted" x="468" y="0"/>
+</item>
+<item historyLabel="CellBlockTest.java" index="1">
+<position info="not_deleted" x="617" y="0"/>
+</item>
+<item historyLabel="CellBlock.java" index="2">
+<position info="not_deleted" x="181" y="6"/>
+</item>
+<item historyLabel="CellBlock.java" index="2">
+<position info="not_deleted" x="188" y="4"/>
+</item>
+<item historyLabel="CellBlock.java" index="2">
+<position/>
+</item>
+<item historyLabel="CellBlockTest.java" index="1">
+<position info="not_deleted" x="617" y="0"/>
+</item>
+<item historyLabel="CellBlockTest.java" index="1">
+<position info="not_deleted" x="609" y="0"/>
+</item>
+<item historyLabel="CellBlock.java" index="2">
+<position info="not_deleted" x="453" y="0"/>
+</item>
+<item historyLabel="CellBlockTest.java" index="1">
+<position info="not_deleted" x="275" y="0"/>
+</item>
+<item historyLabel="CellBlock.java" index="2">
+<position info="not_deleted" x="453" y="0"/>
+</item>
+<item historyLabel="CellBlockTest.java" index="1">
+<position info="not_deleted" x="275" y="0"/>
+</item>
+<item historyLabel="CellBlock.java" index="2">
+<position info="not_deleted" x="453" y="0"/>
+</item>
+<item historyLabel="CellBlock.java" index="2">
+<position info="not_deleted" x="442" y="0"/>
+</item>
+<item historyLabel="CellBlockTest.java" index="1">
+<position info="not_deleted" x="275" y="0"/>
+</item>
+<item historyLabel="CellBlock.java" index="2">
+<position info="not_deleted" x="442" y="0"/>
+</item>
+<item historyLabel="CellBlock.java" index="2">
+<position info="not_deleted" x="172" y="0"/>
+</item>
+<item historyLabel="CellBlockTest.java" index="1">
+<position info="not_deleted" x="275" y="0"/>
+</item>
+<item historyLabel="CellBlock.java" index="2">
+<position info="not_deleted" x="172" y="0"/>
+</item>
+<item historyLabel="CellBlockTest.java" index="1">
+<position info="not_deleted" x="275" y="0"/>
+</item>
+<item historyLabel="CellBlockTest.java" index="1">
+<position info="not_deleted" x="676" y="0"/>
+</item>
+<item historyLabel="CellBlockTest.java" index="1">
+<position info="not_deleted" x="788" y="0"/>
+</item>
+<item historyLabel="CellBlockTest.java" index="1">
+<position info="not_deleted" x="771" y="0"/>
+</item>
+<item historyLabel="CellBlockTest.java" index="1">
+<position info="not_deleted" x="772" y="0"/>
+</item>
+<item historyLabel="CellBlockTest.java" index="1">
+<position info="not_deleted" x="918" y="0"/>
+</item>
+<item historyLabel="CellBlockTest.java" index="1">
+<position info="not_deleted" x="982" y="0"/>
+</item>
+<item historyLabel="CellBlockTest.java" index="1">
+<position info="not_deleted" x="843" y="0"/>
+</item>
+<item historyLabel="CellBlock.java" index="2">
+<position info="not_deleted" x="172" y="0"/>
+</item>
+<item historyLabel="CellBlock.java" index="2">
+<position info="not_deleted" x="261" y="0"/>
+</item>
+<item historyLabel="CellBlock.java" index="2">
+<position info="not_deleted" x="348" y="0"/>
+</item>
+<item historyLabel="CellBlock.java" index="2">
+<position info="not_deleted" x="347" y="0"/>
+</item>
+<item historyLabel="CellBlockTest.java" index="1">
+<position info="not_deleted" x="843" y="0"/>
+</item>
+<item historyLabel="CellBlockTest.java" index="1">
+<position info="not_deleted" x="1030" y="0"/>
+</item>
+<item historyLabel="CellBlockTest.java" index="1">
+<position info="not_deleted" x="1089" y="0"/>
+</item>
+<item historyLabel="CellBlockTest.java" index="1">
+<position info="not_deleted" x="1126" y="0"/>
+</item>
+<item historyLabel="CellBlock.java" index="3">
+<position info="not_deleted" x="369" y="0"/>
+</item>
+<item historyLabel="CellBlock.java" index="3">
+<position info="not_deleted" x="468" y="0"/>
+</item>
+<item historyLabel="CellBlockTest.java" index="1">
+<position info="not_deleted" x="1129" y="0"/>
+</item>
+<item historyLabel="CellBlock.java" index="3">
+<position info="not_deleted" x="529" y="6"/>
+</item>
+<item historyLabel="CellBlock.java" index="3">
+<position info="not_deleted" x="570" y="0"/>
+</item>
+<item active="true" historyLabel="CellBlockTest.java" index="1">
+<position info="not_deleted" x="1129" y="0"/>
 </item>
 </navigationHistory>
 <input factoryID="org.eclipse.ui.internal.model.ResourceFactory" path="/" type="8"/>

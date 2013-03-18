@@ -4,7 +4,6 @@ import java.util.ArrayList;
 
 public class CellBlock {
 	private ArrayList<Integer> guess;
-	private int answer;
 	
 	public CellBlock(){
 		guess = new ArrayList<Integer>();
@@ -22,14 +21,6 @@ public class CellBlock {
 
 	public ArrayList<Integer> value() {
 		return guess;
-	}
-
-	public void setAnswer(int n) {
-		answer = n;		
-	}
-
-	public int getAnswer() {
-		return answer;
 	}
 
 }
