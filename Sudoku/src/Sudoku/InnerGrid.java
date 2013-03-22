@@ -38,7 +38,19 @@ public class InnerGrid {
 
 	}
 	
-
+	public CellBlock getCell(int pos) {
+		if (pos > this.gridList.size() - 1 || pos < 0){
+			throw new IllegalArgumentException();
+		}
+		return this.gridList.get(pos);
+	}
+	
+	public void setAnswer(int pos, int val) {
+		if (pos > this.gridList.size() - 1 || pos < 0 || val < 1 || val > this.gridList.size()){
+			throw new IllegalArgumentException();
+		}
+		this.gridList.get(pos).setAnswer(val);
+	}
 
 	public boolean isValidGrid() {
 		for (int i = 0; i < this.gridList.size(); i++) {
