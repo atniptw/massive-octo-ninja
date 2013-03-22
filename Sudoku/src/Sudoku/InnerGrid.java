@@ -28,35 +28,31 @@ public class InnerGrid {
 	public boolean isValidGrid() {
 		for (int i = 0; i < this.gridList.size(); i++) {
 			for (int j = i + 1; j < this.gridList.size(); j++) {
-				if (this.gridList.get(i).getAnswer() == this.gridList.get(j).getAnswer()){
+				if (this.gridList.get(i).getAnswer() == this.gridList.get(j)
+						.getAnswer()) {
 					return false;
 				}
 			}
 		}
 		return true;
 	}
-	
-	@Test
-	public void testGetConflictingCells1() {
-		ArrayList<CellBlock> cellList = new ArrayList<CellBlock>();
-		CellBlock c1 = new CellBlock();
-		c1.setAnswer(1);
-		cellList.add(c1);
-		CellBlock c2 = new CellBlock();
-		c2.setAnswer(2);
-		cellList.add(c2);
-		CellBlock c3 = new CellBlock();
-		c3.setAnswer(3);
-		cellList.add(c3);
-		CellBlock c4 = new CellBlock();
-		c4.setAnswer(1);
-		cellList.add(c4);
-		InnerGrid grid = new InnerGrid(cellList);
-		ArrayList<CellBlock> conflicts = grid.getConflictingCells();
-		assertTrue(conflicts.size() == 2);
-		assertTrue(conflicts.get(0).equals(c1));
-		assertTrue(conflicts.get(1).equals(c4));
-		
+
+	public ArrayList<CellBlock> getConflictingCells() {
+		ArrayList<CellBlock> conflicts = new ArrayList<CellBlock>();
+		for (int i = 0; i < this.gridList.size(); i++) {
+			for (int j = i + 1; j < this.gridList.size(); j++) {
+				if (this.gridList.get(i).getAnswer() == this.gridList.get(j)
+						.getAnswer()) {
+					if (!conflicts.contains(this.gridList.get(i))) {
+						conflicts.add(this.gridList.get(i));
+					}
+					if (!conflicts.contains(this.gridList.get(j))) {
+						conflicts.add(this.gridList.get(j));
+					}
+				}
+			}
+		}
+		return conflicts;
 	}
 
 }
