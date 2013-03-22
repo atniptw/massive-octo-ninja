@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?><testrun name="SudokuRowTest" project="Sudoku" tests="11" started="11" failures="0" errors="0" ignored="0">
+  <testsuite name="SudokuTest.SudokuRowTest" time="0.001">
+    <testcase name="testGetConflictingCells" classname="SudokuTest.SudokuRowTest" time="0.001"/>
+    <testcase name="testSudokuRowAcceptsFilledRow" classname="SudokuTest.SudokuRowTest" time="0.0"/>
+    <testcase name="testRowSetValueWithTooLarge" classname="SudokuTest.SudokuRowTest" time="0.0"/>
+    <testcase name="testRowSetValueWithTooSmall" classname="SudokuTest.SudokuRowTest" time="0.0"/>
+    <testcase name="testSudokuRowInitializes" classname="SudokuTest.SudokuRowTest" time="0.0"/>
+    <testcase name="testMoreConflictingCells" classname="SudokuTest.SudokuRowTest" time="0.0"/>
+    <testcase name="testRowSetValueWithPositionTooLarge" classname="SudokuTest.SudokuRowTest" time="0.0"/>
+    <testcase name="testRowSetValueWithPositionTooSmall" classname="SudokuTest.SudokuRowTest" time="0.0"/>
+    <testcase name="testRowSetValueWithLegalValues" classname="SudokuTest.SudokuRowTest" time="0.0"/>
+    <testcase name="testSudokuRowRecognizesInvalidRow" classname="SudokuTest.SudokuRowTest" time="0.0"/>
+    <testcase name="testSudokuRowRecognizesValidRow" classname="SudokuTest.SudokuRowTest" time="0.0"/>
+  </testsuite>
+</testrun>

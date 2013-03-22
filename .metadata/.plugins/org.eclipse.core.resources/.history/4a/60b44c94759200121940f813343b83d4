@@ -1,0 +1,7 @@
+package Sudoku;
+
+public class SudokuColumn {
+
+	ArrayList<CellBlock> columnList;
+	
+}

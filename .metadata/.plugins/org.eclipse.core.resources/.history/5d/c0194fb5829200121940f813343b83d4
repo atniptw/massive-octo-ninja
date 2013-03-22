@@ -1,0 +1,9 @@
+package Sudoku;
+
+import java.util.ArrayList;
+
+public class SudokuColumn {
+
+	ArrayList<CellBlock> columnList;
+	
+}
