@@ -1,0 +1,14 @@
+package SudokuTest;
+
+import static org.junit.Assert.*;
+
+import org.junit.Test;
+
+public class InnerGridTest {
+
+	@Test
+	public void test() {
+		fail("Not yet implemented");
+	}
+
+}
