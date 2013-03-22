@@ -8,7 +8,7 @@ import org.junit.Test;
 
 import Sudoku.CellBlock;
 import Sudoku.InnerGrid;
-import Sudoku.SudokuColumn;
+import Sudoku.InnerGrid;
 
 public class InnerGridTest {
 
@@ -186,6 +186,54 @@ public class InnerGridTest {
 		assertEquals(grid.getCell(0).getAnswer(), 9);
 		grid.setAnswer(8, 1);
 		assertEquals(grid.getCell(8).getAnswer(), 1);
+	}
+	
+	@Test(expected=IllegalArgumentException.class)
+	public void testGridSetValueWithTooLarge() {
+		ArrayList<CellBlock> gridCellList = new ArrayList<CellBlock>();
+		for (int i = 0; i < 9; i++) {
+			CellBlock cell = new CellBlock();
+			cell.setAnswer(i+1);
+			gridCellList.add(cell);
+		}
+		InnerGrid grid = new InnerGrid(gridCellList);
+		grid.setAnswer(0, 10);
+	}
+	
+	@Test(expected=IllegalArgumentException.class)
+	public void testGridSetValueWithTooSmall() {
+		ArrayList<CellBlock> gridCellList = new ArrayList<CellBlock>();
+		for (int i = 0; i < 9; i++) {
+			CellBlock cell = new CellBlock();
+			cell.setAnswer(i+1);
+			gridCellList.add(cell);
+		}
+		InnerGrid grid = new InnerGrid(gridCellList);
+		grid.setAnswer(0, -1);
+	}
+	
+	@Test(expected=IllegalArgumentException.class)
+	public void testGridSetValueWithPositionTooSmall() {
+		ArrayList<CellBlock> gridCellList = new ArrayList<CellBlock>();
+		for (int i = 0; i < 9; i++) {
+			CellBlock cell = new CellBlock();
+			cell.setAnswer(i+1);
+			gridCellList.add(cell);
+		}
+		InnerGrid grid = new InnerGrid(gridCellList);
+		grid.setAnswer(-1, 8);
+	}
+	
+	@Test(expected=IllegalArgumentException.class)
+	public void testGridSetValueWithPositionTooLarge() {
+		ArrayList<CellBlock> gridCellList = new ArrayList<CellBlock>();
+		for (int i = 0; i < 9; i++) {
+			CellBlock cell = new CellBlock();
+			cell.setAnswer(i+1);
+			gridCellList.add(cell);
+		}
+		InnerGrid grid = new InnerGrid(gridCellList);
+		grid.setAnswer(9, 8);
 	}
 
 }
