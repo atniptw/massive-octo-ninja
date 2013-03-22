@@ -72,5 +72,90 @@ public class InnerGridTest {
 		assertTrue(conflicts.get(1).equals(c2));
 		
 	}
+	
+	@Test
+	public void testGetConflictingCells2() {
+		ArrayList<CellBlock> cellList = new ArrayList<CellBlock>();
+		CellBlock c1 = new CellBlock();
+		c1.setAnswer(1);
+		cellList.add(c1);
+		CellBlock c2 = new CellBlock();
+		c2.setAnswer(1);
+		cellList.add(c2);
+		CellBlock c3 = new CellBlock();
+		c2.setAnswer(1);
+		cellList.add(c3);
+		CellBlock c4 = new CellBlock();
+		c2.setAnswer(1);
+		cellList.add(c4);
+		CellBlock c5 = new CellBlock();
+		c2.setAnswer(1);
+		cellList.add(c5);
+		CellBlock c6 = new CellBlock();
+		c2.setAnswer(1);
+		cellList.add(c6);
+		CellBlock c7 = new CellBlock();
+		c2.setAnswer(1);
+		cellList.add(c7);
+		CellBlock c8 = new CellBlock();
+		c2.setAnswer(1);
+		cellList.add(c8);
+		CellBlock c9 = new CellBlock();
+		c2.setAnswer(1);
+		cellList.add(c9);
+		InnerGrid grid = new InnerGrid(cellList);
+		ArrayList<CellBlock> conflicts = grid.getConflictingCells();
+		assertTrue(conflicts.size() == 9);
+		assertTrue(conflicts.get(0).equals(c1));
+		assertTrue(conflicts.get(3).equals(c4));
+		assertTrue(conflicts.get(5).equals(c6));
+		assertTrue(conflicts.get(8).equals(c9));
+		
+	}
+	
+	@Test
+	public void testGetConflictingCells3() {
+		ArrayList<CellBlock> cellList = new ArrayList<CellBlock>();
+		CellBlock c1 = new CellBlock();
+		c1.setAnswer(1);
+		cellList.add(c1);
+		CellBlock c2 = new CellBlock();
+		c2.setAnswer(1);
+		cellList.add(c2);
+		CellBlock c3 = new CellBlock();
+		c2.setAnswer(2);
+		cellList.add(c3);
+		CellBlock c4 = new CellBlock();
+		c2.setAnswer(2);
+		cellList.add(c4);
+		CellBlock c5 = new CellBlock();
+		c2.setAnswer(3);
+		cellList.add(c5);
+		CellBlock c6 = new CellBlock();
+		c2.setAnswer(3);
+		cellList.add(c6);
+		CellBlock c7 = new CellBlock();
+		c2.setAnswer(4);
+		cellList.add(c7);
+		CellBlock c8 = new CellBlock();
+		c2.setAnswer(4);
+		cellList.add(c8);
+		CellBlock c9 = new CellBlock();
+		c2.setAnswer(1);
+		cellList.add(c9);
+		InnerGrid grid = new InnerGrid(cellList);
+		ArrayList<CellBlock> conflicts = grid.getConflictingCells();
+		assertTrue(conflicts.size() == 9);
+		assertTrue(conflicts.get(0).equals(c1));
+		assertTrue(conflicts.get(1).equals(c2));
+		assertTrue(conflicts.get(2).equals(c3));
+		assertTrue(conflicts.get(3).equals(c4));
+		assertTrue(conflicts.get(4).equals(c5));
+		assertTrue(conflicts.get(5).equals(c6));
+		assertTrue(conflicts.get(6).equals(c7));
+		assertTrue(conflicts.get(7).equals(c8));
+		assertTrue(conflicts.get(8).equals(c9));
+		
+	}
 
 }
