@@ -178,6 +178,7 @@ public class InnerGridTest {
 
 	}
 
+	// Nominal Values
 	@Test
 	public void testGridSetValueWithLegalValues() {
 		ArrayList<CellBlock> gridCellList = new ArrayList<CellBlock>();
@@ -193,8 +194,9 @@ public class InnerGridTest {
 		assertEquals(grid.getCell(8).getAnswer(), 1);
 	}
 
+	// Low, acceptable POS, Big, Illegal VAL
 	@Test(expected = IllegalArgumentException.class)
-	public void testGridSetValueWithTooLarge() {
+	public void testGridSetValueWithTooLargeAndPositionSmall() {
 		ArrayList<CellBlock> gridCellList = new ArrayList<CellBlock>();
 		for (int i = 0; i < 9; i++) {
 			CellBlock cell = new CellBlock();
@@ -205,8 +207,9 @@ public class InnerGridTest {
 		grid.setAnswer(MIN_POS, MAX_VAL + 1);
 	}
 
+	// Low, acceptable POS, Small, Illegal VAL
 	@Test(expected = IllegalArgumentException.class)
-	public void testGridSetValueWithTooSmall() {
+	public void testGridSetValueWithTooSmallAndPositionSmall() {
 		ArrayList<CellBlock> gridCellList = new ArrayList<CellBlock>();
 		for (int i = 0; i < 9; i++) {
 			CellBlock cell = new CellBlock();
@@ -217,8 +220,35 @@ public class InnerGridTest {
 		grid.setAnswer(MIN_POS, MIN_VAL - 1);
 	}
 
+	// Big, acceptable POS, Big, Illegal VAL
 	@Test(expected = IllegalArgumentException.class)
-	public void testGridSetValueWithPositionTooSmall() {
+	public void testGridSetValueWithTooLargeAndPositionLarge() {
+		ArrayList<CellBlock> gridCellList = new ArrayList<CellBlock>();
+		for (int i = 0; i < 9; i++) {
+			CellBlock cell = new CellBlock();
+			cell.setAnswer(i + 1);
+			gridCellList.add(cell);
+		}
+		InnerGrid grid = new InnerGrid(gridCellList);
+		grid.setAnswer(MAX_POS, MAX_VAL + 1);
+	}
+
+	// Big, acceptable POS, Small, Illegal VAL
+	@Test(expected = IllegalArgumentException.class)
+	public void testGridSetValueWithTooSmallAndPositionLarge() {
+		ArrayList<CellBlock> gridCellList = new ArrayList<CellBlock>();
+		for (int i = 0; i < 9; i++) {
+			CellBlock cell = new CellBlock();
+			cell.setAnswer(i + 1);
+			gridCellList.add(cell);
+		}
+		InnerGrid grid = new InnerGrid(gridCellList);
+		grid.setAnswer(MAX_POS, MIN_VAL - 1);
+	}
+
+	// Small, illegal POS, big, legal VAL
+	@Test(expected = IllegalArgumentException.class)
+	public void testGridSetLargeValueWithPositionTooSmall() {
 		ArrayList<CellBlock> gridCellList = new ArrayList<CellBlock>();
 		for (int i = 0; i < 9; i++) {
 			CellBlock cell = new CellBlock();
@@ -229,8 +259,10 @@ public class InnerGridTest {
 		grid.setAnswer(MIN_POS - 1, MAX_VAL);
 	}
 
+	
+	// Large, illegal POS, big, legal VAL
 	@Test(expected = IllegalArgumentException.class)
-	public void testGridSetValueWithPositionTooLarge() {
+	public void testGridSetLargeValueWithPositionTooLarge() {
 		ArrayList<CellBlock> gridCellList = new ArrayList<CellBlock>();
 		for (int i = 0; i < 9; i++) {
 			CellBlock cell = new CellBlock();
@@ -238,7 +270,35 @@ public class InnerGridTest {
 			gridCellList.add(cell);
 		}
 		InnerGrid grid = new InnerGrid(gridCellList);
-		grid.setAnswer(MAX_POS + 1, MAX_VAL - 1);
+		grid.setAnswer(MAX_POS + 1, MAX_VAL);
 	}
+
+	
+	// Small, illegal POS, small, legal VAL
+		@Test(expected = IllegalArgumentException.class)
+		public void testGridSetSmallValueWithPositionTooSmall() {
+			ArrayList<CellBlock> gridCellList = new ArrayList<CellBlock>();
+			for (int i = 0; i < 9; i++) {
+				CellBlock cell = new CellBlock();
+				cell.setAnswer(i + 1);
+				gridCellList.add(cell);
+			}
+			InnerGrid grid = new InnerGrid(gridCellList);
+			grid.setAnswer(MIN_POS - 1, MIN_VAL);
+		}
+
+		
+		// Large, illegal POS, small, legal VAL
+		@Test(expected = IllegalArgumentException.class)
+		public void testGridSetSmallValueWithPositionTooLarge() {
+			ArrayList<CellBlock> gridCellList = new ArrayList<CellBlock>();
+			for (int i = 0; i < 9; i++) {
+				CellBlock cell = new CellBlock();
+				cell.setAnswer(i + 1);
+				gridCellList.add(cell);
+			}
+			InnerGrid grid = new InnerGrid(gridCellList);
+			grid.setAnswer(MAX_POS + 1, MIN_VAL);
+		}
 
 }
