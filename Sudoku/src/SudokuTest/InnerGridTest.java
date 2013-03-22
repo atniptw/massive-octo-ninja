@@ -31,5 +31,17 @@ public class InnerGridTest {
 			assertEquals(i + 1, gridList.get(i).getAnswer());
 		}
 	}
+	
+	@Test
+	public void testInnerGridRecognizesValidGrid() {
+		ArrayList<CellBlock> gridCellList = new ArrayList<CellBlock>();
+		for (int i = 0; i < 9; i++) {
+			CellBlock cell = new CellBlock();
+			cell.setAnswer(i+1);
+			gridCellList.add(cell);
+		}
+		InnerGrid grid = new InnerGrid(gridCellList);
+		assertTrue(grid.isValidGrid());
+	}
 
 }
