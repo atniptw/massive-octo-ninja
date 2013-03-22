@@ -1,12 +1,25 @@
 package Sudoku;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
-
 import java.util.ArrayList;
 import java.util.Iterator;
 
-import org.junit.Test;
+/*
+ * For future reference, it may be useful to know that I currently plan for Grids to 
+ * indexed simply like rows/columns but with wrapping.
+ *  
+ * See below:
+ * __________________________
+ * |		|		|		|
+ * |  i = 1	|	2	|	3	|
+ * |________|_______|_______|
+ * |		|		|		|
+ * |	4	|	5	|	6	|
+ * |________|_______|_______|
+ * |		|		|		|
+ * |	7	|	8	|	9	|
+ * |________|_______|_______|
+ * 
+ */
 
 public class InnerGrid {
 
@@ -24,6 +37,8 @@ public class InnerGrid {
 		return this.gridList;
 
 	}
+	
+
 
 	public boolean isValidGrid() {
 		for (int i = 0; i < this.gridList.size(); i++) {
