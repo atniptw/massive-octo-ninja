@@ -1,5 +1,6 @@
 package SudokuTest;
 
+import static org.junit.Assert.*;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
@@ -36,7 +37,7 @@ public class CellBlockTest {
 
 		assertEquals(list(1, 2, 3), cell.value());
 	}
-
+	
 	@Test(expected=IllegalArgumentException.class)
 	public void testCellThrowsBadArgumentsExceptionWithDuplicateGuessInCell() {
 		CellBlock cell = new CellBlock();
