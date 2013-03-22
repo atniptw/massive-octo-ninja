@@ -24,4 +24,15 @@ public class InnerGrid {
 
 	}
 
+	public boolean isValidGrid() {
+		for (int i = 0; i < this.gridList.size(); i++) {
+			for (int j = i + 1; j < this.gridList.size(); j++) {
+				if (this.gridList.get(i).getAnswer() == this.gridList.get(j).getAnswer()){
+					return false;
+				}
+			}
+		}
+		return true;
+	}
+
 }
