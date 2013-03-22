@@ -157,5 +157,22 @@ public class InnerGridTest {
 		assertTrue(conflicts.get(8).equals(c9));
 		
 	}
+	
+	@Test
+	public void testGetConflictingCells4() {
+		ArrayList<CellBlock> cellList = new ArrayList<CellBlock>();
+		CellBlock c1 = new CellBlock();
+		c1.setAnswer(1);
+		cellList.add(c1);
+		CellBlock c2 = new CellBlock();
+		c2.setAnswer(2);
+		cellList.add(c2);
+		InnerGrid grid = new InnerGrid(cellList);
+		ArrayList<CellBlock> conflicts = grid.getConflictingCells();
+		assertTrue(conflicts.size() == 0);
+		
+		
+		
+	}
 
 }
