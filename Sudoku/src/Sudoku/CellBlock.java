@@ -44,4 +44,14 @@ public class CellBlock implements Comparable<CellBlock> {
 
 	}
 
+	@Override
+	public boolean equals(Object arg) {
+		if (this.getAnswer() == ((CellBlock) arg).getAnswer())
+			return true;
+		else
+
+			return false;
+
+	}
+
 }
