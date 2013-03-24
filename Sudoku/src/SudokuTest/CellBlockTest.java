@@ -87,12 +87,14 @@ public class CellBlockTest {
 	
 	@Test
 	public void testCellListSorts(){
-		
+		assertTrue(false);
 	}
 	
 	@Test
 	public void testCellListContain(){
 		CellBlock cell1 = new CellBlock();
+		
+		assertTrue(false);
 		
 	}
 

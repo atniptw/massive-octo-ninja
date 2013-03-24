@@ -5,15 +5,16 @@ import java.util.ArrayList;
 public class CellBlock implements Comparable<CellBlock> {
 	private ArrayList<Integer> guess;
 	private int answer;
-	
-	public CellBlock(){
+
+	public CellBlock() {
 		guess = new ArrayList<Integer>();
 	}
 
 	public void guess(int... ints) {
 		for (int i : ints) {
-			if(guess.contains(i)){
-				throw new IllegalArgumentException("Guesses must contain all unique values...");
+			if (guess.contains(i)) {
+				throw new IllegalArgumentException(
+						"Guesses must contain all unique values...");
 			}
 			guess.add(i);
 		}
@@ -25,7 +26,7 @@ public class CellBlock implements Comparable<CellBlock> {
 	}
 
 	public void setAnswer(int n) {
-		answer = n;		
+		answer = n;
 	}
 
 	public int getAnswer() {
@@ -34,8 +35,13 @@ public class CellBlock implements Comparable<CellBlock> {
 
 	@Override
 	public int compareTo(CellBlock arg0) {
-		
-		return 0;
+		if (this.getAnswer() < arg0.getAnswer())
+			return -1;
+		if (this.getAnswer() == arg0.getAnswer())
+			return 0;
+		else
+			return 1;
+
 	}
 
 }
