@@ -51,6 +51,50 @@ public class CellBlockTest {
 		assertEquals(1, cell.getAnswer());
 		
 	}
+	
+	@Test
+	public void testCellCompareGreater(){
+		CellBlock cell1 = new CellBlock();
+		CellBlock cell2 = new CellBlock();
+		
+		cell1.setAnswer(2);
+		cell2.setAnswer(1);
+		
+		assertEquals(1, cell1.compareTo(cell2));
+	}
+	
+	@Test
+	public void testCellCompareLess(){
+		CellBlock cell1 = new CellBlock();
+		CellBlock cell2 = new CellBlock();
+		
+		cell1.setAnswer(1);
+		cell2.setAnswer(2);
+		
+		assertEquals(-1, cell1.compareTo(cell2));
+	}
+	
+	@Test
+	public void testCellCompareEqual(){
+		CellBlock cell1 = new CellBlock();
+		CellBlock cell2 = new CellBlock();
+		
+		cell1.setAnswer(1);
+		cell2.setAnswer(1);
+		
+		assertEquals(0, cell1.compareTo(cell2));
+	}
+	
+	@Test
+	public void testCellListSorts(){
+		
+	}
+	
+	@Test
+	public void testCellListContain(){
+		CellBlock cell1 = new CellBlock();
+		
+	}
 
 	private ArrayList<Integer> list(int... ints) {
 		ArrayList<Integer> ret = new ArrayList<Integer>();

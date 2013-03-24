@@ -2,7 +2,7 @@ package Sudoku;
 
 import java.util.ArrayList;
 
-public class CellBlock {
+public class CellBlock implements Comparable<CellBlock> {
 	private ArrayList<Integer> guess;
 	private int answer;
 	
@@ -30,6 +30,12 @@ public class CellBlock {
 
 	public int getAnswer() {
 		return answer;
+	}
+
+	@Override
+	public int compareTo(CellBlock arg0) {
+		
+		return 0;
 	}
 
 }
