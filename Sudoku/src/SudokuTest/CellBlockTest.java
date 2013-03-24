@@ -37,19 +37,70 @@ public class CellBlockTest {
 
 		assertEquals(list(1, 2, 3), cell.value());
 	}
-	
-	@Test(expected=IllegalArgumentException.class)
+
+	@Test(expected = IllegalArgumentException.class)
 	public void testCellThrowsBadArgumentsExceptionWithDuplicateGuessInCell() {
 		CellBlock cell = new CellBlock();
 		cell.guess(1, 2, 2);
 	}
-	
+
 	@Test
-	public void testCellHasAnswer(){
+	public void testCellHasAnswer() {
 		CellBlock cell = new CellBlock();
 		cell.setAnswer(1);
 		assertEquals(1, cell.getAnswer());
+
+	}
+
+	@Test
+	public void testCellCompareGreater() {
+		CellBlock cell1 = new CellBlock();
+		CellBlock cell2 = new CellBlock();
+
+		cell1.setAnswer(2);
+		cell2.setAnswer(1);
+
+		assertEquals(1, cell1.compareTo(cell2));
+	}
+
+	@Test
+	public void testCellCompareLess() {
+		CellBlock cell1 = new CellBlock();
+		CellBlock cell2 = new CellBlock();
+
+		cell1.setAnswer(1);
+		cell2.setAnswer(2);
+
+		assertEquals(-1, cell1.compareTo(cell2));
+	}
+
+	@Test
+	public void testCellCompareEqual() {
+		CellBlock cell1 = new CellBlock();
+		CellBlock cell2 = new CellBlock();
+
+		cell1.setAnswer(1);
+		cell2.setAnswer(1);
+
+		assertEquals(0, cell1.compareTo(cell2));
+	}
+
+
+
+	@Test
+	public void testCellListContain() {
+		ArrayList<CellBlock> cellList = new ArrayList<CellBlock>();
 		
+		CellBlock cell1 = new CellBlock();
+		CellBlock cell2 = new CellBlock();
+		
+		cell1.setAnswer(1);
+		cell2.setAnswer(1);
+		
+		cellList.add(cell1);
+
+		assertTrue(cellList.contains(cell2));
+
 	}
 
 	private ArrayList<Integer> list(int... ints) {
