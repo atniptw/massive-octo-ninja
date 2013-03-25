@@ -1,4 +1,4 @@
-package SudokuTest;
+package sudokuTest;
 
 import static org.junit.Assert.*;
 
@@ -6,8 +6,9 @@ import java.util.ArrayList;
 
 import org.junit.Test;
 
-import Sudoku.CellBlock;
-import Sudoku.SudokuRow;
+import sudoku.CellBlock;
+import sudoku.SudokuRow;
+
 
 public class SudokuRowTest {
 

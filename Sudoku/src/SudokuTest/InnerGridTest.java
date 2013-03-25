@@ -1,14 +1,17 @@
-package SudokuTest;
+package sudokuTest;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertTrue;
 
 import java.util.ArrayList;
 
 import org.junit.Test;
 
-import Sudoku.CellBlock;
-import Sudoku.InnerGrid;
-import Sudoku.InnerGrid;
+import sudoku.CellBlock;
+import sudoku.InnerGrid;
+
 
 public class InnerGridTest {
 

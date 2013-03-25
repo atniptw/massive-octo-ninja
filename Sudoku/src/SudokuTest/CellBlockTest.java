@@ -1,6 +1,5 @@
-package SudokuTest;
+package sudokuTest;
 
-import static org.junit.Assert.*;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
@@ -9,7 +8,8 @@ import java.util.ArrayList;
 
 import org.junit.Test;
 
-import Sudoku.CellBlock;
+import sudoku.CellBlock;
+
 
 public class CellBlockTest {
 	@Test
@@ -20,6 +20,7 @@ public class CellBlockTest {
 	@Test
 	public void testCellBlockInitializes() {
 		assertNotNull(new CellBlock());
+	
 	}
 
 	@Test
