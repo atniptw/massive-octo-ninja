@@ -1,4 +1,4 @@
-package sudokuTest;
+package SudokuTest;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
@@ -9,8 +9,8 @@ import java.util.ArrayList;
 
 import org.junit.Test;
 
-import sudoku.CellBlock;
-import sudoku.SudokuStandardRegion;
+import Sudoku.CellBlock;
+import Sudoku.SudokuStandardRegion;
 
 
 public class SudokuStandardRegionTest {
@@ -142,6 +142,7 @@ public class SudokuStandardRegionTest {
 		cellList.add(c6);
 		SudokuStandardRegion column = new SudokuStandardRegion(cellList);
 		ArrayList<CellBlock> conflicts = column.getConflictingCells();
+		assertEquals(5, conflicts.size());
 	}
 	
 	@Test
