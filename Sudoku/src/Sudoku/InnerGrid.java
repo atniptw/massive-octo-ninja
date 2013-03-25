@@ -20,7 +20,7 @@ import java.util.Iterator;
  * |________|_______|_______|
  * 
  */
-
+@Deprecated
 public class InnerGrid {
 
 	ArrayList<CellBlock> gridList;

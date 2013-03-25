@@ -3,6 +3,7 @@ package sudoku;
 import java.util.ArrayList;
 import java.util.Iterator;
 
+@Deprecated
 public class SudokuRow {
 
 	ArrayList<CellBlock> rowList;

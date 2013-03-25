@@ -12,7 +12,7 @@ import org.junit.Test;
 import sudoku.CellBlock;
 import sudoku.InnerGrid;
 
-
+@Deprecated
 public class InnerGridTest {
 
 	public final static int MIN_VAL = 1;
@@ -262,7 +262,6 @@ public class InnerGridTest {
 		grid.setAnswer(MIN_POS - 1, MAX_VAL);
 	}
 
-	
 	// Large, illegal POS, big, legal VAL
 	@Test(expected = IllegalArgumentException.class)
 	public void testGridSetLargeValueWithPositionTooLarge() {
@@ -276,32 +275,30 @@ public class InnerGridTest {
 		grid.setAnswer(MAX_POS + 1, MAX_VAL);
 	}
 
-	
 	// Small, illegal POS, small, legal VAL
-		@Test(expected = IllegalArgumentException.class)
-		public void testGridSetSmallValueWithPositionTooSmall() {
-			ArrayList<CellBlock> gridCellList = new ArrayList<CellBlock>();
-			for (int i = 0; i < 9; i++) {
-				CellBlock cell = new CellBlock();
-				cell.setAnswer(i + 1);
-				gridCellList.add(cell);
-			}
-			InnerGrid grid = new InnerGrid(gridCellList);
-			grid.setAnswer(MIN_POS - 1, MIN_VAL);
+	@Test(expected = IllegalArgumentException.class)
+	public void testGridSetSmallValueWithPositionTooSmall() {
+		ArrayList<CellBlock> gridCellList = new ArrayList<CellBlock>();
+		for (int i = 0; i < 9; i++) {
+			CellBlock cell = new CellBlock();
+			cell.setAnswer(i + 1);
+			gridCellList.add(cell);
 		}
+		InnerGrid grid = new InnerGrid(gridCellList);
+		grid.setAnswer(MIN_POS - 1, MIN_VAL);
+	}
 
-		
-		// Large, illegal POS, small, legal VAL
-		@Test(expected = IllegalArgumentException.class)
-		public void testGridSetSmallValueWithPositionTooLarge() {
-			ArrayList<CellBlock> gridCellList = new ArrayList<CellBlock>();
-			for (int i = 0; i < 9; i++) {
-				CellBlock cell = new CellBlock();
-				cell.setAnswer(i + 1);
-				gridCellList.add(cell);
-			}
-			InnerGrid grid = new InnerGrid(gridCellList);
-			grid.setAnswer(MAX_POS + 1, MIN_VAL);
+	// Large, illegal POS, small, legal VAL
+	@Test(expected = IllegalArgumentException.class)
+	public void testGridSetSmallValueWithPositionTooLarge() {
+		ArrayList<CellBlock> gridCellList = new ArrayList<CellBlock>();
+		for (int i = 0; i < 9; i++) {
+			CellBlock cell = new CellBlock();
+			cell.setAnswer(i + 1);
+			gridCellList.add(cell);
 		}
+		InnerGrid grid = new InnerGrid(gridCellList);
+		grid.setAnswer(MAX_POS + 1, MIN_VAL);
+	}
 
 }
