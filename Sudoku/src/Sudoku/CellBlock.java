@@ -10,6 +10,10 @@ public class CellBlock implements Comparable<CellBlock> {
 		guess = new ArrayList<Integer>();
 	}
 
+	public CellBlock(int i) {
+		answer = i;
+	}
+
 	public void guess(int... ints) {
 		for (int i : ints) {
 			if (guess.contains(i)) {
