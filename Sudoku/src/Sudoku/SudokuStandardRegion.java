@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Iterator;
 
-public class SudokuStandardRegion implements ISudokuRegion{
+public class SudokuStandardRegion implements ISudokuRegion {
 
 	ArrayList<CellBlock> region;
 
