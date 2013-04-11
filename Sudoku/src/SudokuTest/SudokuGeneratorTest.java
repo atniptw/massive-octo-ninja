@@ -20,12 +20,6 @@ public class SudokuGeneratorTest {
 	@BeforeClass
 	public static void generateGameBoard() {
 		gameBoard = SudokuGenerator.generateBoard(9);
-		for (int i = 0; i < 9; i++) {
-			for (int j = 0; j < 9; j++) {
-				System.out.print(gameBoard[i][j]);
-			}
-			System.out.println();
-		}
 	}
 
 	@Test
@@ -116,8 +110,29 @@ public class SudokuGeneratorTest {
 
 	@Test
 	public void testAddNextNumberToSecondRowWithTwoNumbers() {
-		int[][] testBoard = { { 1, 2, 3, 4 }, { 1, 0 } };
+		int[][] testBoard = { { 1, 3, 2, 4 }, { 2, 0 } };
 		SudokuGenerator.addNumber(testBoard, 1, 1, 2);
-		assertEquals(2, testBoard[1][1]);
+		assertEquals(1, testBoard[1][1]);
+	}
+
+	@Test
+	public void testAddNextNumberToFirstColumnSecondRow() {
+		int[][] testBoard = { { 1 }, { 0 } };
+		SudokuGenerator.addNumber(testBoard, 1, 0, 2);
+		assertEquals(2, testBoard[1][0]);
+	}
+
+	@Test
+	public void testAddNextNumberToFirstColumnThirdRow() {
+		int[][] testBoard = { { 1 }, { 3 }, { 0 } };
+		SudokuGenerator.addNumber(testBoard, 2, 0, 3);
+		assertEquals(2, testBoard[2][0]);
+	}
+
+	@Test
+	public void testAddNextNumberToSecondCounmThirdRow() {
+		int[][] testBoard = { { 1, 2, 3 }, { 2, 3, 1 }, { 3, 0 } };
+		SudokuGenerator.addNumber(testBoard, 2, 1, 3);
+		assertEquals(1, testBoard[2][1]);
 	}
 }

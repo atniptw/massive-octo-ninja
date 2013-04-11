@@ -1,7 +1,6 @@
 package Sudoku;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Collections;
 import java.util.Random;
 
@@ -11,14 +10,17 @@ public class SudokuGenerator {
 		int[][] rowRegions = new int[size][size];
 		for (int i = 0; i < size; i++) {
 			for (int j = 0; j < size; j++) {
-				addNumber(rowRegions, i, j, size);
+				boolean result = addNumber(rowRegions, i, j, size);
+				if (!result) {
+					i--;
+				}
 			}
 		}
 
 		return rowRegions;
 	}
 
-	public static void addNumber(int[][] rowRegions, int row, int column,
+	public static boolean addNumber(int[][] rowRegions, int row, int column,
 			int size) {
 
 		Random generator = new Random();
@@ -32,10 +34,12 @@ public class SudokuGenerator {
 
 		while (!isValid(rowRegions, row + 1, column + 1)) {
 			val.remove(rnd);
+			if (val.size() == 0)
+				return false;
 			rnd = generator.nextInt(val.size());
 			rowRegions[row][column] = val.get(rnd);
 		}
-
+		return true;
 	}
 
 	public static boolean isValid(int[][] rowRegions, int row, int column) {
@@ -43,6 +47,21 @@ public class SudokuGenerator {
 		for (int i = 0; i < row; i++) {
 			testRegion.clear();
 			for (int j = 0; j < column; j++) {
+				testRegion.add(rowRegions[i][j]);
+			}
+
+			Collections.sort(testRegion);
+			for (int k = 0; k < testRegion.size() - 1; k++) {
+				if (testRegion.get(k).equals(testRegion.get(k + 1))) {
+					return false;
+				}
+			}
+
+		}
+
+		for (int j = 0; j < column; j++) {
+			testRegion.clear();
+			for (int i = 0; i < row; i++) {
 				testRegion.add(rowRegions[i][j]);
 			}
 
