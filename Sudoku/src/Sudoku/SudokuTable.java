@@ -78,6 +78,8 @@ public class SudokuTable {
 			}
 		}
 	}
+	
+
 
 	public boolean isValid() {
 		for (SudokuStandardRegion row : this.rows) {

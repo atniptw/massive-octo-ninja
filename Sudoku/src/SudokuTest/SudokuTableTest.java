@@ -268,6 +268,61 @@ public class SudokuTableTest {
 		SudokuTable table = new SudokuTable(rows, columns, innerGrids);
 		assertFalse(table.isValid());
 	}
+	
+	@Test
+	public void testTableSetandGetAnswer() {
+		ArrayList<SudokuStandardRegion> rows = new ArrayList<SudokuStandardRegion>();
+		ArrayList<SudokuStandardRegion> columns = new ArrayList<SudokuStandardRegion>();
+		ArrayList<SudokuStandardRegion> innerGrids = new ArrayList<SudokuStandardRegion>();
+		
+		CellBlock block1 = new CellBlock();
+		block1.setAnswer(1);
+		CellBlock block2 = new CellBlock();
+		block1.setAnswer(2);
+		CellBlock block3 = new CellBlock();
+		block1.setAnswer(2);
+		CellBlock block4 = new CellBlock();
+		block1.setAnswer(1);
+		
+		ArrayList<CellBlock> row1 = new ArrayList<CellBlock>();
+		row1.add(block1);
+		row1.add(block2);
+		ArrayList<CellBlock> row2 = new ArrayList<CellBlock>();
+		row2.add(block3);
+		row2.add(block4);
+		ArrayList<CellBlock> column1 = new ArrayList<CellBlock>();
+		column1.add(block1);
+		column1.add(block3);
+		ArrayList<CellBlock> column2 = new ArrayList<CellBlock>();
+		column2.add(block2);
+		column2.add(block4);
+		ArrayList<CellBlock> grid1 = new ArrayList<CellBlock>();
+		grid1.add(block1);
+		grid1.add(block2);
+		ArrayList<CellBlock> grid2 = new ArrayList<CellBlock>();
+		grid2.add(block3);
+		grid2.add(block4);
+		
+		
+		rows.add(new SudokuStandardRegion(row1));
+		rows.add(new SudokuStandardRegion(row2));
+		columns.add(new SudokuStandardRegion(column1));
+		columns.add(new SudokuStandardRegion(column2));
+		innerGrids.add(new SudokuStandardRegion(grid1));
+		innerGrids.add(new SudokuStandardRegion(grid2));
+		
+		SudokuTable table = new SudokuTable(rows, columns, innerGrids);
+		
+		int answer = table.getAnswer(1, 1);
+		
+		assertEquals(answer, 1);
+		
+		table.setAnswer(1, 1, 2);
+		
+		answer = table.getAnswer(1, 1);
+		
+		asertEquals(2);
+	}
 
 
 }
