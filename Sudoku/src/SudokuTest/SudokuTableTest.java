@@ -4,6 +4,7 @@ import static org.junit.Assert.*;
 
 import java.util.ArrayList;
 
+import org.junit.Assert;
 import org.junit.Test;
 
 import Sudoku.CellBlock;
@@ -202,6 +203,71 @@ public class SudokuTableTest {
 		innerGrids.add(new SudokuStandardRegion(longList));
 		
 		new SudokuTable(rows, columns, innerGrids);
+		
 	}
+	
+	@Test(expected=IllegalArgumentException.class)
+	public void testTableThrowsErrorWhenCellsForCoorespondingLocationsAreDifferent() {
+		ArrayList<SudokuStandardRegion> rows = new ArrayList<SudokuStandardRegion>();
+		ArrayList<SudokuStandardRegion> columns = new ArrayList<SudokuStandardRegion>();
+		ArrayList<SudokuStandardRegion> innerGrids = new ArrayList<SudokuStandardRegion>();
+		
+		CellBlock block = new CellBlock();
+		CellBlock block2 = new CellBlock();
+		
+		ArrayList<CellBlock> list = new ArrayList<CellBlock>();
+		list.add(block);
+		
+		ArrayList<CellBlock> differentList = new ArrayList<CellBlock>();
+		differentList.add(block2);
+		
+		rows.add(new SudokuStandardRegion(list));
+		columns.add(new SudokuStandardRegion(differentList));
+		innerGrids.add(new SudokuStandardRegion(list));
+		
+		new SudokuTable(rows, columns, innerGrids);
+		
+	}
+
+	@Test 
+	public void testTableIsValidReturnsTrueWhenValid() {
+		ArrayList<SudokuStandardRegion> rows = new ArrayList<SudokuStandardRegion>();
+		ArrayList<SudokuStandardRegion> columns = new ArrayList<SudokuStandardRegion>();
+		ArrayList<SudokuStandardRegion> innerGrids = new ArrayList<SudokuStandardRegion>();
+		
+		CellBlock block = new CellBlock();
+		ArrayList<CellBlock> list = new ArrayList<CellBlock>();
+		list.add(block);
+		
+		rows.add(new SudokuStandardRegion(list));
+		columns.add(new SudokuStandardRegion(list));
+		innerGrids.add(new SudokuStandardRegion(list));
+		
+		SudokuTable table = new SudokuTable(rows, columns, innerGrids);
+		assertTrue(table.isValid());
+	}
+	
+	@Test 
+	public void testTableIsValidReturnsFalseWhenInvalid() {
+		ArrayList<SudokuStandardRegion> rows = new ArrayList<SudokuStandardRegion>();
+		ArrayList<SudokuStandardRegion> columns = new ArrayList<SudokuStandardRegion>();
+		ArrayList<SudokuStandardRegion> innerGrids = new ArrayList<SudokuStandardRegion>();
+		
+		CellBlock block = new CellBlock();
+		CellBlock block2 = new CellBlock();
+		block.setAnswer(1);
+		block2.setAnswer(1);
+		ArrayList<CellBlock> list = new ArrayList<CellBlock>();
+		list.add(block);
+		list.add(block2);
+		
+		rows.add(new SudokuStandardRegion(list));
+		columns.add(new SudokuStandardRegion(list));
+		innerGrids.add(new SudokuStandardRegion(list));
+		
+		SudokuTable table = new SudokuTable(rows, columns, innerGrids);
+		assertFalse(table.isValid());
+	}
+
 
 }
