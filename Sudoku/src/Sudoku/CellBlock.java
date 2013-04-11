@@ -5,6 +5,7 @@ import java.util.ArrayList;
 public class CellBlock implements Comparable<CellBlock> {
 	private ArrayList<Integer> guess;
 	private int answer;
+	private boolean isValid = true;
 
 	public CellBlock() {
 		guess = new ArrayList<Integer>();
@@ -31,6 +32,14 @@ public class CellBlock implements Comparable<CellBlock> {
 
 	public int getAnswer() {
 		return answer;
+	}
+	
+	public void setIsValid(boolean isValid) {
+		this.isValid = isValid;
+	}
+	
+	public boolean getIsValid() {
+		return this.isValid;
 	}
 
 	@Override
