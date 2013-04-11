@@ -64,7 +64,7 @@ public class SudokuStandardRegion implements ISudokuRegion{
 		for (CellBlock cell : this.region)
 			temp.add(cell);
 		Collections.sort(temp);
-
+		temp.get(temp.size()-1).setIsValid(true);
 		for (int i = 0; i + 1 < temp.size(); i++) {
 			if (temp.get(i).equals(temp.get(i + 1))) {
 				temp.get(i).setIsValid(false);
@@ -82,7 +82,6 @@ public class SudokuStandardRegion implements ISudokuRegion{
 			}
 			
 		}
-
 		return conflicts;
 	}
 

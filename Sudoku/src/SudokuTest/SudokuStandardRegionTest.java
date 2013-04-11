@@ -238,5 +238,46 @@ public class SudokuStandardRegionTest {
 		assertFalse(c5.getIsValid());
 		assertFalse(c6.getIsValid());
 	}
+	
+	@Test
+	public void testRegionUpdatesInvalidCodesWhenCellsBecomeValid() {
+		ArrayList<CellBlock> cellList = new ArrayList<CellBlock>();
+		CellBlock c1 = new CellBlock();
+		c1.setAnswer(1);
+		cellList.add(c1);
+		CellBlock c2 = new CellBlock();
+		c2.setAnswer(2);
+		cellList.add(c2);
+		CellBlock c3 = new CellBlock();
+		c3.setAnswer(3);
+		cellList.add(c3);
+		CellBlock c4 = new CellBlock();
+		c4.setAnswer(1);
+		cellList.add(c4);
+		CellBlock c5 = new CellBlock();
+		c5.setAnswer(2);
+		cellList.add(c5);
+		CellBlock c6 = new CellBlock();
+		c6.setAnswer(2);
+		cellList.add(c6);
+		SudokuStandardRegion column = new SudokuStandardRegion(cellList);
+		column.setConflictingCellsToInValid();
+		assertFalse(c1.getIsValid());
+		assertFalse(c2.getIsValid());
+		assertTrue(c3.getIsValid());
+		assertFalse(c4.getIsValid());
+		assertFalse(c5.getIsValid());
+		assertFalse(c6.getIsValid());
+		c5.setAnswer(5);
+		c6.setAnswer(6);
+		column.setConflictingCellsToInValid();
+		assertFalse(c1.getIsValid());
+		assertTrue(c2.getIsValid());
+		assertTrue(c3.getIsValid());
+		assertFalse(c4.getIsValid());
+		assertTrue(c5.getIsValid());
+		assertEquals(c6.getAnswer(), 6);
+		assertTrue(c6.getIsValid());
+		}
 
 }
