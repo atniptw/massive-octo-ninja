@@ -58,6 +58,33 @@ public class SudokuStandardRegion implements ISudokuRegion {
 		return conflicts;
 	}
 
+	public void resetConflicts() {
+		for (CellBlock cell : this.region) {
+			cell.setIsValid(true);
+		}
+	}
+
+	public void setConflictingCellsToInvalid() {
+		ArrayList<CellBlock> temp = new ArrayList<CellBlock>();
+		for (CellBlock cell : this.region)
+			temp.add(cell);
+		Collections.sort(temp);
+		for (int i = 0; i + 1 < temp.size(); i++) {
+			if (temp.get(i).equals(temp.get(i + 1))) {
+				temp.get(i).setIsValid(false);
+				for (int j = i + 1; j < temp.size(); j++) {
+					if (temp.get(i).equals(temp.get(j))) {
+						temp.get(j).setIsValid(false);
+					} else {
+						i = j - 1;
+						break;
+					}
+				}
+			}
+
+		}
+	}
+
 	public CellBlock getCell(int pos) {
 		if (pos > this.region.size() - 1 || pos < 0) {
 			throw new IllegalArgumentException();
