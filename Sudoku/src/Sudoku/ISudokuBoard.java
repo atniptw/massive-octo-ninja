@@ -1,8 +1,7 @@
-package SudokuTest;
+package Sudoku;
 
 import java.util.ArrayList;
 
-import Sudoku.CellBlock;
 
 public interface ISudokuBoard {
 	
@@ -11,8 +10,12 @@ public interface ISudokuBoard {
 	
 	public void setAnswer(int row, int column, int answer);
 	
+	public CellBlock getCell(int row, int column);
+	
 	public boolean isValid();
 	
 	public void setConflictingCellsToInvalid();
+	
+	public int size();
 
 }

@@ -3,7 +3,6 @@ package Sudoku;
 import java.util.ArrayList;
 import java.util.Iterator;
 
-import SudokuTest.ISudokuBoard;
 
 public class StandardSudokuBoard implements ISudokuBoard {
 
@@ -196,6 +195,10 @@ public class StandardSudokuBoard implements ISudokuBoard {
 		for (SudokuStandardRegion innerGrid : this.innerGrids) {
 			innerGrid.setConflictingCellsToInvalid();
 		}
+	}
+	
+	public int size() {
+		return this.rows.size();
 	}
 
 }
