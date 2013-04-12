@@ -21,7 +21,7 @@ public class BoardAdjusterTest {
 		int[][] adjustedBoard;
 
 		testBoard = SudokuGenerator.generateBoard(9);
-		adjustedBoard = BoardAdjuster.adjustForDifficulty(testBoard,
+		adjustedBoard = BoardAdjuster.adjustForDifficulty(testBoard.clone(),
 				BoardAdjuster.Difficulty.VERY_EASY);
 
 		SudokuStandardRegion region;
@@ -45,7 +45,7 @@ public class BoardAdjusterTest {
 		int[][] adjustedBoard;
 
 		testBoard = SudokuGenerator.generateBoard(9);
-		adjustedBoard = BoardAdjuster.adjustForDifficulty(testBoard,
+		adjustedBoard = BoardAdjuster.adjustForDifficulty(testBoard.clone(),
 				BoardAdjuster.Difficulty.EASY);
 
 		SudokuStandardRegion region;
@@ -69,7 +69,7 @@ public class BoardAdjusterTest {
 		int[][] adjustedBoard;
 
 		testBoard = SudokuGenerator.generateBoard(9);
-		adjustedBoard = BoardAdjuster.adjustForDifficulty(testBoard,
+		adjustedBoard = BoardAdjuster.adjustForDifficulty(testBoard.clone(),
 				BoardAdjuster.Difficulty.MEDIUM);
 
 		SudokuStandardRegion region;
@@ -93,7 +93,7 @@ public class BoardAdjusterTest {
 		int[][] adjustedBoard;
 
 		testBoard = SudokuGenerator.generateBoard(9);
-		adjustedBoard = BoardAdjuster.adjustForDifficulty(testBoard,
+		adjustedBoard = BoardAdjuster.adjustForDifficulty(testBoard.clone(),
 				BoardAdjuster.Difficulty.DIFFICULT);
 
 		SudokuStandardRegion region;
@@ -117,7 +117,7 @@ public class BoardAdjusterTest {
 		int[][] adjustedBoard;
 
 		testBoard = SudokuGenerator.generateBoard(9);
-		adjustedBoard = BoardAdjuster.adjustForDifficulty(testBoard,
+		adjustedBoard = BoardAdjuster.adjustForDifficulty(testBoard.clone(),
 				BoardAdjuster.Difficulty.EVIL);
 
 		SudokuStandardRegion region;
@@ -135,44 +135,77 @@ public class BoardAdjusterTest {
 		}
 	}
 
-	// @Test
-	// public void testVeryEasyHasEnoughGivens() {
-	//
-	// BoardAdjuster.adjustForDifficulty(testBoard,
-	// BoardAdjuster.Difficulty.VERY_EASY);
-	// assertTrue(testBoard.length >= 50);
-	// }
-	//
-	// @Test
-	// public void testEasyHasEnoughGivens() {
-	//
-	// BoardAdjuster.adjustForDifficulty(testBoard,
-	// BoardAdjuster.Difficulty.EASY);
-	// assertTrue(testBoard.length >= 36 && testBoard.length <= 49);
-	// }
-	//
-	// @Test
-	// public void testMediumHasEnoughGivens() {
-	//
-	// BoardAdjuster.adjustForDifficulty(testBoard,
-	// BoardAdjuster.Difficulty.MEDIUM);
-	// assertTrue(testBoard.length >= 32 && testBoard.length <= 35);
-	// }
-	//
-	// @Test
-	// public void testDifficultHasEnoughGivens() {
-	//
-	// BoardAdjuster.adjustForDifficulty(testBoard,
-	// BoardAdjuster.Difficulty.DIFFICULT);
-	// assertTrue(testBoard.length >= 28 && testBoard.length <= 31);
-	// }
-	//
-	// @Test
-	// public void testEvilHasEnoughGivens() {
-	//
-	// BoardAdjuster.adjustForDifficulty(testBoard,
-	// BoardAdjuster.Difficulty.EVIL);
-	// assertTrue(testBoard.length >= 22 && testBoard.length <= 27);
-	// }
+	@Test
+	public void testVeryEasyHasEnoughGivens() {
+
+		int[][] adjustedBoard;
+
+		testBoard = SudokuGenerator.generateBoard(9);
+		adjustedBoard = BoardAdjuster.adjustForDifficulty(testBoard.clone(),
+				BoardAdjuster.Difficulty.VERY_EASY);
+
+		assertTrue((testBoard.length * testBoard.length)
+				- BoardAdjuster.getTotalUnfilledCells(adjustedBoard) >= 50);
+	}
+
+	@Test
+	public void testEasyHasEnoughGivens() {
+
+		int[][] adjustedBoard;
+
+		testBoard = SudokuGenerator.generateBoard(9);
+		adjustedBoard = BoardAdjuster.adjustForDifficulty(testBoard.clone(),
+				BoardAdjuster.Difficulty.EASY);
+
+		assertTrue((testBoard.length * testBoard.length)
+				- BoardAdjuster.getTotalUnfilledCells(adjustedBoard) >= 36
+				&& (testBoard.length * testBoard.length)
+						- BoardAdjuster.getTotalUnfilledCells(adjustedBoard) <= 49);
+	}
+
+	@Test
+	public void testMediumHasEnoughGivens() {
+
+		int[][] adjustedBoard;
+
+		testBoard = SudokuGenerator.generateBoard(9);
+		adjustedBoard = BoardAdjuster.adjustForDifficulty(testBoard.clone(),
+				BoardAdjuster.Difficulty.MEDIUM);
+
+		assertTrue((testBoard.length * testBoard.length)
+				- BoardAdjuster.getTotalUnfilledCells(adjustedBoard) >= 32
+				&& (testBoard.length * testBoard.length)
+						- BoardAdjuster.getTotalUnfilledCells(adjustedBoard) <= 35);
+	}
+
+	@Test
+	public void testDifficultHasEnoughGivens() {
+
+		int[][] adjustedBoard;
+
+		testBoard = SudokuGenerator.generateBoard(9);
+		adjustedBoard = BoardAdjuster.adjustForDifficulty(testBoard.clone(),
+				BoardAdjuster.Difficulty.DIFFICULT);
+
+		assertTrue((testBoard.length * testBoard.length)
+				- BoardAdjuster.getTotalUnfilledCells(adjustedBoard) >= 28
+				&& (testBoard.length * testBoard.length)
+						- BoardAdjuster.getTotalUnfilledCells(adjustedBoard) <= 31);
+	}
+
+	@Test
+	public void testEvilHasEnoughGivens() {
+
+		int[][] adjustedBoard;
+
+		testBoard = SudokuGenerator.generateBoard(9);
+		adjustedBoard = BoardAdjuster.adjustForDifficulty(testBoard.clone(),
+				BoardAdjuster.Difficulty.EVIL);
+
+		assertTrue((testBoard.length * testBoard.length)
+				- BoardAdjuster.getTotalUnfilledCells(adjustedBoard) >= 22
+				&& (testBoard.length * testBoard.length)
+						- BoardAdjuster.getTotalUnfilledCells(adjustedBoard) <= 27);
+	}
 
 }

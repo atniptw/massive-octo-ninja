@@ -82,5 +82,19 @@ public class BoardAdjuster {
 		return newBoard;
 
 	}
+	
+	public static int getTotalUnfilledCells(int[][] board){
+		int count = 0;
+		
+		for (int i = 0; i<board.length;i++){
+			for (int j = 0; j<board.length;j++){
+				if (board[i][j] == 0){
+					count++;
+				}
+			}
+		}
+		
+		return count;
+	}
 
 }
