@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Iterator;
 
-public class SudokuStandardRegion implements ISudokuRegion{
+public class SudokuStandardRegion implements ISudokuRegion {
 
 	ArrayList<CellBlock> region;
 
@@ -57,14 +57,18 @@ public class SudokuStandardRegion implements ISudokuRegion{
 
 		return conflicts;
 	}
-	
-	public ArrayList<CellBlock> setConflictingCellsToInValid() {
-		ArrayList<CellBlock> conflicts = new ArrayList<CellBlock>();
+
+	public void resetConflicts() {
+		for (CellBlock cell : this.region) {
+			cell.setIsValid(true);
+		}
+	}
+
+	public void setConflictingCellsToInvalid() {
 		ArrayList<CellBlock> temp = new ArrayList<CellBlock>();
 		for (CellBlock cell : this.region)
 			temp.add(cell);
 		Collections.sort(temp);
-		temp.get(temp.size()-1).setIsValid(true);
 		for (int i = 0; i + 1 < temp.size(); i++) {
 			if (temp.get(i).equals(temp.get(i + 1))) {
 				temp.get(i).setIsValid(false);
@@ -72,17 +76,13 @@ public class SudokuStandardRegion implements ISudokuRegion{
 					if (temp.get(i).equals(temp.get(j))) {
 						temp.get(j).setIsValid(false);
 					} else {
-						temp.get(j).setIsValid(true);
 						i = j - 1;
 						break;
 					}
 				}
-			} else {
-				temp.get(i).setIsValid(true);
 			}
-			
+
 		}
-		return conflicts;
 	}
 
 	public CellBlock getCell(int pos) {

@@ -230,7 +230,7 @@ public class SudokuStandardRegionTest {
 		c6.setAnswer(2);
 		cellList.add(c6);
 		SudokuStandardRegion column = new SudokuStandardRegion(cellList);
-		column.setConflictingCellsToInValid();
+		column.setConflictingCellsToInvalid();
 		assertFalse(c1.getIsValid());
 		assertFalse(c2.getIsValid());
 		assertTrue(c3.getIsValid());
@@ -261,7 +261,7 @@ public class SudokuStandardRegionTest {
 		c6.setAnswer(2);
 		cellList.add(c6);
 		SudokuStandardRegion column = new SudokuStandardRegion(cellList);
-		column.setConflictingCellsToInValid();
+		column.setConflictingCellsToInvalid();
 		assertFalse(c1.getIsValid());
 		assertFalse(c2.getIsValid());
 		assertTrue(c3.getIsValid());
@@ -270,7 +270,7 @@ public class SudokuStandardRegionTest {
 		assertFalse(c6.getIsValid());
 		c5.setAnswer(5);
 		c6.setAnswer(6);
-		column.setConflictingCellsToInValid();
+		column.setConflictingCellsToInvalid();
 		assertFalse(c1.getIsValid());
 		assertTrue(c2.getIsValid());
 		assertTrue(c3.getIsValid());
