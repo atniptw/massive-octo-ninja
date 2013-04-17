@@ -276,7 +276,6 @@ public class SudokuStandardRegionTest {
 		assertTrue(c3.getIsValid());
 		assertFalse(c4.getIsValid());
 		assertTrue(c5.getIsValid());
-		assertEquals(c6.getAnswer(), 6);
 		assertTrue(c6.getIsValid());
 		}
 
