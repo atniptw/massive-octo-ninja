@@ -16,8 +16,12 @@ public class CellComponent extends JComponent {
 		this.setOpaque(true);
 	}
 	
+	public void setValue(int value) {
+		this.cell.setAnswer(value);
+	}
+	
 	public void paintComponent(Graphics g) {
-		this.setFont(new Font(this.getFont().getName(), this.getFont().getStyle(), 25));
+		this.setFont(new Font(this.getFont().getName(), this.getFont().getStyle(), this.getHeight()/2));
 		if (!cell.getIsValid()) {
 			g.setColor(Color.RED);
 			g.fillRect(0, 0, getWidth(), getHeight());
