@@ -14,6 +14,7 @@ public class SudokuComponent extends JComponent {
 
 	private ISudokuBoard currentBoard;
 	private CellComponent selectedComponent;
+	private CellComponent[][] componentList;
 
 	private int lineThickness = 1;
 
@@ -22,9 +23,15 @@ public class SudokuComponent extends JComponent {
 		this.currentBoard = board;
 		this.setLayout(new GridLayout(board.size(), board.size()));
 		CellComponent cell = null;
+		componentList = new CellComponent[board.size()][board.size()];
 		for (int i = 0; i < board.size(); i++) {
 			for (int j = 0; j < board.size(); j++) {
+//				if (board.getCell(i, j).getAnswer() == 0) { 
 				cell = new CellComponent(board.getCell(i, j), false);
+				componentList[i][j] = cell;
+//				} else {
+//					cell = new CellComponent(board.getCell(i, j), true);
+//				}
 				cell.addMouseListener(new MouseListener() {
 
 					@Override
@@ -81,6 +88,27 @@ public class SudokuComponent extends JComponent {
 
 	public void setSelectedCell(int value) {
 		this.selectedComponent.setValue(value);
+	}
+
+	public void giveAnswerToSelectedCell(int[][] completedBoard) {
+		for (int i = 0; i < this.currentBoard.size(); i++) {
+			for (int j = 0; j < this.currentBoard.size(); j++) {
+				if (this.currentBoard.getCell(i, j) == this.selectedComponent.cell){
+					this.selectedComponent.setValue(completedBoard[i][j]);
+					this.selectedComponent.setGiven(true);
+				}
+			}
+		}
+	}
+
+	public void giveAllAnswersToCells(int[][] completedBoard) {
+		for (int i = 0; i < this.currentBoard.size(); i++) {
+			for (int j = 0; j < this.currentBoard.size(); j++) {
+				this.componentList[i][j].setValue(completedBoard[i][j]);
+				System.out.println(completedBoard[i][j]);
+				this.componentList[i][j].repaint();
+			}
+		}
 	}
 
 }

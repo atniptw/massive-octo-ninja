@@ -5,6 +5,7 @@ import java.awt.Font;
 import java.awt.Graphics;
 
 import javax.swing.JComponent;
+import javax.swing.JPanel;
 
 public class CellComponent extends JComponent {
 
@@ -27,6 +28,7 @@ public class CellComponent extends JComponent {
 	public void setValue(int value) {
 		if (!this.given) {
 			this.cell.setAnswer(value);
+			this.repaint();
 		}
 	}
 
@@ -35,28 +37,32 @@ public class CellComponent extends JComponent {
 	}
 
 	public void paintComponent(Graphics g) {
-		if (cell.getAnswer() != 0) {
-			this.setFont(new Font(this.getFont().getName(), this.getFont()
-					.getStyle(), this.getHeight() / 2));
-			if (this.selected) {
-				g.setColor(Color.GRAY);
-				g.fillRect(0, 0, getWidth(), getHeight());
-				g.setColor(Color.WHITE);
-				g.drawString(Integer.toString(cell.getAnswer()),
-						this.getWidth() / 3, this.getHeight() / 2);
-			} else if (!cell.getIsValid()) {
-				g.setColor(Color.RED);
-				g.fillRect(0, 0, getWidth(), getHeight());
-				g.setColor(Color.WHITE);
-				g.drawString(Integer.toString(cell.getAnswer()),
-						this.getWidth() / 3, this.getHeight() / 2);
-			} else {
-				g.setColor(Color.WHITE);
-				g.fillRect(0, 0, getWidth(), getHeight());
-				g.setColor(Color.BLACK);
-				g.drawString(Integer.toString(cell.getAnswer()),
-						this.getWidth() / 3, this.getHeight() / 2);
+
+		this.setFont(new Font(this.getFont().getName(), this.getFont()
+				.getStyle(), this.getHeight() / 2));
+		if (this.selected) {
+			g.setColor(Color.BLACK);
+			g.fillRect(0, 0, getWidth(), getHeight());
+			g.setColor(Color.WHITE);
+			if (cell.getAnswer() != 0){
+			g.drawString(Integer.toString(cell.getAnswer()),
+					this.getWidth() / 3, this.getHeight() / 2);
 			}
+		} else if (cell.getAnswer() == 0) {
+			g.setColor(Color.WHITE);
+			g.fillRect(0, 0, getWidth(), getHeight());
+		} else if (!cell.getIsValid()) {
+			g.setColor(Color.RED);
+			g.fillRect(0, 0, getWidth(), getHeight());
+			g.setColor(Color.WHITE);
+			g.drawString(Integer.toString(cell.getAnswer()),
+					this.getWidth() / 3, this.getHeight() / 2);
+		} else {
+			g.setColor(Color.WHITE);
+			g.fillRect(0, 0, getWidth(), getHeight());
+			g.setColor(Color.BLACK);
+			g.drawString(Integer.toString(cell.getAnswer()),
+					this.getWidth() / 3, this.getHeight() / 2);
 		}
 	}
 

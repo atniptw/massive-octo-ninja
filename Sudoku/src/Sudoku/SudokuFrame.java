@@ -19,7 +19,7 @@ import javax.swing.JPanel;
 public class SudokuFrame extends JFrame {
 
 	private ISudokuBoard currentBoard;	
-	private ISudokuBoard completedBoard;
+	private int[][] completedBoard;
 	private SudokuComponent sudokuComponent;
 	
 	public SudokuFrame() {
@@ -33,20 +33,6 @@ public class SudokuFrame extends JFrame {
 		this.setSize(1000, 1000);
 		
 		addMenuBar();
-		
-		JPanel cheatButtonPanel =  new JPanel();
-		
-		cheatButtonPanel.setLayout(new BoxLayout(cheatButtonPanel, BoxLayout.Y_AXIS));
-		
-		JButton getOneButton = new JButton("Hint");
-		
-		JButton getAllButton = new JButton("I Give Up");
-		
-		cheatButtonPanel.add(getOneButton);
-		
-		cheatButtonPanel.add(getAllButton);
-		
-		this.add(cheatButtonPanel, BorderLayout.EAST);
 		
 		this.setVisible(true);
 		
@@ -72,9 +58,39 @@ public class SudokuFrame extends JFrame {
 			}
 		});
 		
+		JMenu help = new JMenu("Help");
+		
+		JMenuItem getOne = new JMenuItem("Hint");
+		
+		JMenuItem getAll = new JMenuItem("I Give Up");
+		
+		getOne.addActionListener(new ActionListener(){
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				sudokuComponent.giveAnswerToSelectedCell(completedBoard);
+				currentBoard.setConflictingCellsToInvalid();
+			}
+			
+		});
+		
+		getAll.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				// TODO Auto-generated method stub
+				sudokuComponent.giveAllAnswersToCells(completedBoard);
+				currentBoard.setConflictingCellsToInvalid();
+			}
+			
+		});
+		
 		file.add(newGame);
 		file.add(exitOption);
+		help.add(getOne);
+		help.add(getAll);
 		menubar.add(file);
+		menubar.add(help);
 		this.setJMenuBar(menubar);
 	}
 	
@@ -92,14 +108,13 @@ public class SudokuFrame extends JFrame {
 		
 		if (result == JOptionPane.OK_OPTION) {
 			if (boardTypes.getSelectedItem() == "Standard") {
-				int[][] cellValues = SudokuGenerator.generateBoard(9);
-				int[][] adjustedValues = BoardAdjuster.adjustForDifficulty(cellValues, BoardAdjuster.Difficulty.valueOf(((String) difficultiesList.getSelectedItem()).toUpperCase()));
+				this.completedBoard = SudokuGenerator.generateBoard(9);
+				int[][] adjustedValues = BoardAdjuster.adjustForDifficulty(this.completedBoard, BoardAdjuster.Difficulty.valueOf(((String) difficultiesList.getSelectedItem()).toUpperCase()));
 				ArrayList<CellBlock> singleAdjustedArrayValues = new ArrayList<CellBlock>(81);
-				ArrayList<CellBlock> singleCompletedArrayValues = new ArrayList<CellBlock>(81);
 				for (int i = 0; i < 9; i++) {
 					for (int j = 0; j < 9; j++) {
 						CellBlock newCell = new CellBlock();
-						newCell.setAnswer(cellValues[i][j]);
+						newCell.setAnswer(adjustedValues[i][j]);
 						singleAdjustedArrayValues.add(newCell);
 					}
 				}

@@ -22,7 +22,13 @@ public class BoardAdjuster {
 	public static int[][] adjustForDifficulty(int[][] originalBoard,
 			Difficulty diff) {
 
-		int[][] newBoard = originalBoard;
+		int[][] newBoard = new int[originalBoard.length][originalBoard.length];
+		
+		for (int i = 0; i < originalBoard.length; i++){
+			for (int j = 0; j < originalBoard.length; j++) {
+				newBoard[i][j] = originalBoard[i][j];
+			}
+		}
 
 		int variance;
 		int givens = 0;
