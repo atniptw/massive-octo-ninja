@@ -6,6 +6,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
 
+import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
@@ -17,19 +18,35 @@ import javax.swing.JPanel;
 
 public class SudokuFrame extends JFrame {
 
-	private ISudokuBoard board;	
+	private ISudokuBoard currentBoard;	
+	private ISudokuBoard completedBoard;
 	private SudokuComponent sudokuComponent;
 	
 	public SudokuFrame() {
 		this.setLayout(new BorderLayout());
 		getNewBoard();
-		if (this.board == null) {
+		if (this.currentBoard == null) {
 			System.out.println("There was an error creating the board");
+			System.exit(-1);
 		}
 		
 		this.setSize(1000, 1000);
 		
 		addMenuBar();
+		
+		JPanel cheatButtonPanel =  new JPanel();
+		
+		cheatButtonPanel.setLayout(new BoxLayout(cheatButtonPanel, BoxLayout.Y_AXIS));
+		
+		JButton getOneButton = new JButton("Hint");
+		
+		JButton getAllButton = new JButton("I Give Up");
+		
+		cheatButtonPanel.add(getOneButton);
+		
+		cheatButtonPanel.add(getAllButton);
+		
+		this.add(cheatButtonPanel, BorderLayout.EAST);
 		
 		this.setVisible(true);
 		
@@ -63,7 +80,7 @@ public class SudokuFrame extends JFrame {
 	
 	private void getNewBoard() {
 		String[] boards = {"Standard"};
-		String[] difficulties = {"Extremely Easy", "Easy", "Medium", "Difficult", "Evil"};
+		String[] difficulties = {"Simple", "Easy", "Medium", "Difficult", "Evil"};
 		JComboBox boardTypes = new JComboBox(boards);
 		JComboBox difficultiesList = new JComboBox(difficulties);
 		
@@ -76,31 +93,33 @@ public class SudokuFrame extends JFrame {
 		if (result == JOptionPane.OK_OPTION) {
 			if (boardTypes.getSelectedItem() == "Standard") {
 				int[][] cellValues = SudokuGenerator.generateBoard(9);
-				ArrayList<CellBlock> singleArrayValues = new ArrayList<CellBlock>(81);
+				int[][] adjustedValues = BoardAdjuster.adjustForDifficulty(cellValues, BoardAdjuster.Difficulty.valueOf(((String) difficultiesList.getSelectedItem()).toUpperCase()));
+				ArrayList<CellBlock> singleAdjustedArrayValues = new ArrayList<CellBlock>(81);
+				ArrayList<CellBlock> singleCompletedArrayValues = new ArrayList<CellBlock>(81);
 				for (int i = 0; i < 9; i++) {
 					for (int j = 0; j < 9; j++) {
 						CellBlock newCell = new CellBlock();
 						newCell.setAnswer(cellValues[i][j]);
-						singleArrayValues.add(newCell);
+						singleAdjustedArrayValues.add(newCell);
 					}
 				}
 				
-				this.board = new StandardSudokuBoard(singleArrayValues);
-				this.board.setConflictingCellsToInvalid();
+				this.currentBoard = new StandardSudokuBoard(singleAdjustedArrayValues);
+				this.currentBoard.setConflictingCellsToInvalid();
 				if (this.sudokuComponent!=null){
 				this.remove(this.sudokuComponent);
 				}
-				this.sudokuComponent = new SudokuComponent(this.board);
+				this.sudokuComponent = new SudokuComponent(this.currentBoard);
 				this.add(this.sudokuComponent, BorderLayout.CENTER);
 				JPanel buttonPanel = new JPanel();
-				for (int i = 0; i < this.board.size(); i++) {
+				for (int i = 0; i < this.currentBoard.size(); i++) {
 					JButton button = new JButton(String.format("%d", i+1));
 					button.setPreferredSize(new Dimension(50, 80));
 					button.addActionListener(new ActionListener() {
 
 						public void actionPerformed(ActionEvent e) {
 							sudokuComponent.setSelectedCell(Integer.parseInt(((JButton) e.getSource()).getText()));
-							board.setConflictingCellsToInvalid();
+							currentBoard.setConflictingCellsToInvalid();
 						}
 						
 					});

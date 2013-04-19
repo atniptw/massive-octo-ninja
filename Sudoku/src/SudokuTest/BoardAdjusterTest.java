@@ -22,7 +22,7 @@ public class BoardAdjusterTest {
 
 		testBoard = SudokuGenerator.generateBoard(9);
 		adjustedBoard = BoardAdjuster.adjustForDifficulty(testBoard.clone(),
-				BoardAdjuster.Difficulty.VERY_EASY);
+				BoardAdjuster.Difficulty.SIMPLE);
 
 		SudokuStandardRegion region;
 		for (int i = 0; i < 9; i++) {
@@ -142,7 +142,7 @@ public class BoardAdjusterTest {
 
 		testBoard = SudokuGenerator.generateBoard(9);
 		adjustedBoard = BoardAdjuster.adjustForDifficulty(testBoard.clone(),
-				BoardAdjuster.Difficulty.VERY_EASY);
+				BoardAdjuster.Difficulty.SIMPLE);
 
 		assertTrue((testBoard.length * testBoard.length)
 				- BoardAdjuster.getTotalUnfilledCells(adjustedBoard) >= 50);

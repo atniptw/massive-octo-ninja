@@ -5,7 +5,7 @@ import java.util.Random;
 public class BoardAdjuster {
 
 	public enum Difficulty {
-		VERY_EASY, EASY, MEDIUM, DIFFICULT, EVIL;
+		SIMPLE, EASY, MEDIUM, DIFFICULT, EVIL;
 	}
 
 	public static final int VERY_EASY_MAX_GIVEN = 70;
@@ -33,7 +33,7 @@ public class BoardAdjuster {
 
 		switch (diff) {
 
-		case VERY_EASY:
+		case SIMPLE:
 
 			variance = gen.nextInt((VERY_EASY_MAX_GIVEN - VERY_EASY_MIN_GIVEN));
 			givens = VERY_EASY_MIN_GIVEN + variance;
