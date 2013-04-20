@@ -1,12 +1,11 @@
 package Sudoku;
 
-import java.awt.Color;
 import java.awt.Dimension;
-import java.awt.Graphics;
 import java.awt.GridLayout;
 
 import javax.swing.JComponent;
 
+@SuppressWarnings("serial")
 public class SudokuComponent extends JComponent {
 
 	ISudokuBoard board;
@@ -23,6 +22,5 @@ public class SudokuComponent extends JComponent {
 			}
 		}
 	}
-	
 
 }

@@ -1,6 +1,5 @@
 package Sudoku;
 
-import java.util.ArrayList;
 
 
 public interface ISudokuBoard {

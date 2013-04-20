@@ -44,6 +44,8 @@ public class SudokuGenerator {
 
 	public static boolean isValid(int[][] rowRegions, int row, int column) {
 		ArrayList<Integer> testRegion = new ArrayList<Integer>();
+		
+		//Check Row
 		for (int i = 0; i < row; i++) {
 			testRegion.clear();
 			for (int j = 0; j < column; j++) {
@@ -59,6 +61,7 @@ public class SudokuGenerator {
 
 		}
 
+		//Check Column
 		for (int j = 0; j < column; j++) {
 			testRegion.clear();
 			for (int i = 0; i < row; i++) {
@@ -71,7 +74,29 @@ public class SudokuGenerator {
 					return false;
 				}
 			}
+		}
 
+		//Check Inner Region
+		testRegion.clear();
+		if ((row % 3 == 0) & (column % 3 == 0)) {
+			testRegion.add(rowRegions[row - 3][column - 3]);
+			testRegion.add(rowRegions[row - 3][column - 2]);
+			testRegion.add(rowRegions[row - 3][column - 1]);
+
+			testRegion.add(rowRegions[row - 2][column - 3]);
+			testRegion.add(rowRegions[row - 2][column - 2]);
+			testRegion.add(rowRegions[row - 2][column - 1]);
+
+			testRegion.add(rowRegions[row - 1][column - 3]);
+			testRegion.add(rowRegions[row - 1][column - 2]);
+			testRegion.add(rowRegions[row - 1][column - 1]);
+
+			Collections.sort(testRegion);
+			for (int k = 0; k < testRegion.size() - 1; k++) {
+				if (testRegion.get(k).equals(testRegion.get(k + 1))) {
+					return false;
+				}
+			}
 		}
 		return true;
 

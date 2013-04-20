@@ -6,6 +6,7 @@ import java.awt.Graphics;
 
 import javax.swing.JComponent;
 
+@SuppressWarnings("serial")
 public class CellComponent extends JComponent {
 	
 	CellBlock cell;
