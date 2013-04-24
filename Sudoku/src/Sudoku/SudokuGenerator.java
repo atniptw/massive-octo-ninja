@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Random;
 
+@Deprecated
 public class SudokuGenerator {
 
 	public static int[][] generateBoard(int size) {
@@ -42,10 +43,11 @@ public class SudokuGenerator {
 		return true;
 	}
 
+	
 	public static boolean isValid(int[][] rowRegions, int row, int column) {
 		ArrayList<Integer> testRegion = new ArrayList<Integer>();
-		
-		//Check Row
+
+		// Check Row
 		for (int i = 0; i < row; i++) {
 			testRegion.clear();
 			for (int j = 0; j < column; j++) {
@@ -61,7 +63,7 @@ public class SudokuGenerator {
 
 		}
 
-		//Check Column
+		// Check Column
 		for (int j = 0; j < column; j++) {
 			testRegion.clear();
 			for (int i = 0; i < row; i++) {
@@ -76,7 +78,7 @@ public class SudokuGenerator {
 			}
 		}
 
-		//Check Inner Region
+		// Check Inner Region
 		testRegion.clear();
 		if ((row % 3 == 0) & (column % 3 == 0)) {
 			testRegion.add(rowRegions[row - 3][column - 3]);
@@ -100,5 +102,40 @@ public class SudokuGenerator {
 		}
 		return true;
 
+	}
+
+	public static void generateBoard(StandardSudokuBoard board, int size) {
+		for (int i = 0; i < size; i++) {
+			for (int j = 0; j < size; j++) {
+				boolean result = addNumber(board, i, j);
+				if (!result) {
+					i--;
+				}
+			}
+		}
+	}
+
+	private static boolean addNumber(StandardSudokuBoard board, int row,
+			int column) {
+		Random generator = new Random();
+		ArrayList<Integer> val = new ArrayList<Integer>();
+		for (int i = 0; i < board.rows.size(); i++) {
+			val.add(i + 1);
+		}
+
+		int rnd = generator.nextInt(val.size());
+		board.setAnswer(row, column, val.get(rnd));
+		// rowRegions[row][column] = val.get(rnd);
+
+		// while (!isValid(rowRegions, row + 1, column + 1)) {
+		while (!board.isValid()) {
+			val.remove(rnd);
+			if (val.size() == 0)
+				return false;
+			rnd = generator.nextInt(val.size());
+			board.setAnswer(row, column, val.get(rnd));
+			// rowRegions[row][column] = val.get(rnd);
+		}
+		return true;
 	}
 }

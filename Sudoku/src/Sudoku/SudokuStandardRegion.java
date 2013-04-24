@@ -22,8 +22,10 @@ public class SudokuStandardRegion implements ISudokuRegion {
 
 	public boolean isValid() {
 		ArrayList<CellBlock> temp = new ArrayList<CellBlock>();
-		for (CellBlock cell : this.region)
-			temp.add(cell);
+		for (CellBlock cell : this.region) {
+			if (cell.getAnswer() != 0)
+				temp.add(cell);
+		}
 		Collections.sort(temp);
 
 		for (int i = 0; i + 1 < temp.size(); i++) {
@@ -98,6 +100,19 @@ public class SudokuStandardRegion implements ISudokuRegion {
 			throw new IllegalArgumentException();
 		}
 		this.region.get(pos).setAnswer(val);
+	}
+
+	public int size() {
+		return region.size();
+	}
+
+	public String toText() {
+		String output = "";
+		for (int i = 0; i < this.region.size(); i++) {
+			output += this.region.get(i).getAnswer();
+		}
+		return null;
+
 	}
 
 }
