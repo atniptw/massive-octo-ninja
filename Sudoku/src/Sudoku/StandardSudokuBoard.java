@@ -229,4 +229,14 @@ public class StandardSudokuBoard implements ISudokuBoard {
 		return this.rows.size();
 	}
 
+	public int[][] getBoardAnswer() {
+		int[][] answers = new int[SIZE][SIZE];
+		for (int i = 0; i < SIZE; i++) {
+			for (int j = 0; j < SIZE; j++) {
+				answers[i][j] = this.rows.get(i).getCell(j).getAnswer();
+			}
+		}
+		return answers;
+	}
+
 }
