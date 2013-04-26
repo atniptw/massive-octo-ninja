@@ -1,10 +1,15 @@
 package Sudoku;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Random;
 
-public class StandardSudokuBoard implements ISudokuBoard {
+public class StandardSudokuBoard implements ISudokuBoard, Serializable{
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 4133396481533243164L;
 	ArrayList<SudokuStandardRegion> rows;
 	ArrayList<SudokuStandardRegion> columns;
 	ArrayList<SudokuStandardRegion> innerGrids;

@@ -4,6 +4,7 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
 import org.junit.Test;
@@ -11,7 +12,12 @@ import org.junit.Test;
 import Sudoku.CellBlock;
 
 
-public class CellBlockTest {
+public class CellBlockTest implements Serializable{
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -2762664681149907347L;
+
 	@Test
 	public void testJUnit() {
 		assertTrue("The compiler isn't feeling well today...", true);
@@ -103,7 +109,7 @@ public class CellBlockTest {
 		assertTrue(cellList.contains(cell2));
 
 	}
-
+	
 	private ArrayList<Integer> list(int... ints) {
 		ArrayList<Integer> ret = new ArrayList<Integer>();
 		for (int i : ints) {
