@@ -1,8 +1,13 @@
 package Sudoku;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
-public class CellBlock implements Comparable<CellBlock> {
+public class CellBlock implements Comparable<CellBlock>, Serializable {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -5040286658398532423L;
 	private ArrayList<Integer> guess;
 	private int answer;
 	private boolean isValid = true;
