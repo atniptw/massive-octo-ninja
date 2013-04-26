@@ -208,4 +208,81 @@ public class BoardAdjusterTest {
 						- BoardAdjuster.getTotalUnfilledCells(adjustedBoard) <= 27);
 	}
 
+	@Test
+	public void testVeryEasyHasProperRegionGivens() {
+
+		int[][] adjustedBoard;
+
+		testBoard = SudokuGenerator.generateBoard(9);
+		adjustedBoard = BoardAdjuster.adjustForDifficulty(testBoard.clone(),
+				BoardAdjuster.Difficulty.EASY);
+
+		for (int i=1; i< testBoard.length; i++){
+		assertTrue(BoardAdjuster.getTotalUnfilledCellsInRow(adjustedBoard, i) >= 5);
+		assertTrue(BoardAdjuster.getTotalUnfilledCellsInCol(adjustedBoard, i) >= 5);
+		}
+	}
+	
+	@Test
+	public void testEasyHasProperRegionGivens() {
+
+		int[][] adjustedBoard;
+
+		testBoard = SudokuGenerator.generateBoard(9);
+		adjustedBoard = BoardAdjuster.adjustForDifficulty(testBoard.clone(),
+				BoardAdjuster.Difficulty.EASY);
+
+		for (int i=1; i< testBoard.length; i++){
+		assertTrue(BoardAdjuster.getTotalUnfilledCellsInRow(adjustedBoard, i) >= 4);
+		assertTrue(BoardAdjuster.getTotalUnfilledCellsInCol(adjustedBoard, i) >= 4);
+		}
+	}
+	
+	@Test
+	public void testMediumHasProperRegionGivens() {
+
+		int[][] adjustedBoard;
+
+		testBoard = SudokuGenerator.generateBoard(9);
+		adjustedBoard = BoardAdjuster.adjustForDifficulty(testBoard.clone(),
+				BoardAdjuster.Difficulty.EASY);
+
+		for (int i=1; i< testBoard.length; i++){
+		assertTrue(BoardAdjuster.getTotalUnfilledCellsInRow(adjustedBoard, i) >= 3);
+		assertTrue(BoardAdjuster.getTotalUnfilledCellsInCol(adjustedBoard, i) >= 3);
+		}
+	}
+	
+	@Test
+	public void testDifficultHasProperRegionGivens() {
+
+		int[][] adjustedBoard;
+
+		testBoard = SudokuGenerator.generateBoard(9);
+		adjustedBoard = BoardAdjuster.adjustForDifficulty(testBoard.clone(),
+				BoardAdjuster.Difficulty.EASY);
+
+		for (int i=1; i< testBoard.length; i++){
+		assertTrue(BoardAdjuster.getTotalUnfilledCellsInRow(adjustedBoard, i) >= 2);
+		assertTrue(BoardAdjuster.getTotalUnfilledCellsInCol(adjustedBoard, i) >= 2);
+		}
+	}
+	
+	@Test
+	public void testEvilHasProperRegionGivens() {
+		
+		//Figure out what's the ceiling ish
+
+		int[][] adjustedBoard;
+
+		testBoard = SudokuGenerator.generateBoard(9);
+		adjustedBoard = BoardAdjuster.adjustForDifficulty(testBoard.clone(),
+				BoardAdjuster.Difficulty.EASY);
+
+		for (int i=1; i< testBoard.length; i++){
+		assertTrue(BoardAdjuster.getTotalUnfilledCellsInRow(adjustedBoard, i) >= 0);
+		assertTrue(BoardAdjuster.getTotalUnfilledCellsInCol(adjustedBoard, i) >= 0);
+		}
+	}
+
 }

@@ -1,5 +1,7 @@
 package Sudoku;
 
+import java.util.HashMap;
+import java.util.Hashtable;
 import java.util.Random;
 
 public class BoardAdjuster {
@@ -8,19 +10,28 @@ public class BoardAdjuster {
 		VERY_EASY, EASY, MEDIUM, DIFFICULT, EVIL;
 	}
 
-	public static final int VERY_EASY_MAX_GIVEN = 70;
-	public static final int VERY_EASY_MIN_GIVEN = 50;
-	public static final int EASY_MAX_GIVEN = 49;
-	public static final int EASY_MIN_GIVEN = 36;
-	public static final int MEDIUM_MAX_GIVEN = 35;
-	public static final int MEDIUM_MIN_GIVEN = 32;
-	public static final int DIFFICULT_MAX_GIVEN = 31;
-	public static final int DIFFICULT_MIN_GIVEN = 28;
-	public static final int EVIL_MAX_GIVEN = 27;
-	public static final int EVIL_MIN_GIVEN = 22;
+	public static final double VERY_EASY_MAX_FACTOR = 7.5;
+	public static final double VERY_EASY_MIN_FACTOR = 6;
+	public static final double EASY_MAX_FACTOR = 5.5;
+	public static final double EASY_MIN_FACTOR = 4.5;
+	public static final double MEDIUM_MAX_FACTOR = 4;
+	public static final double MEDIUM_MIN_FACTOR = 3.5;
+	public static final double DIFFICULT_MAX_FACTOR = 3.5;
+	public static final double DIFFICULT_MIN_FACTOR = 3;
+	public static final double EVIL_MAX_FACTOR = 3;
+	public static final double EVIL_MIN_FACTOR = 2.5;
+	
+	public static final int VERY_EASY_STANDARD_FILL_FLOOR = 5;
+	public static final int EASY_STANDARD_FILL_FLOOR = 4;
+	public static final int MEDIUM_STANDARD_FILL_FLOOR = 3;
+	public static final int DIFFICULT_STANDARD_FILL_FLOOR = 2;
+	public static final int EVIL_STANDARD_FILL_FLOOR = 0;
+	
 
 	public static int[][] adjustForDifficulty(int[][] originalBoard,
 			Difficulty diff) {
+
+		int size = originalBoard.length;
 
 		int[][] newBoard = originalBoard;
 
@@ -28,48 +39,61 @@ public class BoardAdjuster {
 		int givens = 0;
 		int toRemove;
 		int maxBoardCells = originalBoard.length * originalBoard.length;
+		double range;
+		int difficultyRegionFillFloor;
 
 		Random gen = new Random();
 
 		switch (diff) {
 
 		case VERY_EASY:
+			difficultyRegionFillFloor = VERY_EASY_STANDARD_FILL_FLOOR;
+			range = (VERY_EASY_MAX_FACTOR * size)
+					- (VERY_EASY_MIN_FACTOR * size);
 
-			variance = gen.nextInt((VERY_EASY_MAX_GIVEN - VERY_EASY_MIN_GIVEN));
-			givens = VERY_EASY_MIN_GIVEN + variance;
+			variance = gen.nextInt((int) Math.ceil(range));
+			givens = (int) Math.ceil((VERY_EASY_MIN_FACTOR * size)) + variance;
 			break;
 
 		case EASY:
+			difficultyRegionFillFloor = EASY_STANDARD_FILL_FLOOR;
+			range = (EASY_MAX_FACTOR * size) - (EASY_MIN_FACTOR * size);
 
-			variance = gen.nextInt((EASY_MAX_GIVEN - EASY_MIN_GIVEN));
-			givens = EASY_MIN_GIVEN + variance;
+			variance = gen.nextInt((int) Math.ceil(range));
+			givens = (int) Math.ceil((EASY_MIN_FACTOR * size)) + variance;
 			break;
 
 		case MEDIUM:
+			difficultyRegionFillFloor = MEDIUM_STANDARD_FILL_FLOOR;
+			range = (MEDIUM_MAX_FACTOR * size) - (MEDIUM_MIN_FACTOR * size);
 
-			variance = gen.nextInt((MEDIUM_MAX_GIVEN - MEDIUM_MIN_GIVEN));
-			givens = MEDIUM_MIN_GIVEN + variance;
+			variance = gen.nextInt((int) Math.ceil(range));
+			givens = (int) Math.ceil((MEDIUM_MIN_FACTOR * size)) + variance;
 			break;
 
 		case DIFFICULT:
+			difficultyRegionFillFloor = DIFFICULT_STANDARD_FILL_FLOOR;
+			range = (DIFFICULT_MAX_FACTOR * size)
+					- (DIFFICULT_MIN_FACTOR * size);
 
-			variance = gen.nextInt((DIFFICULT_MAX_GIVEN - DIFFICULT_MIN_GIVEN));
-			givens = DIFFICULT_MIN_GIVEN + variance;
+			variance = gen.nextInt((int) Math.ceil(range));
+			givens = (int) Math.ceil((DIFFICULT_MIN_FACTOR * size)) + variance;
 			break;
 
 		case EVIL:
+			difficultyRegionFillFloor = EVIL_STANDARD_FILL_FLOOR;
+			range = (EVIL_MAX_FACTOR * size) - (EVIL_MIN_FACTOR * size);
 
-			variance = gen.nextInt((EVIL_MAX_GIVEN - EVIL_MIN_GIVEN));
-			givens = EVIL_MIN_GIVEN + variance;
-			
+			variance = gen.nextInt((int) Math.ceil(range));
+			givens = (int) Math.ceil((EVIL_MIN_FACTOR * size)) + variance;
 
 		}
 
 		toRemove = maxBoardCells - givens;
 
 		while (toRemove > 0) {
-			int i = gen.nextInt(originalBoard.length - 1);
-			int j = gen.nextInt(originalBoard.length - 1);
+			int i = gen.nextInt(size - 1);
+			int j = gen.nextInt(size - 1);
 
 			if (newBoard[i][j] != 0) {
 				newBoard[i][j] = 0;
@@ -78,23 +102,60 @@ public class BoardAdjuster {
 			}
 			toRemove--;
 		}
+		
+		HashMap<Integer, Integer> fillsRows = new HashMap<Integer, Integer>();
+		fillsRows = initializeMap(fillsRows, size);
+		
+		HashMap<Integer, Integer> fillsCols = new HashMap<Integer, Integer>();
+		fillsCols = initializeMap(fillsCols, size);
+		
+		while (toRemove > 0) {
+			
+		}
 
 		return newBoard;
 
 	}
-	
-	public static int getTotalUnfilledCells(int[][] board){
-		int count = 0;
+
+	private static HashMap<Integer, Integer> initializeMap(HashMap<Integer, Integer> fills, int size) {
+		HashMap<Integer, Integer> init = fills;
+		init.put(1, size);
+		init.put(2, size);
+		init.put(3, size);
+		init.put(4, size);
+		init.put(5, size);
+		init.put(6, size);
+		init.put(7, size);
+		init.put(8, size);
+		init.put(9, size);
 		
-		for (int i = 0; i<board.length;i++){
-			for (int j = 0; j<board.length;j++){
-				if (board[i][j] == 0){
+		return init;
+	}
+
+	
+
+	public static int getTotalUnfilledCells(int[][] board) {
+		int count = 0;
+
+		for (int i = 0; i < board.length; i++) {
+			for (int j = 0; j < board.length; j++) {
+				if (board[i][j] == 0) {
 					count++;
 				}
 			}
 		}
-		
+
 		return count;
+	}
+
+	public static boolean getTotalUnfilledCellsInRow(int[][] adjustedBoard, int i) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	public static boolean getTotalUnfilledCellsInCol(int[][] adjustedBoard, int i) {
+		// TODO Auto-generated method stub
+		return false;
 	}
 
 }
