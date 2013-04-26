@@ -5,6 +5,8 @@ import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
+import java.util.Locale;
+import java.util.ResourceBundle;
 
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
@@ -18,62 +20,66 @@ import javax.swing.JPanel;
 
 public class SudokuFrame extends JFrame {
 
-	private ISudokuBoard currentBoard;	
+	private ISudokuBoard currentBoard;
 	private int[][] completedBoard;
 	private SudokuComponent sudokuComponent;
-	
-	public SudokuFrame() {
+	public ResourceBundle bundle;
+
+	public SudokuFrame(String language, String country) {
 		this.setLayout(new BorderLayout());
+		Locale loc = new Locale(language, country);
+		this.bundle = ResourceBundle.getBundle("MessagesBundle", loc);
+
 		getNewBoard();
 		if (this.currentBoard == null) {
-			System.out.println("There was an error creating the board");
+			System.out.println(this.bundle.getString("board_create_error"));
 			System.exit(-1);
 		}
-		
+
 		this.setSize(1000, 1000);
-		
+
 		addMenuBar();
-		
+
 		this.setVisible(true);
-		
+
 		this.setDefaultCloseOperation(EXIT_ON_CLOSE);
 	}
 
 	private void addMenuBar() {
 		JMenuBar menubar = new JMenuBar();
-		
-		JMenu file = new JMenu("File");
-		
-		JMenuItem newGame = new JMenuItem("New Game");
+
+		JMenu file = new JMenu(this.bundle.getString("file"));
+
+		JMenuItem newGame = new JMenuItem(this.bundle.getString("new_game"));
 		newGame.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent event) {
 				getNewBoard();
 			}
 		});
-		
-		JMenuItem exitOption = new JMenuItem("Exit");
+
+		JMenuItem exitOption = new JMenuItem(this.bundle.getString("exit"));
 		exitOption.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent event){
+			public void actionPerformed(ActionEvent event) {
 				System.exit(0);
 			}
 		});
-		
-		JMenu help = new JMenu("Help");
-		
-		JMenuItem getOne = new JMenuItem("Hint");
-		
-		JMenuItem getAll = new JMenuItem("I Give Up");
-		
-		getOne.addActionListener(new ActionListener(){
+
+		JMenu help = new JMenu(this.bundle.getString("help"));
+
+		JMenuItem getOne = new JMenuItem(this.bundle.getString("hint"));
+
+		JMenuItem getAll = new JMenuItem(this.bundle.getString("give_up"));
+
+		getOne.addActionListener(new ActionListener() {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				sudokuComponent.giveAnswerToSelectedCell(completedBoard);
 				currentBoard.setConflictingCellsToInvalid();
 			}
-			
+
 		});
-		
+
 		getAll.addActionListener(new ActionListener() {
 
 			@Override
@@ -82,9 +88,9 @@ public class SudokuFrame extends JFrame {
 				sudokuComponent.giveAllAnswersToCells(completedBoard);
 				currentBoard.setConflictingCellsToInvalid();
 			}
-			
+
 		});
-		
+
 		file.add(newGame);
 		file.add(exitOption);
 		help.add(getOne);
@@ -93,24 +99,34 @@ public class SudokuFrame extends JFrame {
 		menubar.add(help);
 		this.setJMenuBar(menubar);
 	}
-	
+
 	private void getNewBoard() {
-		String[] boards = {"Standard"};
-		String[] difficulties = {"Simple", "Easy", "Medium", "Difficult", "Evil"};
+		String[] boards = { this.bundle.getString("standard") };
+		String[] difficulties = { this.bundle.getString("simple"),
+				this.bundle.getString("easy"), this.bundle.getString("medium"),
+				this.bundle.getString("difficult"),
+				this.bundle.getString("evil") };
 		JComboBox boardTypes = new JComboBox(boards);
 		JComboBox difficultiesList = new JComboBox(difficulties);
-		
+
 		JPanel myPanel = new JPanel();
 		myPanel.add(boardTypes);
 		myPanel.add(difficultiesList);
-		
-		int result = JOptionPane.showConfirmDialog(null, myPanel, "Please Choose Board Type and Difficulty", JOptionPane.OK_CANCEL_OPTION);
-		
+
+		int result = JOptionPane.showConfirmDialog(null, myPanel,
+				this.bundle.getString("choose_board"),
+				JOptionPane.OK_CANCEL_OPTION);
+
 		if (result == JOptionPane.OK_OPTION) {
-			if (boardTypes.getSelectedItem() == "Standard") {
+			if (boardTypes.getSelectedItem() == this.bundle
+					.getString("standard")) {
 				this.completedBoard = SudokuGenerator.generateBoard(9);
-				int[][] adjustedValues = BoardAdjuster.adjustForDifficulty(this.completedBoard, BoardAdjuster.Difficulty.valueOf(((String) difficultiesList.getSelectedItem()).toUpperCase()));
-				ArrayList<CellBlock> singleAdjustedArrayValues = new ArrayList<CellBlock>(81);
+				int[][] adjustedValues = BoardAdjuster.adjustForDifficulty(
+						this.completedBoard, BoardAdjuster.Difficulty
+								.valueOf(((String) difficultiesList
+										.getSelectedItem()).toUpperCase()));
+				ArrayList<CellBlock> singleAdjustedArrayValues = new ArrayList<CellBlock>(
+						81);
 				for (int i = 0; i < 9; i++) {
 					for (int j = 0; j < 9; j++) {
 						CellBlock newCell = new CellBlock();
@@ -118,25 +134,28 @@ public class SudokuFrame extends JFrame {
 						singleAdjustedArrayValues.add(newCell);
 					}
 				}
-				
-				this.currentBoard = new StandardSudokuBoard(singleAdjustedArrayValues);
+
+				this.currentBoard = new StandardSudokuBoard(
+						singleAdjustedArrayValues);
 				this.currentBoard.setConflictingCellsToInvalid();
-				if (this.sudokuComponent!=null){
-				this.remove(this.sudokuComponent);
+				if (this.sudokuComponent != null) {
+					this.remove(this.sudokuComponent);
 				}
 				this.sudokuComponent = new SudokuComponent(this.currentBoard);
 				this.add(this.sudokuComponent, BorderLayout.CENTER);
 				JPanel buttonPanel = new JPanel();
 				for (int i = 0; i < this.currentBoard.size(); i++) {
-					JButton button = new JButton(String.format("%d", i+1));
+					JButton button = new JButton(String.format("%d", i + 1));
 					button.setPreferredSize(new Dimension(50, 80));
 					button.addActionListener(new ActionListener() {
 
 						public void actionPerformed(ActionEvent e) {
-							sudokuComponent.setSelectedCell(Integer.parseInt(((JButton) e.getSource()).getText()));
+							sudokuComponent.setSelectedCell(Integer
+									.parseInt(((JButton) e.getSource())
+											.getText()));
 							currentBoard.setConflictingCellsToInvalid();
 						}
-						
+
 					});
 					buttonPanel.add(button);
 				}
@@ -144,4 +163,5 @@ public class SudokuFrame extends JFrame {
 			}
 		}
 	}
+
 }
