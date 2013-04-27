@@ -45,7 +45,7 @@ public class Sudoku {
 			}
 		}*/
 		
-		StandardSudokuBoard gameBoard = new StandardSudokuBoard(4);
+		StandardSudokuBoard gameBoard = new StandardSudokuBoard(9);
 		gameBoard.populateBoard();
 
 		gameBoard.setConflictingCellsToInvalid();
