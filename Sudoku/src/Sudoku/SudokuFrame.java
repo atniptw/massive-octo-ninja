@@ -32,6 +32,7 @@ public class SudokuFrame extends JFrame {
 	private SudokuComponent sudokuComponent;
 	// Create a file chooser
 	final JFileChooser fc = new JFileChooser();
+	private TimerLabel timerLabel;
 
 	public SudokuFrame() {
 		this.setLayout(new BorderLayout());
@@ -126,6 +127,7 @@ public class SudokuFrame extends JFrame {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				sudokuComponent.giveAnswerToSelectedCell(completedBoard);
+				timerLabel.updateTime(30);
 				currentBoard.setConflictingCellsToInvalid();
 			}
 
@@ -210,6 +212,8 @@ public class SudokuFrame extends JFrame {
 					buttonPanel.add(button);
 				}
 				this.add(buttonPanel, BorderLayout.SOUTH);
+				this.timerLabel = new TimerLabel();
+				this.add(this.timerLabel, BorderLayout.NORTH);
 			}
 		}
 	}
