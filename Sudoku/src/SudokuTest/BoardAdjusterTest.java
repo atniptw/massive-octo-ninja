@@ -15,6 +15,8 @@ import Sudoku.SudokuStandardRegion;
 public class BoardAdjusterTest {
 
 	private int[][] testBoard;
+	
+	
 
 	@Before
 	public void beforeTests() {
@@ -185,7 +187,7 @@ public class BoardAdjusterTest {
 				BoardAdjuster.Difficulty.DIFFICULT);
 
 		assertTrue((testBoard.length * testBoard.length)
-				- BoardAdjuster.getTotalUnfilledCells(adjustedBoard) >= 28
+				- BoardAdjuster.getTotalUnfilledCells(adjustedBoard) >= BoardAdjuster.DIFFICULT_MIN_FACTOR * testBoard.length
 				&& (testBoard.length * testBoard.length)
 						- BoardAdjuster.getTotalUnfilledCells(adjustedBoard) <= 31);
 	}
@@ -212,11 +214,11 @@ public class BoardAdjusterTest {
 		adjustedBoard = BoardAdjuster.adjustForDifficulty(testBoard.clone(),
 				BoardAdjuster.Difficulty.EASY);
 
-		for (int i = 1; i < testBoard.length; i++) {
+		for (int i = 0; i < testBoard.length - 1; i++) {
 			assertTrue(BoardAdjuster.getTotalUnfilledCellsInRow(adjustedBoard,
 					i) >= 5);
-			assertTrue(BoardAdjuster.getTotalUnfilledCellsInCol(adjustedBoard,
-					i) >= 5);
+			//assertTrue(BoardAdjuster.getTotalUnfilledCellsInCol(adjustedBoard,
+					//i) >= 5);
 		}
 	}
 
@@ -271,7 +273,6 @@ public class BoardAdjusterTest {
 	@Test
 	public void testEvilHasProperRegionGivensFloor() {
 
-		// Figure out what's the ceiling ish
 
 		int[][] adjustedBoard;
 
