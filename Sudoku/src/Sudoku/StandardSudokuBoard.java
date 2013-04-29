@@ -6,10 +6,19 @@ import java.util.Random;
 
 public class StandardSudokuBoard implements ISudokuBoard, Serializable {
 
+<<<<<<< HEAD
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 4133396481533243164L;
+=======
+public class StandardSudokuBoard implements ISudokuBoard, Serializable {
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 6299055811179897799L;
+>>>>>>> workingOnGUI
 	ArrayList<SudokuStandardRegion> rows;
 	ArrayList<SudokuStandardRegion> columns;
 	ArrayList<SudokuStandardRegion> innerGrids;

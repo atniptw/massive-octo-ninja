@@ -1,5 +1,6 @@
 package Sudoku;
 
+<<<<<<< HEAD
 import javax.swing.JFrame;
 
 public class Sudoku {
@@ -15,6 +16,9 @@ public class Sudoku {
 //			7, 8, 1, 3, 7, 1, 2, 3, 5, 8, 4, 9, 6, 3, 8, 4, 6, 9, 1, 2, 5, 7,
 //			4, 5, 8, 7, 1, 3, 9, 6, 2, 2, 3, 7, 4, 6, 9, 1, 8, 5, 9, 6, 1, 8,
 //			2, 5, 7, 3, 4 };
+=======
+public class Sudoku {
+>>>>>>> workingOnGUI
 
 	/**
 	 * @param args
@@ -35,6 +39,7 @@ public class Sudoku {
 	 */
 
 	public static void main(String[] args) {
+<<<<<<< HEAD
 		/*ArrayList<CellBlock> blocks = new ArrayList<CellBlock>();
 		int[][] board = SudokuGenerator.generateBoard(9);
 		for (int i = 0; i < 9; i++) {
@@ -55,5 +60,10 @@ public class Sudoku {
 		frame.setSize(500, 500);
 		frame.add(new SudokuComponent(gameBoard));
 		frame.setVisible(true);
+=======
+
+		SudokuFrame frame = new SudokuFrame(args[0], args[1]);
+
+>>>>>>> workingOnGUI
 	}
 }
