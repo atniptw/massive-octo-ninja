@@ -31,7 +31,7 @@ public class SudokuFrame extends JFrame {
 	 */
 	private static final long serialVersionUID = -37081277569169971L;
 	private ISudokuBoard currentBoard;
-	private int[][] completedBoard;
+	private StandardSudokuBoard completedBoard;
 	private SudokuComponent sudokuComponent;
 	public ResourceBundle bundle;
 
@@ -196,7 +196,7 @@ public class SudokuFrame extends JFrame {
 		if (result == JOptionPane.OK_OPTION) {
 			if (boardTypes.getSelectedItem() == this.bundle
 					.getString("standard")) {
-				this.completedBoard = SudokuGenerator.generateBoard(9);
+				this.completedBoard = new StandardSudokuBoard(9);
 				int[][] adjustedValues = BoardAdjuster.adjustForDifficulty(
 						this.completedBoard, (String) difficultiesList
 										.getSelectedItem(), this.bundle);
@@ -210,8 +210,7 @@ public class SudokuFrame extends JFrame {
 					}
 				}
 
-				this.currentBoard = new StandardSudokuBoard(
-						singleAdjustedArrayValues);
+				this.currentBoard = new StandardSudokuBoard(9);
 				this.currentBoard.setConflictingCellsToInvalid();
 				if (this.sudokuComponent != null) {
 					this.remove(this.sudokuComponent);

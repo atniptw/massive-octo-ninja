@@ -1,5 +1,6 @@
 package Sudoku;
 
+import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.GridLayout;
 import java.awt.event.MouseEvent;
@@ -89,22 +90,21 @@ public class SudokuComponent extends JComponent {
 		this.selectedComponent.setValue(value);
 	}
 
-	public void giveAnswerToSelectedCell(int[][] completedBoard) {
+	public void giveAnswerToSelectedCell(ISudokuBoard completedBoard) {
 		for (int i = 0; i < this.currentBoard.size(); i++) {
 			for (int j = 0; j < this.currentBoard.size(); j++) {
 				if (this.currentBoard.getCell(i, j) == this.selectedComponent.cell){
-					this.selectedComponent.setValue(completedBoard[i][j]);
+					this.selectedComponent.setValue(completedBoard.getCell(i, j).getAnswer());
 					this.selectedComponent.setGiven(true);
 				}
 			}
 		}
 	}
 
-	public void giveAllAnswersToCells(int[][] completedBoard) {
+	public void giveAllAnswersToCells(ISudokuBoard completedBoard) {
 		for (int i = 0; i < this.currentBoard.size(); i++) {
 			for (int j = 0; j < this.currentBoard.size(); j++) {
-				this.componentList[i][j].setValue(completedBoard[i][j]);
-				System.out.println(completedBoard[i][j]);
+				this.componentList[i][j].setValue(completedBoard.getCell(i, j).getAnswer());
 				this.componentList[i][j].repaint();
 			}
 		}
