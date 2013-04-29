@@ -5,7 +5,6 @@ import java.awt.Font;
 import java.awt.Graphics;
 
 import javax.swing.JComponent;
-import javax.swing.JPanel;
 
 @SuppressWarnings("serial")
 public class CellComponent extends JComponent {

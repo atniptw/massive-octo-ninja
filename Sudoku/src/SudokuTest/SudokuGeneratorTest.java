@@ -13,6 +13,7 @@ import Sudoku.CellBlock;
 import Sudoku.SudokuGenerator;
 import Sudoku.SudokuStandardRegion;
 
+@SuppressWarnings("deprecation")
 public class SudokuGeneratorTest {
 
 	private static int[][] gameBoard;

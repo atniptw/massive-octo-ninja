@@ -13,7 +13,6 @@ import Sudoku.CellBlock;
 import Sudoku.StandardSudokuBoard;
 import org.junit.Before;
 import Sudoku.SudokuStandardRegion;
-import Sudoku.BoardAdjuster.Difficulty;
 
 public class BoardAdjusterTest {
 

@@ -1,7 +1,5 @@
 package Sudoku;
 
-import javax.swing.JFrame;
-
 public class Sudoku {
 
 	/**
