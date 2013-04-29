@@ -26,82 +26,45 @@ public class SudokuBoardTest {
 			{ 3, 8, 4, 6, 9, 1, 2, 5, 7 }, { 4, 5, 8, 7, 1, 3, 9, 6, 2 },
 			{ 2, 3, 7, 4, 6, 9, 1, 8, 5 }, { 9, 6, 1, 8, 2, 5, 7, 3, 4 } };
 
-	// private void makeRegionsFromBlockArray(ArrayList<CellBlock> boardCells) {
-	// this.rows = new ArrayList<SudokuStandardRegion>();
-	// this.columns = new ArrayList<SudokuStandardRegion>();
-	// this.innerGrids = new ArrayList<SudokuStandardRegion>();
-	// for (int i = 0; i < 9; i++) {
-	// ArrayList<CellBlock> rowTemp = new ArrayList<CellBlock>();
-	// for (int j = 0; j < 9; j++) {
-	// rowTemp.add(boardCells.get((i * 9) + j));
-	// }
-	// this.rows.add(new SudokuStandardRegion(rowTemp));
-	// }
-	//
-	// for (int i = 0; i < 9; i++) {
-	// ArrayList<CellBlock> columnTemp = new ArrayList<CellBlock>();
-	// for (int j = 0; j < 9; j++) {
-	// columnTemp.add(boardCells.get(i + (j * 9)));
-	// }
-	// this.columns.add(new SudokuStandardRegion(columnTemp));
-	// }
-	//
-	// ArrayList<CellBlock> gridTemp1 = new ArrayList<CellBlock>();
-	// ArrayList<CellBlock> gridTemp2 = new ArrayList<CellBlock>();
-	// ArrayList<CellBlock> gridTemp3 = new ArrayList<CellBlock>();
-	// for (int i = 0; i < 9; i++) {
-	// if (i % 3 == 0) {
-	// gridTemp1 = new ArrayList<CellBlock>();
-	// gridTemp2 = new ArrayList<CellBlock>();
-	// gridTemp3 = new ArrayList<CellBlock>();
-	// }
-	// for (int j = 0; j < 9; j++) {
-	// if (Math.floor(j / 3) == 0) {
-	// gridTemp1.add(boardCells.get(i * 9 + j));
-	// }
-	// if (Math.floor(j / 3) == 1) {
-	// gridTemp2.add(boardCells.get(i * 9 + j));
-	// }
-	// if (Math.floor(j / 3) == 2) {
-	// gridTemp3.add(boardCells.get(i * 9 + j));
-	// }
-	//
-	// }
-	// if ((i + 1) % 3 == 0) {
-	// this.innerGrids.add(new SudokuStandardRegion(gridTemp1));
-	// this.innerGrids.add(new SudokuStandardRegion(gridTemp2));
-	// this.innerGrids.add(new SudokuStandardRegion(gridTemp3));
-	// }
-	// }
-	// }
-
-	// @Before
-	// public void beforeTests() {
-	// this.blocks = new ArrayList<CellBlock>();
-	// for (int value : solvedBoard) {
-	// CellBlock temp = new CellBlock();
-	// temp.setAnswer(value);
-	// blocks.add(temp);
-	// }
-	// makeRegionsFromBlockArray(this.blocks);
-	// }
-
 	@Test
 	public void testTableInitializesWhenGivenRegions() {
 
 		assertNotNull(new StandardSudokuBoard(SIZE));
 	}
 
+	@Test(expected = IllegalArgumentException.class)
+	public void testBoardThrowsExceptionWhenNotPerfectSquareSize() {
+		new StandardSudokuBoard(10);
+	}
+
 	@Test
 	public void testTableIsValidReturnsTrueWhenValid() {
 
-		StandardSudokuBoard game = new StandardSudokuBoard(9);
+		StandardSudokuBoard game = new StandardSudokuBoard(SIZE);
 		for (int i = 0; i < SIZE; i++) {
 			for (int j = 0; j < SIZE; j++) {
 				game.setAnswer(i, j, solvedBoard[i][j]);
 			}
 		}
 		assertTrue(game.isValid());
+	}
+
+	@Test
+	public void testTableStoresFullSolution() {
+		StandardSudokuBoard game = new StandardSudokuBoard(SIZE);
+		game.populateBoard();
+
+		int[][] beforeSolution = game.getBoardSolution();
+		
+		game.setAnswer(0, 0, 0);
+
+		int[][] afterSolution = game.getBoardSolution();
+		
+		for (int i = 0; i < SIZE; i++) {
+			for (int j = 0; j < SIZE; j++) {
+				assertEquals(beforeSolution[i][j], afterSolution[i][j]);
+			}
+		}
 	}
 
 	@Test
@@ -140,7 +103,7 @@ public class SudokuBoardTest {
 	@Test
 	public void testConflictingCellsToInvalidMarksConflictingCellsInvalid() {
 
-		StandardSudokuBoard game = new StandardSudokuBoard(9);
+		StandardSudokuBoard game = new StandardSudokuBoard(SIZE);
 		for (int i = 0; i < SIZE; i++) {
 			for (int j = 0; j < SIZE; j++) {
 				game.setAnswer(i, j, solvedBoard[i][j]);
@@ -158,6 +121,12 @@ public class SudokuBoardTest {
 		assertFalse(game.getCell(6, 0).getIsValid());
 
 		assertFalse(game.getCell(1, 1).getIsValid());
+	}
+	
+	@Test
+	public void testBoardSize(){
+		StandardSudokuBoard game = new StandardSudokuBoard(SIZE);
+		assertEquals(SIZE, game.size());
 	}
 
 }
