@@ -32,7 +32,7 @@ public class BoardAdjuster {
 			String diff, ResourceBundle bundle) {
 
 
-		int size = originalBoard.getBoardSolution().length;
+		int size = originalBoard.size();
 
 		int[][] newBoard = new int[size][size];
 

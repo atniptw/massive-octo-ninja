@@ -198,6 +198,7 @@ public class SudokuFrame extends JFrame {
 			if (boardTypes.getSelectedItem() == this.bundle
 					.getString("standard")) {
 				this.completedBoard = new StandardSudokuBoard(9);
+				this.completedBoard.populateBoard();
 				int[][] adjustedValues = BoardAdjuster.adjustForDifficulty(
 						this.completedBoard,
 						(String) difficultiesList.getSelectedItem(),
