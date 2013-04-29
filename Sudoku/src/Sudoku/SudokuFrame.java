@@ -213,7 +213,7 @@ public class SudokuFrame extends JFrame {
 					}
 				}
 
-				this.currentBoard = new StandardSudokuBoard(9);
+				this.currentBoard = new StandardSudokuBoard(singleAdjustedArrayValues, this.completedBoard.getBoardSolution());
 				this.currentBoard.setConflictingCellsToInvalid();
 				if (this.sudokuComponent != null) {
 					this.remove(this.sudokuComponent);

@@ -31,6 +31,15 @@ public class StandardSudokuBoard implements ISudokuBoard, Serializable {
 
 		initStandardSudokuBoard(region);
 	}
+	
+	public StandardSudokuBoard(ArrayList<CellBlock> values, int[][] answers) {
+		ArrayList<CellBlock> region = new ArrayList<CellBlock>();
+		for (int i = 0; i < SIZE * SIZE; i++) {
+			region.add(new CellBlock());
+		}
+
+		initStandardSudokuBoard(region);
+	}
 
 	public StandardSudokuBoard(int size, StandardSudokuBoard orig) {
 		// Used for cloning, no regular initialization needed
