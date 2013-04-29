@@ -198,7 +198,7 @@ public class SudokuFrame extends JFrame {
 					.getString("standard")) {
 				this.completedBoard = new StandardSudokuBoard(9);
 				int[][] adjustedValues = BoardAdjuster.adjustForDifficulty(
-						this.completedBoard, (String) difficultiesList
+						this.completedBoard.getBoardSolution(), (String) difficultiesList
 										.getSelectedItem(), this.bundle);
 				ArrayList<CellBlock> singleAdjustedArrayValues = new ArrayList<CellBlock>(
 						81);
