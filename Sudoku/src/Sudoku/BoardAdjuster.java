@@ -98,15 +98,17 @@ public class BoardAdjuster {
 		fillsCols = initializeMap(fillsCols, size);
 
 		while (toRemove > 0) {
-			int i = gen.nextInt(size - 1);
-			int j = gen.nextInt(size - 1);
+			int i = gen.nextInt(size);
+			int j = gen.nextInt(size);
 
 			if (newBoard[i][j] != 0
 					&& fillsRows.get(i) > difficultyRegionFillFloor
 					&& fillsCols.get(j) > difficultyRegionFillFloor) {
 				newBoard[i][j] = 0;
-				fillsRows.put(i, fillsRows.get(i) - 1);
-				fillsCols.put(j, fillsCols.get(j) - 1);
+				int tempRow = fillsRows.get(i);
+				int tempCol = fillsCols.get(j);
+				fillsRows.put(i, tempRow - 1);
+				fillsCols.put(j, tempCol - 1);
 			} else {
 				continue;
 			}
@@ -169,6 +171,14 @@ public class BoardAdjuster {
 			}
 		}
 		return count;
+	}
+	
+	public static int getTotalGivensInRow(int[][] adjustedBoard, int i, int size){
+		return size - getTotalUnfilledCellsInRow(adjustedBoard, i);
+	}
+	
+	public static int getTotalGivensInCol(int[][] adjustedBoard, int i, int size){
+		return size - getTotalUnfilledCellsInCol(adjustedBoard, i);
 	}
 
 }
