@@ -10,6 +10,8 @@ import java.io.FileOutputStream;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.util.ArrayList;
+import java.util.Locale;
+import java.util.ResourceBundle;
 
 import javax.swing.JButton;
 import javax.swing.JComboBox;
@@ -30,14 +32,20 @@ public class SudokuFrame extends JFrame {
 	private ISudokuBoard currentBoard;
 	private int[][] completedBoard;
 	private SudokuComponent sudokuComponent;
+	public ResourceBundle bundle;
+
 	// Create a file chooser
 	final JFileChooser fc = new JFileChooser();
 
-	public SudokuFrame() {
+	public SudokuFrame(String language, String country) {
+
 		this.setLayout(new BorderLayout());
+		Locale loc = new Locale(language, country);
+		this.bundle = ResourceBundle.getBundle("MessagesBundle", loc);
+
 		getNewBoard();
 		if (this.currentBoard == null) {
-			System.out.println("There was an error creating the board");
+			System.out.println(this.bundle.getString("board_create_error"));
 			System.exit(-1);
 		}
 
@@ -53,15 +61,17 @@ public class SudokuFrame extends JFrame {
 	private void addMenuBar() {
 		JMenuBar menubar = new JMenuBar();
 
-		JMenu file = new JMenu("File");
+		JMenu file = new JMenu(this.bundle.getString("file"));
 
-		JMenuItem newGame = new JMenuItem("New Game");
+		JMenuItem newGame = new JMenuItem(this.bundle.getString("new_game"));
+
 		newGame.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent event) {
 				getNewBoard();
 			}
 		});
 
+		// TODO String Refactoring Here:
 		JMenuItem openGame = new JMenuItem("Open Game");
 		openGame.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent event) {
@@ -72,12 +82,13 @@ public class SudokuFrame extends JFrame {
 						File file = fc.getSelectedFile();
 						FileInputStream fin = new FileInputStream(file);
 						ObjectInputStream ois = new ObjectInputStream(fin);
-						ISudokuBoard openBoard = (ISudokuBoard) ois.readObject();
+						ISudokuBoard openBoard = (ISudokuBoard) ois
+								.readObject();
 						ois.close();
 						currentBoard = openBoard;
-						//invalidate();
-						//validate();
-						//repaint();
+						// invalidate();
+						// validate();
+						// repaint();
 						System.out.print(openBoard.getAnswer(0, 2));
 						System.out.print(currentBoard.getAnswer(0, 2));
 
@@ -88,38 +99,40 @@ public class SudokuFrame extends JFrame {
 			}
 		});
 
+		// TODO String Refactoring Here:
 		JMenuItem saveGame = new JMenuItem("Save Game");
 		saveGame.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent event) {
 				int returnVal = fc.showSaveDialog(SudokuFrame.this);
-				if(returnVal == fc.APPROVE_OPTION){
-					   try{
-						   File file = fc.getSelectedFile();
-							FileOutputStream fout = new FileOutputStream(file);
-							ObjectOutputStream oos = new ObjectOutputStream(fout);   
-							oos.writeObject(currentBoard);
-							oos.close();
-							System.out.println("Done");
-					 
-						   }catch(Exception ex){
-							   ex.printStackTrace();
-						   }
+				if (returnVal == fc.APPROVE_OPTION) {
+					try {
+						File file = fc.getSelectedFile();
+						FileOutputStream fout = new FileOutputStream(file);
+						ObjectOutputStream oos = new ObjectOutputStream(fout);
+						oos.writeObject(currentBoard);
+						oos.close();
+						System.out.println("Done");
+
+					} catch (Exception ex) {
+						ex.printStackTrace();
+					}
 				}
 			}
 		});
 
-		JMenuItem exitOption = new JMenuItem("Exit");
+		JMenuItem exitOption = new JMenuItem(this.bundle.getString("exit"));
+
 		exitOption.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent event) {
 				System.exit(0);
 			}
 		});
 
-		JMenu help = new JMenu("Help");
+		JMenu help = new JMenu(this.bundle.getString("help"));
 
-		JMenuItem getOne = new JMenuItem("Hint");
+		JMenuItem getOne = new JMenuItem(this.bundle.getString("hint"));
 
-		JMenuItem getAll = new JMenuItem("I Give Up");
+		JMenuItem getAll = new JMenuItem(this.bundle.getString("give_up"));
 
 		getOne.addActionListener(new ActionListener() {
 
@@ -154,9 +167,16 @@ public class SudokuFrame extends JFrame {
 	}
 
 	private void getNewBoard() {
-		String[] boards = { "Standard" };
+
+		String[] boards = { this.bundle.getString("standard") };
+		// TODO This used to break it, not sure if it still does. Sorry!
+		// String[] difficulties = { this.bundle.getString("simple"),
+		// this.bundle.getString("easy"), this.bundle.getString("medium"),
+		// this.bundle.getString("difficult"),
+		// this.bundle.getString("evil") };
 		String[] difficulties = { "Simple", "Easy", "Medium", "Difficult",
 				"Evil" };
+
 		JComboBox boardTypes = new JComboBox(boards);
 		JComboBox difficultiesList = new JComboBox(difficulties);
 
@@ -165,11 +185,14 @@ public class SudokuFrame extends JFrame {
 		myPanel.add(difficultiesList);
 
 		int result = JOptionPane.showConfirmDialog(null, myPanel,
-				"Please Choose Board Type and Difficulty",
-				JOptionPane.OK_CANCEL_OPTION);
+
+		this.bundle.getString("choose_board"),
+
+		JOptionPane.OK_CANCEL_OPTION);
 
 		if (result == JOptionPane.OK_OPTION) {
-			if (boardTypes.getSelectedItem() == "Standard") {
+			if (boardTypes.getSelectedItem() == this.bundle
+					.getString("standard")) {
 				this.completedBoard = SudokuGenerator.generateBoard(9);
 				int[][] adjustedValues = BoardAdjuster.adjustForDifficulty(
 						this.completedBoard, BoardAdjuster.Difficulty
@@ -213,4 +236,5 @@ public class SudokuFrame extends JFrame {
 			}
 		}
 	}
+
 }
