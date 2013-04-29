@@ -1,11 +1,16 @@
 package Sudoku;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Iterator;
 
-public class SudokuStandardRegion implements ISudokuRegion {
+public class SudokuStandardRegion implements ISudokuRegion, Serializable {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 9210837826418213561L;
 	ArrayList<CellBlock> region;
 
 	public SudokuStandardRegion(ArrayList<CellBlock> regionList) {

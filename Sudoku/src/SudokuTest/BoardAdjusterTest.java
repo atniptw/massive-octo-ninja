@@ -3,6 +3,8 @@ package SudokuTest;
 import static org.junit.Assert.*;
 
 import java.util.ArrayList;
+import java.util.Locale;
+import java.util.ResourceBundle;
 
 import org.junit.Test;
 
@@ -17,6 +19,7 @@ public class BoardAdjusterTest {
 
 	private StandardSudokuBoard testBoard;
 	private int size;
+	public ResourceBundle bundle;
 
 	public static final int STANDARD_SIZE = 9;
 
@@ -24,7 +27,10 @@ public class BoardAdjusterTest {
 	public void beforeTests() {
 		this.testBoard = new StandardSudokuBoard(STANDARD_SIZE);
 		this.testBoard.populateBoard();
-		this.size = testBoard.getBoardAnswer().length;
+		this.size = testBoard.getBoardSolution().length;
+
+		Locale loc = new Locale("en", "US");
+		this.bundle = ResourceBundle.getBundle("MessagesBundle", loc);
 	}
 
 	@Test
@@ -33,7 +39,8 @@ public class BoardAdjusterTest {
 		int[][] adjustedBoard;
 
 		adjustedBoard = BoardAdjuster.adjustForDifficulty(
-				testBoard.getBoardAnswer(), BoardAdjuster.Difficulty.VERY_EASY);
+				StandardSudokuBoard.boardClone(testBoard),
+				BoardAdjuster.Difficulty.SIMPLE);
 
 		SudokuStandardRegion region;
 		for (int i = 0; i < 9; i++) {
@@ -56,7 +63,8 @@ public class BoardAdjusterTest {
 		int[][] adjustedBoard;
 
 		adjustedBoard = BoardAdjuster.adjustForDifficulty(
-				testBoard.getBoardAnswer(), BoardAdjuster.Difficulty.EASY);
+				StandardSudokuBoard.boardClone(testBoard),
+				BoardAdjuster.Difficulty.EASY);
 
 		SudokuStandardRegion region;
 		for (int i = 0; i < 9; i++) {
@@ -79,7 +87,8 @@ public class BoardAdjusterTest {
 		int[][] adjustedBoard;
 
 		adjustedBoard = BoardAdjuster.adjustForDifficulty(
-				testBoard.getBoardAnswer(), BoardAdjuster.Difficulty.MEDIUM);
+				StandardSudokuBoard.boardClone(testBoard),
+				BoardAdjuster.Difficulty.MEDIUM);
 
 		SudokuStandardRegion region;
 		for (int i = 0; i < 9; i++) {
@@ -102,7 +111,8 @@ public class BoardAdjusterTest {
 		int[][] adjustedBoard;
 
 		adjustedBoard = BoardAdjuster.adjustForDifficulty(
-				testBoard.getBoardAnswer(), BoardAdjuster.Difficulty.DIFFICULT);
+				StandardSudokuBoard.boardClone(testBoard),
+				BoardAdjuster.Difficulty.DIFFICULT);
 
 		SudokuStandardRegion region;
 		for (int i = 0; i < 9; i++) {
@@ -125,7 +135,8 @@ public class BoardAdjusterTest {
 		int[][] adjustedBoard;
 
 		adjustedBoard = BoardAdjuster.adjustForDifficulty(
-				testBoard.getBoardAnswer(), BoardAdjuster.Difficulty.EVIL);
+				StandardSudokuBoard.boardClone(testBoard),
+				BoardAdjuster.Difficulty.EVIL);
 
 		SudokuStandardRegion region;
 		for (int i = 0; i < 9; i++) {
@@ -148,10 +159,10 @@ public class BoardAdjusterTest {
 		int[][] adjustedBoard;
 
 		adjustedBoard = BoardAdjuster.adjustForDifficulty(
-				testBoard.getBoardAnswer(), BoardAdjuster.Difficulty.VERY_EASY);
+				StandardSudokuBoard.boardClone(testBoard),
+				bundle.getString("simple"), bundle);
 
-		assertTrue((size * testBoard
-				.getBoardAnswer().length)
+		assertTrue((size * size)
 				- BoardAdjuster.getTotalUnfilledCells(adjustedBoard) >= 50);
 	}
 
@@ -161,13 +172,12 @@ public class BoardAdjusterTest {
 		int[][] adjustedBoard;
 
 		adjustedBoard = BoardAdjuster.adjustForDifficulty(
-				testBoard.getBoardAnswer(), BoardAdjuster.Difficulty.EASY);
+				StandardSudokuBoard.boardClone(testBoard),
+				bundle.getString("easy"), bundle);
 
-		assertTrue((size * testBoard
-				.getBoardAnswer().length)
+		assertTrue((size * size)
 				- BoardAdjuster.getTotalUnfilledCells(adjustedBoard) >= 36
-				&& (size * testBoard
-						.getBoardAnswer().length)
+				&& (size * size)
 						- BoardAdjuster.getTotalUnfilledCells(adjustedBoard) <= 49);
 	}
 
@@ -177,13 +187,12 @@ public class BoardAdjusterTest {
 		int[][] adjustedBoard;
 
 		adjustedBoard = BoardAdjuster.adjustForDifficulty(
-				testBoard.getBoardAnswer(), BoardAdjuster.Difficulty.MEDIUM);
+				StandardSudokuBoard.boardClone(testBoard),
+				bundle.getString("medium"), bundle);
 
-		assertTrue((size * testBoard
-				.getBoardAnswer().length)
+		assertTrue((size * size)
 				- BoardAdjuster.getTotalUnfilledCells(adjustedBoard) >= 32
-				&& (size * testBoard
-						.getBoardAnswer().length)
+				&& (size * size)
 						- BoardAdjuster.getTotalUnfilledCells(adjustedBoard) <= 35);
 	}
 
@@ -193,14 +202,13 @@ public class BoardAdjusterTest {
 		int[][] adjustedBoard;
 
 		adjustedBoard = BoardAdjuster.adjustForDifficulty(
-				testBoard.getBoardAnswer(), BoardAdjuster.Difficulty.DIFFICULT);
+				StandardSudokuBoard.boardClone(testBoard),
+				bundle.getString("difficult"), bundle);
 
-		assertTrue((size * testBoard
-				.getBoardAnswer().length)
+		assertTrue((size * size)
 				- BoardAdjuster.getTotalUnfilledCells(adjustedBoard) >= BoardAdjuster.DIFFICULT_MIN_FACTOR
 				* size
-				&& (size * testBoard
-						.getBoardAnswer().length)
+				&& (size * size)
 						- BoardAdjuster.getTotalUnfilledCells(adjustedBoard) <= 31);
 	}
 
@@ -210,13 +218,12 @@ public class BoardAdjusterTest {
 		int[][] adjustedBoard;
 
 		adjustedBoard = BoardAdjuster.adjustForDifficulty(
-				testBoard.getBoardAnswer(), BoardAdjuster.Difficulty.EVIL);
+				StandardSudokuBoard.boardClone(testBoard),
+				bundle.getString("evil"), bundle);
 
-		assertTrue((size * testBoard
-				.getBoardAnswer().length)
+		assertTrue((size * size)
 				- BoardAdjuster.getTotalUnfilledCells(adjustedBoard) >= 22
-				&& (size * testBoard
-						.getBoardAnswer().length)
+				&& (size * size)
 						- BoardAdjuster.getTotalUnfilledCells(adjustedBoard) <= 27);
 	}
 
@@ -226,11 +233,12 @@ public class BoardAdjusterTest {
 		int[][] adjustedBoard;
 
 		adjustedBoard = BoardAdjuster.adjustForDifficulty(
-				testBoard.getBoardAnswer(), BoardAdjuster.Difficulty.VERY_EASY);
+				StandardSudokuBoard.boardClone(testBoard),
+				bundle.getString("simple"), bundle);
 
 		for (int i = 0; i < size - 1; i++) {
-			assertTrue(BoardAdjuster.getTotalGivensInRow(adjustedBoard, i,
-					 size) >= BoardAdjuster.VERY_EASY_STANDARD_FILL_FLOOR);
+			assertTrue(BoardAdjuster
+					.getTotalGivensInRow(adjustedBoard, i, size) >= BoardAdjuster.VERY_EASY_STANDARD_FILL_FLOOR);
 			// assertTrue(BoardAdjuster.getTotalGivensCellsInCol(adjustedBoard,
 			// i, size) >= BoardAdjuster.VERY_EASY_STANDARD_FILL_FLOOR);
 		}
@@ -242,11 +250,14 @@ public class BoardAdjusterTest {
 		int[][] adjustedBoard;
 
 		adjustedBoard = BoardAdjuster.adjustForDifficulty(
-				testBoard.getBoardAnswer(), BoardAdjuster.Difficulty.EASY);
+				StandardSudokuBoard.boardClone(testBoard),
+				bundle.getString("easy"), bundle);
 
 		for (int i = 1; i < size; i++) {
-			assertTrue(BoardAdjuster.getTotalGivensInRow(adjustedBoard, i, size) >= BoardAdjuster.EASY_STANDARD_FILL_FLOOR);
-			assertTrue(BoardAdjuster.getTotalGivensInCol(adjustedBoard, i, size) >= BoardAdjuster.EASY_STANDARD_FILL_FLOOR);
+			assertTrue(BoardAdjuster
+					.getTotalGivensInRow(adjustedBoard, i, size) >= BoardAdjuster.EASY_STANDARD_FILL_FLOOR);
+			assertTrue(BoardAdjuster
+					.getTotalGivensInCol(adjustedBoard, i, size) >= BoardAdjuster.EASY_STANDARD_FILL_FLOOR);
 		}
 	}
 
@@ -256,11 +267,14 @@ public class BoardAdjusterTest {
 		int[][] adjustedBoard;
 
 		adjustedBoard = BoardAdjuster.adjustForDifficulty(
-				testBoard.getBoardAnswer(), BoardAdjuster.Difficulty.MEDIUM);
+				StandardSudokuBoard.boardClone(testBoard),
+				bundle.getString("medium"), bundle);
 
 		for (int i = 1; i < size; i++) {
-			assertTrue(BoardAdjuster.getTotalGivensInRow(adjustedBoard, i, size) >= BoardAdjuster.MEDIUM_STANDARD_FILL_FLOOR);
-			assertTrue(BoardAdjuster.getTotalGivensInCol(adjustedBoard, i, size) >= BoardAdjuster.MEDIUM_STANDARD_FILL_FLOOR);
+			assertTrue(BoardAdjuster
+					.getTotalGivensInRow(adjustedBoard, i, size) >= BoardAdjuster.MEDIUM_STANDARD_FILL_FLOOR);
+			assertTrue(BoardAdjuster
+					.getTotalGivensInCol(adjustedBoard, i, size) >= BoardAdjuster.MEDIUM_STANDARD_FILL_FLOOR);
 		}
 	}
 
@@ -270,11 +284,14 @@ public class BoardAdjusterTest {
 		int[][] adjustedBoard;
 
 		adjustedBoard = BoardAdjuster.adjustForDifficulty(
-				testBoard.getBoardAnswer(), BoardAdjuster.Difficulty.DIFFICULT);
+				StandardSudokuBoard.boardClone(testBoard),
+				bundle.getString("difficult"), bundle);
 
 		for (int i = 1; i < size; i++) {
-			assertTrue(BoardAdjuster.getTotalGivensInRow(adjustedBoard, i, size) >= BoardAdjuster.DIFFICULT_STANDARD_FILL_FLOOR);
-			assertTrue(BoardAdjuster.getTotalGivensInCol(adjustedBoard, i, size) >= BoardAdjuster.DIFFICULT_STANDARD_FILL_FLOOR);
+			assertTrue(BoardAdjuster
+					.getTotalGivensInRow(adjustedBoard, i, size) >= BoardAdjuster.DIFFICULT_STANDARD_FILL_FLOOR);
+			assertTrue(BoardAdjuster
+					.getTotalGivensInCol(adjustedBoard, i, size) >= BoardAdjuster.DIFFICULT_STANDARD_FILL_FLOOR);
 		}
 	}
 
@@ -284,11 +301,14 @@ public class BoardAdjusterTest {
 		int[][] adjustedBoard;
 
 		adjustedBoard = BoardAdjuster.adjustForDifficulty(
-				testBoard.getBoardAnswer(), BoardAdjuster.Difficulty.EVIL);
+				StandardSudokuBoard.boardClone(testBoard),
+				bundle.getString("evil"), bundle);
 
 		for (int i = 1; i < size; i++) {
-			assertTrue(BoardAdjuster.getTotalGivensInRow(adjustedBoard, i, size) >= BoardAdjuster.EVIL_STANDARD_FILL_FLOOR);
-			assertTrue(BoardAdjuster.getTotalGivensInCol(adjustedBoard, i, size) >= BoardAdjuster.EVIL_STANDARD_FILL_FLOOR);
+			assertTrue(BoardAdjuster
+					.getTotalGivensInRow(adjustedBoard, i, size) >= BoardAdjuster.EVIL_STANDARD_FILL_FLOOR);
+			assertTrue(BoardAdjuster
+					.getTotalGivensInCol(adjustedBoard, i, size) >= BoardAdjuster.EVIL_STANDARD_FILL_FLOOR);
 		}
 	}
 

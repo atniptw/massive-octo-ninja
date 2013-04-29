@@ -2,12 +2,14 @@ package Sudoku;
 
 import java.util.HashMap;
 import java.util.Hashtable;
+import java.util.Locale;
 import java.util.Random;
+import java.util.ResourceBundle;
 
 public class BoardAdjuster {
 
 	public enum Difficulty {
-		VERY_EASY, EASY, MEDIUM, DIFFICULT, EVIL;
+		SIMPLE, EASY, MEDIUM, DIFFICULT, EVIL;
 	}
 
 	public static final double VERY_EASY_MAX_FACTOR = 7.5;
@@ -27,59 +29,65 @@ public class BoardAdjuster {
 	public static final int DIFFICULT_STANDARD_FILL_FLOOR = 2;
 	public static final int EVIL_STANDARD_FILL_FLOOR = 0;
 
-	public static int[][] adjustForDifficulty(int[][] originalBoard,
-			Difficulty diff) {
+	public static int[][] adjustForDifficulty(StandardSudokuBoard originalBoard,
+			String diff, ResourceBundle bundle) {
 
-		int size = originalBoard.length;
 
-		int[][] newBoard = originalBoard;
+		int size = originalBoard.getBoardSolution().length;
+
+		int[][] newBoard = new int[size][size];
+
+		for (int i = 0; i < size; i++) {
+			for (int j = 0; j < size; j++) {
+				newBoard[i][j] = originalBoard.getAnswer(i, j);
+			}
+		}
+
 
 		int variance;
 		int givens = 0;
 		int toRemove;
-		int maxBoardCells = originalBoard.length * originalBoard.length;
+		int maxBoardCells = size * size;
 		double range;
 		int difficultyRegionFillFloor = 0;
 
+		String simple = bundle.getString("simple");
+		String easy = bundle.getString("easy");
+		String medium = bundle.getString("medium");
+		String difficult = bundle.getString("difficult");
+		String evil = bundle.getString("evil");
+
+
 		Random gen = new Random();
 
-		switch (diff) {
-
-		case VERY_EASY:
+		if (diff.equals(simple)) {
 			difficultyRegionFillFloor = VERY_EASY_STANDARD_FILL_FLOOR;
 			range = (VERY_EASY_MAX_FACTOR * size)
 					- (VERY_EASY_MIN_FACTOR * size);
 
 			variance = gen.nextInt((int) Math.ceil(range));
 			givens = (int) Math.ceil((VERY_EASY_MIN_FACTOR * size)) + variance;
-			break;
-
-		case EASY:
+		} else if (diff.equals(easy)) {
 			difficultyRegionFillFloor = EASY_STANDARD_FILL_FLOOR;
 			range = (EASY_MAX_FACTOR * size) - (EASY_MIN_FACTOR * size);
 
 			variance = gen.nextInt((int) Math.ceil(range));
 			givens = (int) Math.ceil((EASY_MIN_FACTOR * size)) + variance;
-			break;
-
-		case MEDIUM:
+		} else if (diff.equals(medium)) {
 			difficultyRegionFillFloor = MEDIUM_STANDARD_FILL_FLOOR;
 			range = (MEDIUM_MAX_FACTOR * size) - (MEDIUM_MIN_FACTOR * size);
 
 			variance = gen.nextInt((int) Math.ceil(range));
 			givens = (int) Math.ceil((MEDIUM_MIN_FACTOR * size)) + variance;
-			break;
-
-		case DIFFICULT:
+		} else if (diff.equals(difficult)) {
 			difficultyRegionFillFloor = DIFFICULT_STANDARD_FILL_FLOOR;
 			range = (DIFFICULT_MAX_FACTOR * size)
 					- (DIFFICULT_MIN_FACTOR * size);
 
 			variance = gen.nextInt((int) Math.ceil(range));
 			givens = (int) Math.ceil((DIFFICULT_MIN_FACTOR * size)) + variance;
-			break;
-
-		case EVIL:
+			
+		} else if (diff.equals(evil)) {
 			difficultyRegionFillFloor = EVIL_STANDARD_FILL_FLOOR;
 			range = (EVIL_MAX_FACTOR * size) - (EVIL_MIN_FACTOR * size);
 
@@ -119,6 +127,35 @@ public class BoardAdjuster {
 		return newBoard;
 
 	}
+	
+	public static int[][] adjustForDifficulty(StandardSudokuBoard clone,
+			Difficulty difficult) {
+		
+		Locale loc = new Locale("en", "MX");
+		ResourceBundle bundle = ResourceBundle.getBundle("MessagesBundle", loc);
+		String diff = "";
+		switch(difficult){
+		case SIMPLE:
+			diff = "simple";
+			break;
+		case EASY:
+			diff = "easy";
+			break;
+		case MEDIUM:
+			diff = "medium";
+			break;
+		case DIFFICULT:
+			diff = "difficult";
+			break;
+		case EVIL:
+			diff = "evil";
+			break;
+		}
+			
+		return adjustForDifficulty(clone, diff, bundle);
+
+	}
+
 
 	private static HashMap<Integer, Integer> initializeMap(
 			HashMap<Integer, Integer> fills, int size) {
@@ -136,6 +173,7 @@ public class BoardAdjuster {
 
 		return init;
 	}
+
 
 	public static int getTotalUnfilledCells(int[][] board) {
 		int count = 0;
@@ -180,5 +218,8 @@ public class BoardAdjuster {
 	public static int getTotalGivensInCol(int[][] adjustedBoard, int i, int size){
 		return size - getTotalUnfilledCellsInCol(adjustedBoard, i);
 	}
+	
+	
+	
 
 }
