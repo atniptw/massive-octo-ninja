@@ -20,13 +20,12 @@ public class BoardAdjuster {
 	public static final double DIFFICULT_MIN_FACTOR = 3;
 	public static final double EVIL_MAX_FACTOR = 3;
 	public static final double EVIL_MIN_FACTOR = 2.5;
-	
+
 	public static final int VERY_EASY_STANDARD_FILL_FLOOR = 5;
 	public static final int EASY_STANDARD_FILL_FLOOR = 4;
 	public static final int MEDIUM_STANDARD_FILL_FLOOR = 3;
 	public static final int DIFFICULT_STANDARD_FILL_FLOOR = 2;
 	public static final int EVIL_STANDARD_FILL_FLOOR = 0;
-	
 
 	public static int[][] adjustForDifficulty(int[][] originalBoard,
 			Difficulty diff) {
@@ -40,7 +39,7 @@ public class BoardAdjuster {
 		int toRemove;
 		int maxBoardCells = originalBoard.length * originalBoard.length;
 		double range;
-		int difficultyRegionFillFloor;
+		int difficultyRegionFillFloor = 0;
 
 		Random gen = new Random();
 
@@ -91,34 +90,38 @@ public class BoardAdjuster {
 
 		toRemove = maxBoardCells - givens;
 
+		
+		HashMap<Integer, Integer> fillsRows = new HashMap<Integer, Integer>();
+		fillsRows = initializeMap(fillsRows, size);
+
+		HashMap<Integer, Integer> fillsCols = new HashMap<Integer, Integer>();
+		fillsCols = initializeMap(fillsCols, size);
+
 		while (toRemove > 0) {
 			int i = gen.nextInt(size - 1);
 			int j = gen.nextInt(size - 1);
 
-			if (newBoard[i][j] != 0) {
+			if (newBoard[i][j] != 0
+					&& fillsRows.get(i) > difficultyRegionFillFloor
+					&& fillsCols.get(j) > difficultyRegionFillFloor) {
 				newBoard[i][j] = 0;
+				fillsRows.put(i, fillsRows.get(i) - 1);
+				fillsCols.put(j, fillsCols.get(j) - 1);
 			} else {
 				continue;
 			}
 			toRemove--;
-		}
-		
-		HashMap<Integer, Integer> fillsRows = new HashMap<Integer, Integer>();
-		fillsRows = initializeMap(fillsRows, size);
-		
-		HashMap<Integer, Integer> fillsCols = new HashMap<Integer, Integer>();
-		fillsCols = initializeMap(fillsCols, size);
-		
-		while (toRemove > 0) {
-			
+
 		}
 
 		return newBoard;
 
 	}
 
-	private static HashMap<Integer, Integer> initializeMap(HashMap<Integer, Integer> fills, int size) {
+	private static HashMap<Integer, Integer> initializeMap(
+			HashMap<Integer, Integer> fills, int size) {
 		HashMap<Integer, Integer> init = fills;
+		init.put(0, size);
 		init.put(1, size);
 		init.put(2, size);
 		init.put(3, size);
@@ -127,12 +130,10 @@ public class BoardAdjuster {
 		init.put(6, size);
 		init.put(7, size);
 		init.put(8, size);
-		init.put(9, size);
 		
+
 		return init;
 	}
-
-	
 
 	public static int getTotalUnfilledCells(int[][] board) {
 		int count = 0;
@@ -148,14 +149,26 @@ public class BoardAdjuster {
 		return count;
 	}
 
-	public static boolean getTotalUnfilledCellsInRow(int[][] adjustedBoard, int i) {
-		// TODO Auto-generated method stub
-		return false;
+	public static int getTotalUnfilledCellsInRow(int[][] adjustedBoard, int i) {
+		int count = 0;
+
+		for (int j = 0; j < adjustedBoard.length; j++) {
+			if (adjustedBoard[i][j] == 0) {
+				count++;
+			}
+		}
+		return count;
 	}
 
-	public static boolean getTotalUnfilledCellsInCol(int[][] adjustedBoard, int i) {
-		// TODO Auto-generated method stub
-		return false;
+	public static int getTotalUnfilledCellsInCol(int[][] adjustedBoard, int j) {
+		int count = 0;
+
+		for (int i = 0; i < adjustedBoard.length; i++) {
+			if (adjustedBoard[i][j] == 0) {
+				count++;
+			}
+		}
+		return count;
 	}
 
 }

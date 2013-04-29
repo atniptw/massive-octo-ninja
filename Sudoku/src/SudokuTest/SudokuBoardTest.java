@@ -19,6 +19,7 @@ public class SudokuBoardTest {
 	ArrayList<SudokuStandardRegion> rows;
 	ArrayList<SudokuStandardRegion> columns;
 	ArrayList<SudokuStandardRegion> innerGrids;
+	public static final int STANDARD_SIZE = 9;
 
 	public int[] solvedBoard = { 5, 2, 9, 1, 7, 6, 3, 4, 8, 1, 4, 3, 5, 8, 2,
 			6, 7, 9, 8, 7, 6, 9, 3, 4, 5, 2, 1, 6, 9, 5, 2, 4, 7, 8, 1, 3, 7,
@@ -74,33 +75,33 @@ public class SudokuBoardTest {
 		}
 	}
 
-	@Before
-	public void beforeTests() {
-		this.blocks = new ArrayList<CellBlock>();
-		for (int value : solvedBoard) {
-			CellBlock temp = new CellBlock();
-			temp.setAnswer(value);
-			blocks.add(temp);
-		}
-		makeRegionsFromBlockArray(this.blocks);
-	}
+	// @Before
+	// public void beforeTests() {
+	// this.blocks = new ArrayList<CellBlock>();
+	// for (int value : solvedBoard) {
+	// CellBlock temp = new CellBlock();
+	// temp.setAnswer(value);
+	// blocks.add(temp);
+	// }
+	// makeRegionsFromBlockArray(this.blocks);
+	// }
 
 	@Test
 	public void testTableInitializesWhenGivenRegions() {
 
-		assertNotNull(new StandardSudokuBoard(rows, columns, this.innerGrids));
+		assertNotNull(new StandardSudokuBoard(STANDARD_SIZE));
 	}
 
 	@Test
 	public void testTableIsValidReturnsTrueWhenValid() {
 
-		StandardSudokuBoard table = new StandardSudokuBoard(blocks);
+		StandardSudokuBoard table = new StandardSudokuBoard(STANDARD_SIZE);
 		assertTrue(table.isValid());
 	}
 
 	@Test
 	public void testTableIsValidReturnsFalseWhenInvalid() {
-		StandardSudokuBoard table = new StandardSudokuBoard(blocks);
+		StandardSudokuBoard table = new StandardSudokuBoard(STANDARD_SIZE);
 		table.setAnswer(0, 0, 1);
 		assertFalse(table.isValid());
 	}
@@ -108,7 +109,7 @@ public class SudokuBoardTest {
 	@Test
 	public void testTableSetandGetAnswer() {
 
-		StandardSudokuBoard table = new StandardSudokuBoard(blocks);
+		StandardSudokuBoard table = new StandardSudokuBoard(STANDARD_SIZE);
 
 		int answer = table.getAnswer(0, 0);
 
@@ -124,7 +125,7 @@ public class SudokuBoardTest {
 	@Test
 	public void testConflictingCellsToInvalidMarksConflictingCellsInvalid() {
 
-		StandardSudokuBoard table = new StandardSudokuBoard(blocks);
+		StandardSudokuBoard table = new StandardSudokuBoard(STANDARD_SIZE);
 
 		table.setAnswer(0, 0, 4);
 
@@ -135,7 +136,7 @@ public class SudokuBoardTest {
 		assertFalse(table.getCell(0, 7).getIsValid());
 
 		assertFalse(table.getCell(6, 0).getIsValid());
-		
+
 		assertFalse(table.getCell(1, 1).getIsValid());
 	}
 
