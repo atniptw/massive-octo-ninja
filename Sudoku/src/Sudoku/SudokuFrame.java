@@ -177,7 +177,9 @@ public class SudokuFrame extends JFrame {
 		// this.bundle.getString("easy"), this.bundle.getString("medium"),
 		// this.bundle.getString("difficult"),
 		// this.bundle.getString("evil") };
-		String[] difficulties = { this.bundle.getString("simple"), this.bundle.getString("easy"), this.bundle.getString("medium"), this.bundle.getString("difficult"),
+		String[] difficulties = { this.bundle.getString("simple"),
+				this.bundle.getString("easy"), this.bundle.getString("medium"),
+				this.bundle.getString("difficult"),
 				this.bundle.getString("evil") };
 
 		JComboBox boardTypes = new JComboBox(boards);
@@ -198,8 +200,9 @@ public class SudokuFrame extends JFrame {
 					.getString("standard")) {
 				this.completedBoard = new StandardSudokuBoard(9);
 				int[][] adjustedValues = BoardAdjuster.adjustForDifficulty(
-						this.completedBoard.getBoardSolution(), (String) difficultiesList
-										.getSelectedItem(), this.bundle);
+						this.completedBoard,
+						(String) difficultiesList.getSelectedItem(),
+						this.bundle);
 				ArrayList<CellBlock> singleAdjustedArrayValues = new ArrayList<CellBlock>(
 						81);
 				for (int i = 0; i < 9; i++) {
