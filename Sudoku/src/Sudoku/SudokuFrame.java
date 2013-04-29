@@ -22,6 +22,7 @@ import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.UIManager;
 
 public class SudokuFrame extends JFrame {
 
@@ -73,7 +74,7 @@ public class SudokuFrame extends JFrame {
 		});
 
 		// TODO String Refactoring Here:
-		JMenuItem openGame = new JMenuItem("Open Game");
+		JMenuItem openGame = new JMenuItem(this.bundle.getString("open_game"));
 		openGame.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent event) {
 				// In response to a button click:
@@ -101,7 +102,7 @@ public class SudokuFrame extends JFrame {
 		});
 
 		// TODO String Refactoring Here:
-		JMenuItem saveGame = new JMenuItem("Save Game");
+		JMenuItem saveGame = new JMenuItem(this.bundle.getString("save_game"));
 		saveGame.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent event) {
 				int returnVal = fc.showSaveDialog(SudokuFrame.this);
@@ -176,8 +177,8 @@ public class SudokuFrame extends JFrame {
 		// this.bundle.getString("easy"), this.bundle.getString("medium"),
 		// this.bundle.getString("difficult"),
 		// this.bundle.getString("evil") };
-		String[] difficulties = { "Simple", "Easy", "Medium", "Difficult",
-				"Evil" };
+		String[] difficulties = { this.bundle.getString("simple"), this.bundle.getString("easy"), this.bundle.getString("medium"), this.bundle.getString("difficult"),
+				this.bundle.getString("evil") };
 
 		JComboBox boardTypes = new JComboBox(boards);
 		JComboBox difficultiesList = new JComboBox(difficulties);
@@ -197,9 +198,8 @@ public class SudokuFrame extends JFrame {
 					.getString("standard")) {
 				this.completedBoard = SudokuGenerator.generateBoard(9);
 				int[][] adjustedValues = BoardAdjuster.adjustForDifficulty(
-						this.completedBoard, BoardAdjuster.Difficulty
-								.valueOf(((String) difficultiesList
-										.getSelectedItem()).toUpperCase()));
+						this.completedBoard, (String) difficultiesList
+										.getSelectedItem(), this.bundle);
 				ArrayList<CellBlock> singleAdjustedArrayValues = new ArrayList<CellBlock>(
 						81);
 				for (int i = 0; i < 9; i++) {
