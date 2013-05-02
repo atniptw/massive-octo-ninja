@@ -28,20 +28,10 @@ public class BoardAdjuster {
 	public static final int DIFFICULT_STANDARD_FILL_FLOOR = 2;
 	public static final int EVIL_STANDARD_FILL_FLOOR = 0;
 
-	public static int[][] adjustForDifficulty(StandardSudokuBoard originalBoard,
+	public static void adjustForDifficulty(ISudokuBoard currentBoard,
 			String diff, ResourceBundle bundle) {
 
-
-		int size = originalBoard.size();
-
-		int[][] newBoard = new int[size][size];
-
-		for (int i = 0; i < size; i++) {
-			for (int j = 0; j < size; j++) {
-				newBoard[i][j] = originalBoard.getAnswer(i, j);
-			}
-		}
-
+		int size = currentBoard.size();
 
 		int variance;
 		int givens = 0;
@@ -55,7 +45,6 @@ public class BoardAdjuster {
 		String medium = bundle.getString("medium");
 		String difficult = bundle.getString("difficult");
 		String evil = bundle.getString("evil");
-
 
 		Random gen = new Random();
 
@@ -85,7 +74,7 @@ public class BoardAdjuster {
 
 			variance = gen.nextInt((int) Math.ceil(range));
 			givens = (int) Math.ceil((DIFFICULT_MIN_FACTOR * size)) + variance;
-			
+
 		} else if (diff.equals(evil)) {
 			difficultyRegionFillFloor = EVIL_STANDARD_FILL_FLOOR;
 			range = (EVIL_MAX_FACTOR * size) - (EVIL_MIN_FACTOR * size);
@@ -97,7 +86,6 @@ public class BoardAdjuster {
 
 		toRemove = maxBoardCells - givens;
 
-		
 		HashMap<Integer, Integer> fillsRows = new HashMap<Integer, Integer>();
 		fillsRows = initializeMap(fillsRows, size);
 
@@ -108,10 +96,10 @@ public class BoardAdjuster {
 			int i = gen.nextInt(size);
 			int j = gen.nextInt(size);
 
-			if (newBoard[i][j] != 0
+			if (currentBoard.getAnswer(i, j) != 0
 					&& fillsRows.get(i) > difficultyRegionFillFloor
 					&& fillsCols.get(j) > difficultyRegionFillFloor) {
-				newBoard[i][j] = 0;
+				currentBoard.setAnswer(i, j, 0);
 				int tempRow = fillsRows.get(i);
 				int tempCol = fillsCols.get(j);
 				fillsRows.put(i, tempRow - 1);
@@ -123,38 +111,7 @@ public class BoardAdjuster {
 
 		}
 
-		return newBoard;
-
 	}
-	
-	public static int[][] adjustForDifficulty(StandardSudokuBoard clone,
-			Difficulty difficult) {
-		
-		Locale loc = new Locale("en", "MX");
-		ResourceBundle bundle = ResourceBundle.getBundle("MessagesBundle", loc);
-		String diff = "";
-		switch(difficult){
-		case SIMPLE:
-			diff = "simple";
-			break;
-		case EASY:
-			diff = "easy";
-			break;
-		case MEDIUM:
-			diff = "medium";
-			break;
-		case DIFFICULT:
-			diff = "difficult";
-			break;
-		case EVIL:
-			diff = "evil";
-			break;
-		}
-			
-		return adjustForDifficulty(clone, diff, bundle);
-
-	}
-
 
 	private static HashMap<Integer, Integer> initializeMap(
 			HashMap<Integer, Integer> fills, int size) {
@@ -168,11 +125,9 @@ public class BoardAdjuster {
 		init.put(6, size);
 		init.put(7, size);
 		init.put(8, size);
-		
 
 		return init;
 	}
-
 
 	public static int getTotalUnfilledCells(int[][] board) {
 		int count = 0;
@@ -209,16 +164,13 @@ public class BoardAdjuster {
 		}
 		return count;
 	}
-	
-	public static int getTotalGivensInRow(int[][] adjustedBoard, int i, int size){
+
+	public static int getTotalGivensInRow(int[][] adjustedBoard, int i, int size) {
 		return size - getTotalUnfilledCellsInRow(adjustedBoard, i);
 	}
-	
-	public static int getTotalGivensInCol(int[][] adjustedBoard, int i, int size){
+
+	public static int getTotalGivensInCol(int[][] adjustedBoard, int i, int size) {
 		return size - getTotalUnfilledCellsInCol(adjustedBoard, i);
 	}
-	
-	
-	
 
 }

@@ -30,7 +30,6 @@ public class SudokuFrame extends JFrame {
 	 */
 	private static final long serialVersionUID = -37081277569169971L;
 	private ISudokuBoard currentBoard;
-	private StandardSudokuBoard completedBoard;
 	private SudokuComponent sudokuComponent;
 	public ResourceBundle bundle;
 
@@ -139,7 +138,7 @@ public class SudokuFrame extends JFrame {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				sudokuComponent.giveAnswerToSelectedCell(completedBoard);
+				sudokuComponent.giveAnswerToSelectedCell(currentBoard);
 				timerLabel.updateTime(30);
 				currentBoard.setConflictingCellsToInvalid();
 			}
@@ -151,7 +150,7 @@ public class SudokuFrame extends JFrame {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				// TODO Auto-generated method stub
-				sudokuComponent.giveAllAnswersToCells(completedBoard);
+				sudokuComponent.giveAllAnswersToCells(currentBoard);
 				currentBoard.setConflictingCellsToInvalid();
 			}
 
@@ -197,23 +196,29 @@ public class SudokuFrame extends JFrame {
 		if (result == JOptionPane.OK_OPTION) {
 			if (boardTypes.getSelectedItem() == this.bundle
 					.getString("standard")) {
-				this.completedBoard = new StandardSudokuBoard(9);
-				this.completedBoard.populateBoard();
-				int[][] adjustedValues = BoardAdjuster.adjustForDifficulty(
-						this.completedBoard,
+				this.currentBoard = new StandardSudokuBoard(9);
+				this.currentBoard.populateBoard();
+				BoardAdjuster.adjustForDifficulty(this.currentBoard,
 						(String) difficultiesList.getSelectedItem(),
 						this.bundle);
-				ArrayList<CellBlock> singleAdjustedArrayValues = new ArrayList<CellBlock>(
-						81);
-				for (int i = 0; i < 9; i++) {
-					for (int j = 0; j < 9; j++) {
-						CellBlock newCell = new CellBlock();
-						newCell.setAnswer(adjustedValues[i][j]);
-						singleAdjustedArrayValues.add(newCell);
-					}
-				}
+				// int[][] adjustedValues = BoardAdjuster.adjustForDifficulty(
+				// this.completedBoard,
+				// (String) difficultiesList.getSelectedItem(),
+				// this.bundle);
+				// ArrayList<CellBlock> singleAdjustedArrayValues = new
+				// ArrayList<CellBlock>(
+				// 81);
+				// for (int i = 0; i < 9; i++) {
+				// for (int j = 0; j < 9; j++) {
+				// CellBlock newCell = new CellBlock();
+				// newCell.setAnswer(adjustedValues[i][j]);
+				// singleAdjustedArrayValues.add(newCell);
+				// }
+				// }
 
-				this.currentBoard = new StandardSudokuBoard(9);
+				// this.currentBoard = new StandardSudokuBoard(
+				// singleAdjustedArrayValues,
+				// this.completedBoard.getBoardSolution());
 				this.currentBoard.setConflictingCellsToInvalid();
 				if (this.sudokuComponent != null) {
 					this.remove(this.sudokuComponent);

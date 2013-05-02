@@ -10,6 +10,7 @@ import org.junit.Test;
 
 import Sudoku.BoardAdjuster;
 import Sudoku.CellBlock;
+import Sudoku.ISudokuBoard;
 import Sudoku.StandardSudokuBoard;
 import org.junit.Before;
 import Sudoku.SudokuStandardRegion;
@@ -35,11 +36,8 @@ public class BoardAdjusterTest {
 	@Test
 	public void testVeryEasyAdjustedBoardIsInvalid() {
 
-		int[][] adjustedBoard;
-
-		adjustedBoard = BoardAdjuster.adjustForDifficulty(
-				StandardSudokuBoard.boardClone(testBoard),
-				BoardAdjuster.Difficulty.SIMPLE);
+		BoardAdjuster
+				.adjustForDifficulty(this.testBoard, "simple", this.bundle);
 
 		SudokuStandardRegion region;
 		for (int i = 0; i < 9; i++) {
