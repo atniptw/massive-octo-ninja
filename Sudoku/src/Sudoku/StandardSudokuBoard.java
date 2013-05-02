@@ -33,6 +33,8 @@ public class StandardSudokuBoard implements ISudokuBoard, Serializable {
 	}
 	
 	public StandardSudokuBoard(ArrayList<CellBlock> values, int[][] answers) {
+		SIZE = answers.length;
+		
 		ArrayList<CellBlock> region = new ArrayList<CellBlock>();
 		for (int i = 0; i < SIZE * SIZE; i++) {
 			region.add(new CellBlock());
