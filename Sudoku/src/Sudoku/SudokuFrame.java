@@ -17,6 +17,7 @@ import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JFileChooser;
 import javax.swing.JFrame;
+import javax.swing.JLabel;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
@@ -138,9 +139,12 @@ public class SudokuFrame extends JFrame {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				sudokuComponent.giveAnswerToSelectedCell(currentBoard);
+				sudokuComponent.giveAnswerToSelectedCell();
 				timerLabel.updateTime(30);
 				currentBoard.setConflictingCellsToInvalid();
+				if(currentBoard.isComplete()) {
+					handleWin();
+				}
 			}
 
 		});
@@ -150,8 +154,9 @@ public class SudokuFrame extends JFrame {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				// TODO Auto-generated method stub
-				sudokuComponent.giveAllAnswersToCells(currentBoard);
+				sudokuComponent.giveAllAnswersToCells();
 				currentBoard.setConflictingCellsToInvalid();
+				handleCompleteOption();
 			}
 
 		});
@@ -166,7 +171,7 @@ public class SudokuFrame extends JFrame {
 		menubar.add(help);
 		this.setJMenuBar(menubar);
 	}
-
+	
 	private void getNewBoard() {
 
 		String[] boards = { this.bundle.getString("standard") };
@@ -236,6 +241,9 @@ public class SudokuFrame extends JFrame {
 									.parseInt(((JButton) e.getSource())
 											.getText()));
 							currentBoard.setConflictingCellsToInvalid();
+							if(currentBoard.isComplete()) {
+								handleWin();
+							}
 						}
 
 					});
@@ -247,5 +255,24 @@ public class SudokuFrame extends JFrame {
 			}
 		}
 	}
-
+	
+	
+	private void handleWin() {
+		this.timerLabel.pause();
+		JFrame frame = new JFrame();
+		JLabel label = new JLabel(String.format("You won in %s", this.timerLabel.getText()));
+		frame.add(label);
+		frame.setSize(300, 300);
+		frame.setVisible(true);
+		
+	}
+	
+	private void handleCompleteOption(){
+		this.timerLabel.pause();
+		JFrame frame = new JFrame();
+		JLabel label = new JLabel(String.format("You are a dirty cheater"));
+		frame.add(label);
+		frame.setSize(300, 300);
+		frame.setVisible(true);
+	}
 }

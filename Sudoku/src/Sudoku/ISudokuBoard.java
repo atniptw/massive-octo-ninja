@@ -16,4 +16,8 @@ public interface ISudokuBoard {
 
 	public void populateBoard();
 
+	public boolean isComplete();
+	
+	public int getCellSolution(int i, int j);
+
 }

@@ -192,6 +192,15 @@ public class StandardSudokuBoard implements ISudokuBoard, Serializable {
 		}
 		return true;
 	}
+	
+	public boolean isFull() {
+		for (SudokuStandardRegion row : this.rows) {
+			if (!row.isFull()) {
+				return false;
+			}
+		}
+		return true;
+	}
 
 	public void setConflictingCellsToInvalid() {
 		for (SudokuStandardRegion row : this.rows) {
@@ -226,6 +235,15 @@ public class StandardSudokuBoard implements ISudokuBoard, Serializable {
 		StandardSudokuBoard clone = new StandardSudokuBoard(orig.SIZE, orig);
 
 		return clone;
+	}
+
+	@Override
+	public boolean isComplete() {
+		return this.isValid() && this.isFull();
+	}
+	
+	public int getCellSolution(int i, int j) {
+		return this.solution[i][j];
 	}
 
 }

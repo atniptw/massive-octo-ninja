@@ -120,4 +120,13 @@ public class SudokuStandardRegion implements ISudokuRegion, Serializable {
 
 	}
 
+	public boolean isFull() {
+		for (CellBlock cell : this.region) {
+			if (cell.getAnswer() == 0) {
+				return false;
+			}
+		}
+		return true;
+	}
+
 }
