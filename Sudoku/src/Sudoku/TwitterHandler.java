@@ -16,8 +16,11 @@ public class TwitterHandler {
 	public static final String OAUTH_KEY = "fwsTeJLODqETKsZodQ8SOw";
 	public static final String OAUTH_SECRET = "sa8xOvHRm2ZqE2WAynpXwgzZbK0ksUjd94vSnfml1s";
 
-	public static void sendTweet(String tweetMsg) {
-		
+	
+	public String lastTweetStatusMsg;
+
+	public void sendTweet(String tweetMsg) {
+
 		try {
 			ConfigurationBuilder cb = new ConfigurationBuilder();
 			cb.setDebugEnabled(true).setOAuthConsumerKey(OAUTH_KEY)
@@ -80,7 +83,9 @@ public class TwitterHandler {
 			Status status = twitter.updateStatus(tweetMsg);
 			System.out.println("Successfully updated the status to ["
 					+ status.getText() + "].");
-			System.exit(0);
+			this.lastTweetStatusMsg = "Successfully updated the status to ["
+					+ status.getText() + "].";
+
 		} catch (TwitterException te) {
 			te.printStackTrace();
 			System.out.println("Failed to get timeline: " + te.getMessage());
@@ -89,6 +94,19 @@ public class TwitterHandler {
 			ioe.printStackTrace();
 			System.out.println("Failed to read the system input.");
 			System.exit(-1);
+		}
+	}
+
+	public void deleteTweet(Long id) {
+		try {
+			Twitter twitter = new TwitterFactory().getInstance();
+			twitter.destroyStatus(id);
+			System.out.println("Successfully deleted status [" + id + "].");
+
+		} catch (TwitterException te) {
+			te.printStackTrace();
+			System.out.println("Failed to delete status: " + te.getMessage());
+
 		}
 	}
 }
