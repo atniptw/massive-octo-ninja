@@ -86,12 +86,16 @@ public class SudokuFrame extends JFrame {
 						ISudokuBoard openBoard = (ISudokuBoard) ois
 								.readObject();
 						ois.close();
+						remove(sudokuComponent);
 						currentBoard = openBoard;
 						// invalidate();
 						// validate();
 						// repaint();
-						System.out.print(openBoard.getAnswer(0, 2));
-						System.out.print(currentBoard.getAnswer(0, 2));
+						sudokuComponent = new SudokuComponent(currentBoard);
+						add(sudokuComponent, BorderLayout.CENTER);
+						// System.out.print(openBoard.getAnswer(0, 2));
+						// System.out.print(currentBoard.getAnswer(0, 2));
+						repaint();
 
 					} catch (Exception ex) {
 						ex.printStackTrace();
@@ -142,7 +146,7 @@ public class SudokuFrame extends JFrame {
 				sudokuComponent.giveAnswerToSelectedCell();
 				timerLabel.updateTime(30);
 				currentBoard.setConflictingCellsToInvalid();
-				if(currentBoard.isComplete()) {
+				if (currentBoard.isComplete()) {
 					handleWin();
 				}
 			}
@@ -171,7 +175,7 @@ public class SudokuFrame extends JFrame {
 		menubar.add(help);
 		this.setJMenuBar(menubar);
 	}
-	
+
 	private void getNewBoard() {
 
 		String[] boards = { this.bundle.getString("standard") };
@@ -230,6 +234,7 @@ public class SudokuFrame extends JFrame {
 				}
 				this.sudokuComponent = new SudokuComponent(this.currentBoard);
 				this.add(this.sudokuComponent, BorderLayout.CENTER);
+				
 				JPanel buttonPanel = new JPanel();
 				for (int i = 0; i < this.currentBoard.size(); i++) {
 					JButton button = new JButton(String.format("%d", i + 1));
@@ -241,7 +246,7 @@ public class SudokuFrame extends JFrame {
 									.parseInt(((JButton) e.getSource())
 											.getText()));
 							currentBoard.setConflictingCellsToInvalid();
-							if(currentBoard.isComplete()) {
+							if (currentBoard.isComplete()) {
 								handleWin();
 							}
 						}
@@ -255,19 +260,19 @@ public class SudokuFrame extends JFrame {
 			}
 		}
 	}
-	
-	
+
 	private void handleWin() {
 		this.timerLabel.pause();
 		JFrame frame = new JFrame();
-		JLabel label = new JLabel(String.format("You won in %s", this.timerLabel.getText()));
+		JLabel label = new JLabel(String.format("You won in %s",
+				this.timerLabel.getText()));
 		frame.add(label);
 		frame.setSize(300, 300);
 		frame.setVisible(true);
-		
+
 	}
-	
-	private void handleCompleteOption(){
+
+	private void handleCompleteOption() {
 		this.timerLabel.pause();
 		JFrame frame = new JFrame();
 		JLabel label = new JLabel(String.format("You are a dirty cheater"));
