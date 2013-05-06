@@ -11,8 +11,8 @@ public class BoardAdjuster {
 		SIMPLE, EASY, MEDIUM, DIFFICULT, EVIL;
 	}
 
-	public static final double VERY_EASY_MAX_FACTOR = 7.5;
-	public static final double VERY_EASY_MIN_FACTOR = 6;
+	public static final double SIMPLE_MAX_FACTOR = 7.5;
+	public static final double SIMPLE_MIN_FACTOR = 6;
 	public static final double EASY_MAX_FACTOR = 5.5;
 	public static final double EASY_MIN_FACTOR = 4.5;
 	public static final double MEDIUM_MAX_FACTOR = 4;
@@ -22,7 +22,7 @@ public class BoardAdjuster {
 	public static final double EVIL_MAX_FACTOR = 3;
 	public static final double EVIL_MIN_FACTOR = 2.5;
 
-	public static final int VERY_EASY_STANDARD_FILL_FLOOR = 5;
+	public static final int SIMPLE_STANDARD_FILL_FLOOR = 5;
 	public static final int EASY_STANDARD_FILL_FLOOR = 4;
 	public static final int MEDIUM_STANDARD_FILL_FLOOR = 3;
 	public static final int DIFFICULT_STANDARD_FILL_FLOOR = 2;
@@ -49,12 +49,11 @@ public class BoardAdjuster {
 		Random gen = new Random();
 
 		if (diff.equals(simple)) {
-			difficultyRegionFillFloor = VERY_EASY_STANDARD_FILL_FLOOR;
-			range = (VERY_EASY_MAX_FACTOR * size)
-					- (VERY_EASY_MIN_FACTOR * size);
+			difficultyRegionFillFloor = SIMPLE_STANDARD_FILL_FLOOR;
+			range = (SIMPLE_MAX_FACTOR * size) - (SIMPLE_MIN_FACTOR * size);
 
 			variance = gen.nextInt((int) Math.ceil(range));
-			givens = (int) Math.ceil((VERY_EASY_MIN_FACTOR * size)) + variance;
+			givens = (int) Math.ceil((SIMPLE_MIN_FACTOR * size)) + variance;
 		} else if (diff.equals(easy)) {
 			difficultyRegionFillFloor = EASY_STANDARD_FILL_FLOOR;
 			range = (EASY_MAX_FACTOR * size) - (EASY_MIN_FACTOR * size);
@@ -129,12 +128,12 @@ public class BoardAdjuster {
 		return init;
 	}
 
-	public static int getTotalUnfilledCells(int[][] board) {
+	public static int getTotalUnfilledCells(ISudokuBoard board) {
 		int count = 0;
 
-		for (int i = 0; i < board.length; i++) {
-			for (int j = 0; j < board.length; j++) {
-				if (board[i][j] == 0) {
+		for (int i = 0; i < board.size(); i++) {
+			for (int j = 0; j < board.size(); j++) {
+				if (board.getAnswer(i, j) == 0) {
 					count++;
 				}
 			}
@@ -143,34 +142,34 @@ public class BoardAdjuster {
 		return count;
 	}
 
-	public static int getTotalUnfilledCellsInRow(int[][] adjustedBoard, int i) {
+	public static int getTotalUnfilledCellsInRow(ISudokuBoard board, int i) {
 		int count = 0;
 
-		for (int j = 0; j < adjustedBoard.length; j++) {
-			if (adjustedBoard[i][j] == 0) {
+		for (int j = 0; j < board.size(); j++) {
+			if (board.getAnswer(i, j) == 0) {
 				count++;
 			}
 		}
 		return count;
 	}
 
-	public static int getTotalUnfilledCellsInCol(int[][] adjustedBoard, int j) {
+	public static int getTotalUnfilledCellsInCol(ISudokuBoard board, int j) {
 		int count = 0;
 
-		for (int i = 0; i < adjustedBoard.length; i++) {
-			if (adjustedBoard[i][j] == 0) {
+		for (int i = 0; i < board.size(); i++) {
+			if (board.getAnswer(i, j) == 0) {
 				count++;
 			}
 		}
 		return count;
 	}
 
-	public static int getTotalGivensInRow(int[][] adjustedBoard, int i, int size) {
-		return size - getTotalUnfilledCellsInRow(adjustedBoard, i);
+	public static int getTotalGivensInCol(ISudokuBoard board, int i) {
+		return board.size() - getTotalUnfilledCellsInCol(board, i);
 	}
 
-	public static int getTotalGivensInCol(int[][] adjustedBoard, int i, int size) {
-		return size - getTotalUnfilledCellsInCol(adjustedBoard, i);
+	public static int getTotalGivensInRow(ISudokuBoard board, int i) {
+		return board.size() - getTotalUnfilledCellsInRow(board, i);
 	}
 
 }
