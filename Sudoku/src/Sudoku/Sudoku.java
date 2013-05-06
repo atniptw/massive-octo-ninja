@@ -33,6 +33,7 @@ public class Sudoku {
 		//
 		// gameBoard.setConflictingCellsToInvalid();
 
+
 		SudokuFrame frame = new SudokuFrame(args[0], args[1]);
 
 	}
