@@ -21,6 +21,7 @@
 bin/**
 tmp/**
 tmp/**/*
+Sudoku/lib/**
 *.tmp
 *.bak
 *.swp
