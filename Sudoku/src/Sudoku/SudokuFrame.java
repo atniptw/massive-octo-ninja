@@ -88,13 +88,8 @@ public class SudokuFrame extends JFrame {
 						ois.close();
 						remove(sudokuComponent);
 						currentBoard = openBoard;
-						// invalidate();
-						// validate();
-						// repaint();
 						sudokuComponent = new SudokuComponent(currentBoard);
 						add(sudokuComponent, BorderLayout.CENTER);
-						// System.out.print(openBoard.getAnswer(0, 2));
-						// System.out.print(currentBoard.getAnswer(0, 2));
 						repaint();
 
 					} catch (Exception ex) {
@@ -234,7 +229,7 @@ public class SudokuFrame extends JFrame {
 				}
 				this.sudokuComponent = new SudokuComponent(this.currentBoard);
 				this.add(this.sudokuComponent, BorderLayout.CENTER);
-				
+
 				JPanel buttonPanel = new JPanel();
 				for (int i = 0; i < this.currentBoard.size(); i++) {
 					JButton button = new JButton(String.format("%d", i + 1));
