@@ -60,12 +60,14 @@ public class BoardAdjuster {
 
 			variance = gen.nextInt((int) Math.ceil(range));
 			givens = (int) Math.ceil((EASY_MIN_FACTOR * size)) + variance;
+			
 		} else if (diff.equals(medium)) {
 			difficultyRegionFillFloor = MEDIUM_STANDARD_FILL_FLOOR;
 			range = (MEDIUM_MAX_FACTOR * size) - (MEDIUM_MIN_FACTOR * size);
 
 			variance = gen.nextInt((int) Math.ceil(range));
 			givens = (int) Math.ceil((MEDIUM_MIN_FACTOR * size)) + variance;
+			
 		} else if (diff.equals(difficult)) {
 			difficultyRegionFillFloor = DIFFICULT_STANDARD_FILL_FLOOR;
 			range = (DIFFICULT_MAX_FACTOR * size)
@@ -138,7 +140,7 @@ public class BoardAdjuster {
 				}
 			}
 		}
-
+		
 		return count;
 	}
 

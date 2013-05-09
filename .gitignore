@@ -21,7 +21,6 @@
 bin/**
 tmp/**
 tmp/**/*
-Sudoku/lib/**
 *.tmp
 *.bak
 *.swp
@@ -30,6 +29,15 @@ local.properties
 .classpath
 .settings/
 .loadpath
+
+#Twitter4j Resources
+twitter4j-appengine/**
+twitter4j-async/**
+twitter4j-core/**
+twitter4j-examples/**
+twitter4j-media-support/**
+twitter4j-stream/**
+powered-by-badge/**
 
 # External tool builders
 .externalToolBuilders/
