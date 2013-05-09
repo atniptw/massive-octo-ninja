@@ -1,8 +1,12 @@
 package Sudoku;
 
+import java.awt.Desktop;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.net.URI;
+import java.net.URISyntaxException;
+import java.net.URL;
 
 import twitter4j.Status;
 import twitter4j.Twitter;
@@ -41,11 +45,17 @@ public class TwitterHandler {
 				BufferedReader br = new BufferedReader(new InputStreamReader(
 						System.in));
 				while (null == accessToken) {
+					
+					// TODO Print this in the UI (pop up?)
 					System.out
 							.println("Open the following URL and grant access to your account:");
-					System.out.println(requestToken.getAuthorizationURL());
+					
+					// Note: This is how you call the new method which will open the default browser to the auth page
+					openWebpage(new URL(requestToken.getAuthenticationURL()));
+					
+					// TODO Change below to be gotten from an input in the UI? 
 					System.out
-							.print("Enter the PIN(if available) and hit enter after you granted access.[PIN]:");
+							.print("Enter the PIN and hit enter after you granted access.[PIN]:");
 					String pin = br.readLine();
 					try {
 						if (pin.length() > 0) {
@@ -95,6 +105,25 @@ public class TwitterHandler {
 			System.out.println("Failed to read the system input.");
 			System.exit(-1);
 		}
+	}
+	
+	public static void openWebpage(URI uri) {
+	    Desktop desktop = Desktop.isDesktopSupported() ? Desktop.getDesktop() : null;
+	    if (desktop != null && desktop.isSupported(Desktop.Action.BROWSE)) {
+	        try {
+	            desktop.browse(uri);
+	        } catch (Exception e) {
+	            e.printStackTrace();
+	        }
+	    }
+	}
+
+	public static void openWebpage(URL url) {
+	    try {
+	        openWebpage(url.toURI());
+	    } catch (URISyntaxException e) {
+	        e.printStackTrace();
+	    }
 	}
 
 	public void deleteTweet(Long id) {
