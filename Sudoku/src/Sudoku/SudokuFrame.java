@@ -24,6 +24,8 @@ import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
+import Sudoku.LeaderBoard.Score;
+
 public class SudokuFrame extends JFrame {
 
 	/**
@@ -37,6 +39,7 @@ public class SudokuFrame extends JFrame {
 	// Create a file chooser
 	final JFileChooser fc = new JFileChooser();
 	private TimerLabel timerLabel;
+	private String diff;
 
 	public SudokuFrame(String language, String country) {
 
@@ -196,6 +199,7 @@ public class SudokuFrame extends JFrame {
 		this.bundle.getString("choose_board"),
 
 		JOptionPane.OK_CANCEL_OPTION);
+		diff = (String) difficultiesList.getSelectedItem();
 
 		if (result == JOptionPane.OK_OPTION) {
 			if (boardTypes.getSelectedItem() == this.bundle
@@ -258,10 +262,21 @@ public class SudokuFrame extends JFrame {
 
 	private void handleWin() {
 		this.timerLabel.pause();
+		String name = JOptionPane.showInputDialog(this, "Type in name:");
+		LeaderBoard x = new LeaderBoard();
+		Score[] scores = x.submitScore(diff, name, this.timerLabel);
+		String scoreText = "Name Score<br>";
+		for (Score score : scores) {
+			if (score != null)
+				scoreText += score.getName() + " " + score.getScore() + "<br>";
+		}
 		JFrame frame = new JFrame();
-		JLabel label = new JLabel(String.format("You won in %s",
-				this.timerLabel.getText()));
+		JLabel label = new JLabel(String.format("<html>You won in %s<br>",
+				this.timerLabel.getText()) + scoreText + "</html>");
+
+		System.out.print(name);
 		frame.add(label);
+
 		frame.setSize(300, 300);
 		frame.setVisible(true);
 
