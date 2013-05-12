@@ -7,9 +7,9 @@ import java.awt.event.ActionListener;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
+import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
-import java.util.ArrayList;
 import java.util.Locale;
 import java.util.ResourceBundle;
 
@@ -254,6 +254,9 @@ public class SudokuFrame extends JFrame {
 					buttonPanel.add(button);
 				}
 				this.add(buttonPanel, BorderLayout.SOUTH);
+				if (this.timerLabel != null) {
+					this.remove(this.timerLabel);
+				}
 				this.timerLabel = new TimerLabel();
 				this.add(this.timerLabel, BorderLayout.NORTH);
 			}
@@ -280,6 +283,15 @@ public class SudokuFrame extends JFrame {
 		frame.setSize(300, 300);
 		frame.setVisible(true);
 
+		int dialogResult = JOptionPane.showConfirmDialog(null,
+				this.bundle.getString("postTwitter?"));
+
+		if (dialogResult == JOptionPane.YES_OPTION) {
+			TwitterHandler th = new TwitterHandler(this.bundle);
+			th.sendTweet(String.format("I beat Sudoku in %s seconds",
+					this.timerLabel.getText()));
+
+		}
 	}
 
 	private void handleCompleteOption() {

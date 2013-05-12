@@ -3,6 +3,9 @@ package Sudoku;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.util.ResourceBundle;
+
+import javax.swing.JOptionPane;
 
 import twitter4j.Status;
 import twitter4j.Twitter;
@@ -18,6 +21,11 @@ public class TwitterHandler {
 
 	
 	public String lastTweetStatusMsg;
+	public ResourceBundle bundle;
+	
+	public TwitterHandler(ResourceBundle bundle) {
+		this.bundle = bundle;
+	}
 
 	public void sendTweet(String tweetMsg) {
 
@@ -41,12 +49,20 @@ public class TwitterHandler {
 				BufferedReader br = new BufferedReader(new InputStreamReader(
 						System.in));
 				while (null == accessToken) {
-					System.out
-							.println("Open the following URL and grant access to your account:");
-					System.out.println(requestToken.getAuthorizationURL());
-					System.out
-							.print("Enter the PIN(if available) and hit enter after you granted access.[PIN]:");
-					String pin = br.readLine();
+					String url = requestToken.getAuthenticationURL();
+					
+					try {
+						java.awt.Desktop.getDesktop().browse(java.net.URI.create(url));
+					} catch (IOException e) {
+						System.out.println(e.getMessage());
+					}
+//					System.out
+//							.println("Open the following URL and grant access to your account:");
+//					System.out.println(requestToken.getAuthorizationURL());
+//					System.out
+//							.print("Enter the PIN(if available) and hit enter after you granted access.[PIN]:");
+//					String pin = br.readLine();
+					String pin = JOptionPane.showInputDialog(null, this.bundle.getString("enterPin"));
 					try {
 						if (pin.length() > 0) {
 							accessToken = twitter.getOAuthAccessToken(
@@ -90,11 +106,7 @@ public class TwitterHandler {
 			te.printStackTrace();
 			System.out.println("Failed to get timeline: " + te.getMessage());
 			System.exit(-1);
-		} catch (IOException ioe) {
-			ioe.printStackTrace();
-			System.out.println("Failed to read the system input.");
-			System.exit(-1);
-		}
+		} 
 	}
 
 	public void deleteTweet(Long id) {
