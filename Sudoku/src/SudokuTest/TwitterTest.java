@@ -2,7 +2,9 @@ package SudokuTest;
 
 import static org.junit.Assert.*;
 
+import java.util.Locale;
 import java.util.Random;
+import java.util.ResourceBundle;
 
 import org.junit.Test;
 import Sudoku.TwitterHandler;
@@ -14,7 +16,9 @@ public class TwitterTest {
 
 	@Test
 	public void testTweetsGivenMsg() {
-		this.th = new TwitterHandler();
+		Locale loc = new Locale("en", "US");
+		ResourceBundle bundle = ResourceBundle.getBundle("MessagesBundle", loc);
+		this.th = new TwitterHandler(bundle);
 		String tweetMsg = "Testing Java and twitter integration"
 				+ gen.nextInt();
 		th.sendTweet(tweetMsg);

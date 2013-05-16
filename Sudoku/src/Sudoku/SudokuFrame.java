@@ -91,6 +91,8 @@ public class SudokuFrame extends JFrame {
 						ois.close();
 						remove(sudokuComponent);
 						currentBoard = openBoard;
+						timerLabel.setMinutes(currentBoard.getMinutesOnBoard());
+						timerLabel.setSeconds(currentBoard.getSecondsOnBoard());
 						sudokuComponent = new SudokuComponent(currentBoard);
 						add(sudokuComponent, BorderLayout.CENTER);
 						repaint();
@@ -112,6 +114,8 @@ public class SudokuFrame extends JFrame {
 						File file = fc.getSelectedFile();
 						FileOutputStream fout = new FileOutputStream(file);
 						ObjectOutputStream oos = new ObjectOutputStream(fout);
+						currentBoard.setMinutesOnBoard(timerLabel.getMinutes());
+						currentBoard.setSecondsOnBoard(timerLabel.getSeconds());
 						oos.writeObject(currentBoard);
 						oos.close();
 						System.out.println("Done");
@@ -209,6 +213,14 @@ public class SudokuFrame extends JFrame {
 				BoardAdjuster.adjustForDifficulty(this.currentBoard,
 						(String) difficultiesList.getSelectedItem(),
 						this.bundle);
+				for (int i = 0; i < this.currentBoard.size(); i++) {
+					for (int j = 0; j < this.currentBoard.size(); j++) {
+						CellBlock cell = this.currentBoard.getCell(i, j);
+						if (cell.getAnswer() != 0) {
+							cell.setGiven(true);
+						}
+					}
+				}
 				// int[][] adjustedValues = BoardAdjuster.adjustForDifficulty(
 				// this.completedBoard,
 				// (String) difficultiesList.getSelectedItem(),

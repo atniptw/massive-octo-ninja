@@ -13,7 +13,7 @@ public class CellComponent extends JComponent {
 	boolean selected;
 	boolean given;
 
-	public CellComponent(CellBlock cell, boolean given) {
+	public CellComponent(CellBlock cell) {
 		super();
 		this.cell = cell;
 		this.selected = false;
@@ -26,14 +26,14 @@ public class CellComponent extends JComponent {
 	}
 
 	public void setValue(int value) {
-		if (!this.given) {
+		if (!this.cell.getGiven()) {
 			this.cell.setAnswer(value);
 			this.repaint();
 		}
 	}
 
 	public void setGiven(boolean given) {
-		this.given = given;
+		this.cell.setGiven(given);
 	}
 
 	public void paintComponent(Graphics g) {
@@ -57,7 +57,7 @@ public class CellComponent extends JComponent {
 			g.setColor(Color.WHITE);
 			g.drawString(Integer.toString(cell.getAnswer()),
 					this.getWidth() / 3, this.getHeight() / 2);
-		} else if (this.given) {
+		} else if (cell.getGiven()) {
 			g.setColor(Color.GRAY);
 			g.fillRect(0, 0, getWidth(), getHeight());
 			g.setColor(Color.BLACK);

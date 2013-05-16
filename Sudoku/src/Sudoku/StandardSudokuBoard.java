@@ -15,6 +15,8 @@ public class StandardSudokuBoard implements ISudokuBoard, Serializable {
 	ArrayList<SudokuStandardRegion> innerGrids;
 	private int SIZE;
 	private int[][] solution;
+	private int minutes;
+	private int seconds;
 
 	public StandardSudokuBoard(int size) {
 		if (checkPerfectSquare(size)) {
@@ -29,6 +31,9 @@ public class StandardSudokuBoard implements ISudokuBoard, Serializable {
 			region.add(new CellBlock());
 		}
 
+		this.minutes = 0;
+		this.seconds = 0;
+		
 		initStandardSudokuBoard(region);
 	}
 	
@@ -244,6 +249,26 @@ public class StandardSudokuBoard implements ISudokuBoard, Serializable {
 	
 	public int getCellSolution(int i, int j) {
 		return this.solution[i][j];
+	}
+
+	@Override
+	public int getMinutesOnBoard() {
+		return this.minutes;
+	}
+
+	@Override
+	public int getSecondsOnBoard() {
+		return this.seconds;
+	}
+
+	@Override
+	public void setMinutesOnBoard(int minutes) {
+		this.minutes = minutes;
+	}
+
+	@Override
+	public void setSecondsOnBoard(int seconds) {
+		this.seconds = seconds;
 	}
 
 }

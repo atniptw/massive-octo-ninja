@@ -51,5 +51,21 @@ public class TimerLabel extends JLabel {
 	public Timer getTimer(){
 		return timer;
 	}
+	
+	public int getMinutes() {
+		return this.minutes;
+	}
+	
+	public int getSeconds() {
+		return this.seconds;
+	}
+	
+	public void setMinutes(int minutes) {
+		this.minutes = minutes;
+	}
+	
+	public void setSeconds(int seconds) {
+		this.seconds = seconds;
+	}
 
 }
