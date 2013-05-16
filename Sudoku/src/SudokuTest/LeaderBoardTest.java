@@ -2,8 +2,11 @@ package SudokuTest;
 
 
 
+import java.io.File;
+
 import junit.framework.Assert;
 
+import org.junit.Before;
 import org.junit.Test;
 
 import Sudoku.LeaderBoard;
@@ -12,6 +15,20 @@ import Sudoku.TimerLabel;
 
 
 public class LeaderBoardTest {
+	
+	@Before
+	public void RemoveTestFiles(){
+		File fileSIMPLE = new File("simple");
+		fileSIMPLE.delete();
+		File fileEASY = new File("easy");
+		fileEASY.delete();
+		File fileMEDIUM = new File("medium");
+		fileMEDIUM.delete();
+		File fileDIFFICULT = new File("difficult");
+		fileDIFFICULT.delete();
+		File fileEVIL = new File("evil");
+		fileEVIL.delete();		
+	}
 	
 	@Test
 	public void TestAddScoreToBoard(){
@@ -66,7 +83,7 @@ public class LeaderBoardTest {
 		timer.updateTime(30);
 		x.submitScore("easy", "Seth", timer);
 		timer.updateTime(30);
-		x.submitScore("easy", "Dr. B", timer);
+		x.submitScore("easy", "Dr.B", timer);
 		timer.updateTime(30);
 		x.submitScore("easy", "Cary", timer);
 		timer.updateTime(-5);
@@ -95,7 +112,7 @@ public class LeaderBoardTest {
 		timer.updateTime(30);
 		x.submitScore("simple", "Seth", timer);
 		timer.updateTime(30);
-		x.submitScore("simple", "Dr. B", timer);
+		x.submitScore("simple", "Dr.B", timer);
 		timer.updateTime(30);
 		x.submitScore("simple", "Cary", timer);
 		timer.updateTime(-5);
@@ -124,7 +141,7 @@ public class LeaderBoardTest {
 		timer.updateTime(30);
 		x.submitScore("medium", "Seth", timer);
 		timer.updateTime(30);
-		x.submitScore("medium", "Dr. B", timer);
+		x.submitScore("medium", "Dr.B", timer);
 		timer.updateTime(30);
 		x.submitScore("medium", "Cary", timer);
 		timer.updateTime(-5);
@@ -153,7 +170,7 @@ public class LeaderBoardTest {
 		timer.updateTime(30);
 		x.submitScore("difficult", "Seth", timer);
 		timer.updateTime(30);
-		x.submitScore("difficult", "Dr. B", timer);
+		x.submitScore("difficult", "Dr.B", timer);
 		timer.updateTime(30);
 		x.submitScore("difficult", "Cary", timer);
 		timer.updateTime(-5);
@@ -182,7 +199,7 @@ public class LeaderBoardTest {
 		timer.updateTime(30);
 		x.submitScore("evil", "Seth", timer);
 		timer.updateTime(30);
-		x.submitScore("evil", "Dr. B", timer);
+		x.submitScore("evil", "Dr.B", timer);
 		timer.updateTime(30);
 		x.submitScore("evil", "Cary", timer);
 		timer.updateTime(-5);
