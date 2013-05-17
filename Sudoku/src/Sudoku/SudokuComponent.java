@@ -26,10 +26,10 @@ public class SudokuComponent extends JComponent {
 		for (int i = 0; i < board.size(); i++) {
 			for (int j = 0; j < board.size(); j++) {
 				if (board.getCell(i, j).getAnswer() == 0) { 
-				cell = new CellComponent(board.getCell(i, j), false);
+				cell = new CellComponent(board.getCell(i, j));
 				componentList[i][j] = cell;
 				} else {
-					cell = new CellComponent(board.getCell(i, j), true);
+					cell = new CellComponent(board.getCell(i, j));
 				}
 				cell.addMouseListener(new MouseListener() {
 

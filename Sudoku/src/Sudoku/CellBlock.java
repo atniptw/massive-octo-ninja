@@ -10,6 +10,7 @@ public class CellBlock implements Comparable<CellBlock>, Serializable {
 	private static final long serialVersionUID = -5040286658398532423L;
 	private ArrayList<Integer> guess;
 	private int answer;
+	private boolean given;
 	private boolean isValid = true;
 
 	public CellBlock() {
@@ -49,6 +50,14 @@ public class CellBlock implements Comparable<CellBlock>, Serializable {
 	
 	public boolean getIsValid() {
 		return this.isValid;
+	}
+	
+	public void setGiven(boolean given) {
+		this.given = given;
+	}
+	
+	public boolean getGiven() {
+		return this.given;
 	}
 
 	@Override

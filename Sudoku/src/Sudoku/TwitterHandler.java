@@ -7,7 +7,8 @@ import java.io.InputStreamReader;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.net.URL;
-
+import java.util.ResourceBundle;
+import javax.swing.JOptionPane;
 import twitter4j.Status;
 import twitter4j.Twitter;
 import twitter4j.TwitterException;
@@ -22,6 +23,11 @@ public class TwitterHandler {
 
 	
 	public String lastTweetStatusMsg;
+	public ResourceBundle bundle;
+	
+	public TwitterHandler(ResourceBundle bundle) {
+		this.bundle = bundle;
+	}
 
 	public void sendTweet(String tweetMsg) {
 
@@ -45,18 +51,16 @@ public class TwitterHandler {
 				BufferedReader br = new BufferedReader(new InputStreamReader(
 						System.in));
 				while (null == accessToken) {
+
+					String url = requestToken.getAuthenticationURL();
 					
-					// TODO Print this in the UI (pop up?)
-					System.out
-							.println("Open the following URL and grant access to your account:");
-					
-					// Note: This is how you call the new method which will open the default browser to the auth page
-					openWebpage(new URL(requestToken.getAuthenticationURL()));
-					
-					// TODO Change below to be gotten from an input in the UI? 
-					System.out
-							.print("Enter the PIN and hit enter after you granted access.[PIN]:");
-					String pin = br.readLine();
+					try {
+						java.awt.Desktop.getDesktop().browse(java.net.URI.create(url));
+					} catch (IOException e) {
+						System.out.println(e.getMessage());
+					}
+
+					String pin = JOptionPane.showInputDialog(null, this.bundle.getString("enterPin"));
 					try {
 						if (pin.length() > 0) {
 							accessToken = twitter.getOAuthAccessToken(
@@ -100,11 +104,7 @@ public class TwitterHandler {
 			te.printStackTrace();
 			System.out.println("Failed to get timeline: " + te.getMessage());
 			System.exit(-1);
-		} catch (IOException ioe) {
-			ioe.printStackTrace();
-			System.out.println("Failed to read the system input.");
-			System.exit(-1);
-		}
+		} 
 	}
 	
 	public static void openWebpage(URI uri) {

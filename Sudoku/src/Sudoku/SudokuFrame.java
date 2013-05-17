@@ -7,9 +7,9 @@ import java.awt.event.ActionListener;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
+import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
-import java.util.ArrayList;
 import java.util.Locale;
 import java.util.ResourceBundle;
 
@@ -24,6 +24,8 @@ import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
+import Sudoku.LeaderBoard.Score;
+
 public class SudokuFrame extends JFrame {
 
 	/**
@@ -37,6 +39,7 @@ public class SudokuFrame extends JFrame {
 	// Create a file chooser
 	final JFileChooser fc = new JFileChooser();
 	private TimerLabel timerLabel;
+	private String diff;
 
 	public SudokuFrame(String language, String country) {
 
@@ -88,6 +91,8 @@ public class SudokuFrame extends JFrame {
 						ois.close();
 						remove(sudokuComponent);
 						currentBoard = openBoard;
+						timerLabel.setMinutes(currentBoard.getMinutesOnBoard());
+						timerLabel.setSeconds(currentBoard.getSecondsOnBoard());
 						sudokuComponent = new SudokuComponent(currentBoard);
 						add(sudokuComponent, BorderLayout.CENTER);
 						repaint();
@@ -109,6 +114,8 @@ public class SudokuFrame extends JFrame {
 						File file = fc.getSelectedFile();
 						FileOutputStream fout = new FileOutputStream(file);
 						ObjectOutputStream oos = new ObjectOutputStream(fout);
+						currentBoard.setMinutesOnBoard(timerLabel.getMinutes());
+						currentBoard.setSecondsOnBoard(timerLabel.getSeconds());
 						oos.writeObject(currentBoard);
 						oos.close();
 						System.out.println("Done");
@@ -196,6 +203,7 @@ public class SudokuFrame extends JFrame {
 		this.bundle.getString("choose_board"),
 
 		JOptionPane.OK_CANCEL_OPTION);
+		diff = (String) difficultiesList.getSelectedItem();
 
 		if (result == JOptionPane.OK_OPTION) {
 			if (boardTypes.getSelectedItem() == this.bundle
@@ -205,6 +213,14 @@ public class SudokuFrame extends JFrame {
 				BoardAdjuster.adjustForDifficulty(this.currentBoard,
 						(String) difficultiesList.getSelectedItem(),
 						this.bundle);
+				for (int i = 0; i < this.currentBoard.size(); i++) {
+					for (int j = 0; j < this.currentBoard.size(); j++) {
+						CellBlock cell = this.currentBoard.getCell(i, j);
+						if (cell.getAnswer() != 0) {
+							cell.setGiven(true);
+						}
+					}
+				}
 				// int[][] adjustedValues = BoardAdjuster.adjustForDifficulty(
 				// this.completedBoard,
 				// (String) difficultiesList.getSelectedItem(),
@@ -250,6 +266,9 @@ public class SudokuFrame extends JFrame {
 					buttonPanel.add(button);
 				}
 				this.add(buttonPanel, BorderLayout.SOUTH);
+				if (this.timerLabel != null) {
+					this.remove(this.timerLabel);
+				}
 				this.timerLabel = new TimerLabel();
 				this.add(this.timerLabel, BorderLayout.NORTH);
 			}
@@ -258,13 +277,33 @@ public class SudokuFrame extends JFrame {
 
 	private void handleWin() {
 		this.timerLabel.pause();
+		String name = JOptionPane.showInputDialog(this, "Type in name:");
+		LeaderBoard x = new LeaderBoard();
+		Score[] scores = x.submitScore(diff, name, this.timerLabel);
+		String scoreText = "Name Score<br>";
+		for (Score score : scores) {
+			if (score != null)
+				scoreText += score.getName() + " " + score.getScore() + "<br>";
+		}
 		JFrame frame = new JFrame();
-		JLabel label = new JLabel(String.format("You won in %s",
-				this.timerLabel.getText()));
+		JLabel label = new JLabel(String.format("<html>You won in %s<br>",
+				this.timerLabel.getText()) + scoreText + "</html>");
+
+		System.out.print(name);
 		frame.add(label);
+
 		frame.setSize(300, 300);
 		frame.setVisible(true);
 
+		int dialogResult = JOptionPane.showConfirmDialog(null,
+				this.bundle.getString("postTwitter?"));
+
+		if (dialogResult == JOptionPane.YES_OPTION) {
+			TwitterHandler th = new TwitterHandler(this.bundle);
+			th.sendTweet(String.format("I beat Sudoku in %s seconds",
+					this.timerLabel.getText()));
+
+		}
 	}
 
 	private void handleCompleteOption() {

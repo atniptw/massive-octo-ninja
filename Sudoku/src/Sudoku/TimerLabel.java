@@ -9,6 +9,10 @@ import javax.swing.Timer;
 
 public class TimerLabel extends JLabel {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 5718388815068748919L;
 	private int minutes;
 	private int seconds;
 	private Timer timer;
@@ -42,6 +46,26 @@ public class TimerLabel extends JLabel {
 		} else {
 			this.setText(this.minutes + ":" + this.seconds);
 		}
+	}
+	
+	public Timer getTimer(){
+		return timer;
+	}
+	
+	public int getMinutes() {
+		return this.minutes;
+	}
+	
+	public int getSeconds() {
+		return this.seconds;
+	}
+	
+	public void setMinutes(int minutes) {
+		this.minutes = minutes;
+	}
+	
+	public void setSeconds(int seconds) {
+		this.seconds = seconds;
 	}
 
 }

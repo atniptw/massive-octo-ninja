@@ -19,5 +19,13 @@ public interface ISudokuBoard {
 	public boolean isComplete();
 	
 	public int getCellSolution(int i, int j);
+	
+	public int getMinutesOnBoard();
+	
+	public int getSecondsOnBoard();
+	
+	public void setMinutesOnBoard(int minutes);
+	
+	public void setSecondsOnBoard(int seconds);
 
 }
